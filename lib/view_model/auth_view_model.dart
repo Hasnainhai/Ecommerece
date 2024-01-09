@@ -32,12 +32,17 @@ class AuthViewModel with ChangeNotifier {
 
       setLoading(false);
 
-      if (value != null && value['key'] != null && value['key'] != '') {
-        // Navigate to the home screen only if the 'key' is present in the response
+      // Check if value is not null and 'key' is a non-empty string
+      if (value != null &&
+          value is Map &&
+          value.containsKey('key') &&
+          value['key'] != null &&
+          value['key'] != '') {
+        // if value is not null navigate
         Navigator.pushNamed(context, RoutesName.home);
-        Utils.toastMessage('SuccessFully Login');
+        Utils.toastMessage('Successfully Login');
       } else {
-        // Display a toast message if the 'key' is missing or empty in the response
+        // display if user is not found
         Utils.flushBarErrorMessage('User not found', context);
       }
 
@@ -47,10 +52,9 @@ class AuthViewModel with ChangeNotifier {
     } catch (error) {
       setLoading(false);
 
-      // Display a toast message for other errors
+      // Displaying message for other errors
       Utils.flushBarErrorMessage(
           'An error occurred. Please try again.', context);
-      // Fluttertoast.showToast(msg: 'An error occurred. Please try again.');
 
       if (kDebugMode) {
         print(error.toString());
@@ -76,53 +80,95 @@ class AuthViewModel with ChangeNotifier {
   //   });
   // }
 
+//   Future<void> signUpApi(dynamic data, BuildContext context) async {
+//     setSignUpLaoding(true);
+//     _myRepo.loginApi(data).then((value) {
+//       setSignUpLaoding(false);
+//       Utils.flushBarErrorMessage(value.toString(), context);
+//       Navigator.pushNamed(context, RoutesName.login);
+
+//       if (kDebugMode) {
+//         print(value.toString());
+//       }
+//     }).onError((error, stackTrace) {
+//       Utils.flushBarErrorMessage(error.toString(), context);
+//       setSignUpLaoding(false);
+//       if (kDebugMode) {
+//         print(error.toString());
+//       }
+//     });
+//   }
+// }
+
   Future<void> signUpApi(dynamic data, BuildContext context) async {
     setSignUpLaoding(true);
-    _myRepo.loginApi(data).then((value) {
+
+    try {
+      dynamic value = await _myRepo.signUpApi(data);
+
       setSignUpLaoding(false);
-      Utils.flushBarErrorMessage(value.toString(), context);
-      Navigator.pushNamed(context, RoutesName.login);
+
+      // Check if value is not null and 'key' is present
+      if (value != null &&
+          value is Map &&
+          value.containsKey('key') &&
+          value['key'] != null &&
+          value['key'] != '') {
+        // Handle 'key' case or success first
+        print("..............Key Value: ${value['key']}..............");
+
+        Navigator.pushNamed(context, RoutesName.home);
+        Utils.toastMessage('Successfully Signed Up');
+      } else if (value != null &&
+          value is Map &&
+          value.containsKey('non_field_errors')) {
+        List<dynamic> nonFieldErrors = value['non_field_errors'];
+
+        // Debugging: Show nonFieldErrors
+        print("Non-field errors: $nonFieldErrors");
+
+        // Check if the error message indicates a password similarity issue
+        if (nonFieldErrors
+            .contains("The password is too similar to the username.")) {
+          Utils.flushBarErrorMessage(
+              'Password is too similar to the username.', context);
+        } else if (nonFieldErrors
+            .contains("The two password fields didn't match.")) {
+          // Display toast message for non-matching passwords
+          Utils.flushBarErrorMessage(
+              "The password fields didn't match.", context);
+        } else if (nonFieldErrors.contains("Another specific error")) {
+          // Handle another specific non-field error
+          Utils.flushBarErrorMessage(
+              "Another specific error occurred.", context);
+        } else if (nonFieldErrors.contains("Yet another specific error")) {
+          // Handle yet another specific non-field error
+          Utils.flushBarErrorMessage(
+              "Yet another specific error occurred.", context);
+        } else {
+          // Handle other non-field errors
+          Utils.flushBarErrorMessage(
+              'Sign up failed. Please try again.', context);
+        }
+      } else {
+        // Debugging: Show the entire response for further analysis
+        Utils.toastMessage("Unexpected API response: $value");
+      }
 
       if (kDebugMode) {
         print(value.toString());
       }
-    }).onError((error, stackTrace) {
-      Utils.flushBarErrorMessage(error.toString(), context);
+    } catch (error) {
       setSignUpLaoding(false);
+
+      // Displaying message for other errors
+      Utils.flushBarErrorMessage(
+          'An error occurred during signup. Please try again.', context);
+
+      // Debugging: Print the full error stack trace
       if (kDebugMode) {
-        print(error.toString());
+        print("Error during signup: $error");
       }
-    });
+    }
   }
 }
-
-// Future<void> signUpApi(dynamic data, BuildContext context) async {
-//   setSignUpLoading(true);
-
-//   try {
-//     dynamic value = await _myRepo.signUpApi(data);
-
-//     setSignUpLoading(false);
-
-//     if (value != null && value['key'] != null && value['key'] != '') {
-//       // Navigate to the login screen only if the 'key' is present in the response
-//       Navigator.pushNamed(context, RoutesName.login);
-//     } else {
-//       // Display a toast message if the 'key' is missing or empty in the response
-//       Fluttertoast.showToast(msg: 'Signup failed. User not created.');
-//     }
-
-//     if (kDebugMode) {
-//       print(value.toString());
-//     }
-//   } catch (error) {
-//     setSignUpLoading(false);
-
-//     // Display a toast message for other errors
-//     Fluttertoast.showToast(msg: 'An error occurred during signup. Please try again.');
-
-//     if (kDebugMode) {
-//       print(error.toString());
-//     }
-//   }
-// }

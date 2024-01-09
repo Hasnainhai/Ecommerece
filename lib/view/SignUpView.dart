@@ -190,14 +190,13 @@ class _SignUpViewState extends State<SignUpView> {
                     Utils.flushBarErrorMessage(
                         'plase enter more than six digits', context);
                   } else {
-                    Map data = {
+                    Map data = ({
                       'username': _emailController.text.toString(),
                       'email': _emailController.text.toString(),
                       'password1': _passwordController.text.toString(),
                       'password2': _confirmPassController.text.toString(),
-                    };
+                    });
                     authViewModel.signUpApi(data, context);
-                    Utils.toastMessage('SuccessFully Register');
                   }
                 },
               ),
