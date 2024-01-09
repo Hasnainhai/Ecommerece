@@ -154,8 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                     if (data.isNotEmpty) {
                       authViewModel.loginApi(data, context);
-                      // Utils.toastMessage('Successfully Login');
-                      // print('Successfully Login');
+                      print('Successfully Login');
                     }
                   }
                 },
