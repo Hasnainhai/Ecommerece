@@ -92,7 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 onFieldSubmitted: (value) {
-                  Utils.focusNode(context, _emailFocusNode, _passwordFocusNode);
+                  Utils.focusNode(
+                      context, _emailFocusNode, _passwordFocusNode);
                 },
               ),
               const SizedBox(height: 20.0),
