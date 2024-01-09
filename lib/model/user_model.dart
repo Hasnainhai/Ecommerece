@@ -16,7 +16,7 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        key: json["key"],
+        key: json["key"]??'',
       );
 
   Map<String, dynamic> toJson() => {

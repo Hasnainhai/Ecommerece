@@ -1,4 +1,3 @@
-import 'package:ecommerece/view/splashView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'utils/routes/routes.dart';

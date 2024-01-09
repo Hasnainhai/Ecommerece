@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final height = MediaQuery.of(context).size.height * 1;
     final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Login View'),
         centerTitle: true,
@@ -146,14 +147,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     Utils.flushBarErrorMessage(
                         'plase enter more than six digits', context);
                   } else {
-                    Map data = {
+                    Map data = ({
                       'username': _nameController.text.toString(),
                       'email': _emailController.text.toString(),
                       'password': _passwordController.text.toString(),
-                    };
+                    });
                     if (data.isNotEmpty) {
                       authViewModel.loginApi(data, context);
-                      Utils.toastMessage('Successfully Login');
+                      // Utils.toastMessage('Successfully Login');
                       // print('Successfully Login');
                     }
                   }
