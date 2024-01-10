@@ -1,7 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:ecommerece/model/user_model.dart';
+import 'package:ecommerece/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../repository/auth_repository.dart';
 import '../utils/routes/routes_name.dart';
 import '../utils/routes/utils.dart';
@@ -37,6 +40,13 @@ class AuthViewModel with ChangeNotifier {
           value.containsKey('key') &&
           value['key'] != null &&
           value['key'] != '') {
+        setLoading(false);
+        //if value is not null save user
+        final userPrefrences =
+            Provider.of<UserViewModel>(context, listen: false);
+
+        userPrefrences.saveUser(UserModel(key: value['key'].toString()));
+
         // if value is not null navigate
         Navigator.pushNamed(context, RoutesName.home);
         Utils.toastMessage('Successfully Login');
@@ -64,10 +74,14 @@ class AuthViewModel with ChangeNotifier {
   Future<void> signUpApi(dynamic data, BuildContext context) async {
     setSignUpLaoding(true);
     _myRepo.signUpApi(data).then((value) {
-      setSignUpLaoding(false);
-      Utils.toastMessage('SuccessFully Registered');
-      Navigator.pushNamed(context, RoutesName.home);
-
+      if (value != null) {
+        setSignUpLaoding(false);
+        Utils.toastMessage('SuccessFully Registered');
+        Navigator.pushNamed(context, RoutesName.home);
+      } else {
+        setSignUpLaoding(false);
+        Utils.toastMessage('Error during register user');
+      }
       if (kDebugMode) {
         print(value.toString());
       }
