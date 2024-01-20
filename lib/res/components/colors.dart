@@ -5,4 +5,5 @@ class AppColor {
   static const Color whiteColor = Color(0xffffffff);
   static const Color buttonColor = Colors.green;
   static const Color errorColor = Colors.red;
+  static const Color primaryColor = Color(0xffD4AF37);
 }
