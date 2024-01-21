@@ -1,4 +1,7 @@
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/view/Onboardings/onboarding1.dart';
+import 'package:ecommerece/view/Onboardings/onboarding3.dart';
+import 'package:ecommerece/view/Onboardings/onbording2.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/Home_Screen.dart';
@@ -21,6 +24,15 @@ class Routes {
       case RoutesName.signUp:
         return MaterialPageRoute(
             builder: (BuildContext context) => const SignUpView());
+      case RoutesName.onboarding1:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const OnBordingScreen1());
+      case RoutesName.onboarding2:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const OnBordingScreen2());
+      case RoutesName.onboarding3:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const OnBordingScreen3());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
