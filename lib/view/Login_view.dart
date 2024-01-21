@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 1;
-    final authViewModel = Provider.of<AuthViewModel>(context);
+    // final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -92,8 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 onFieldSubmitted: (value) {
-                  Utils.focusNode(
-                      context, _emailFocusNode, _passwordFocusNode);
+                  Utils.focusNode(context, _emailFocusNode, _passwordFocusNode);
                 },
               ),
               const SizedBox(height: 20.0),
@@ -133,32 +132,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: height * .1),
               RoundedButton(
                 title: 'Login',
-                loading: authViewModel.isloading,
-                onpress: () {
-                  if (_emailController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your email', context);
-                  } else if (_passwordController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your password', context);
-                  } else if (_nameController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your name', context);
-                  } else if (_passwordController.text.length < 6) {
-                    Utils.flushBarErrorMessage(
-                        'plase enter more than six digits', context);
-                  } else {
-                    Map data = ({
-                      'username': _nameController.text.toString(),
-                      'email': _emailController.text.toString(),
-                      'password': _passwordController.text.toString(),
-                    });
-                    if (data.isNotEmpty) {
-                      authViewModel.loginApi(data, context);
-                      print('Successfully Login');
-                    }
-                  }
-                },
+                loading: false,
+                onpress: () {},
               ),
               SizedBox(height: height * 0.02),
               InkWell(

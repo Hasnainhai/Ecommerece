@@ -44,7 +44,7 @@ class _SignUpViewState extends State<SignUpView> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 1;
-    final authViewModel = Provider.of<AuthViewModel>(context);
+    // final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -172,33 +172,8 @@ class _SignUpViewState extends State<SignUpView> {
               SizedBox(height: height * .1),
               RoundedButton(
                 title: 'SignUp',
-                loading: authViewModel.signupLoading,
-                onpress: () {
-                  if (_emailController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your email', context);
-                  } else if (_passwordController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your password', context);
-                  } else if (_confirmPassController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your confirmPassword', context);
-                  } else if (_nameController.text.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        'please enter your name', context);
-                  } else if (_passwordController.text.length < 6) {
-                    Utils.flushBarErrorMessage(
-                        'plase enter more than six digits', context);
-                  } else {
-                    Map data = ({
-                      'username': _emailController.text.toString(),
-                      'email': _emailController.text.toString(),
-                      'password1': _passwordController.text.toString(),
-                      'password2': _confirmPassController.text.toString(),
-                    });
-                    authViewModel.signUpApi(data, context);
-                  }
-                },
+                loading: false,
+                onpress: () {},
               ),
               SizedBox(height: height * 0.02),
               InkWell(
