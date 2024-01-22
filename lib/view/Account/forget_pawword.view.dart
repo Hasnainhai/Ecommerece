@@ -26,7 +26,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffEEEEEE),
       appBar: AppBar(
         backgroundColor: const Color(0xffFFFFFF),
         title: const Text(
@@ -52,59 +51,41 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
           padding: const EdgeInsets.only(right: 20, left: 20, top: 20),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  color: const Color(0xffFFFFFF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0.0),
+                const VerticalSpeacing(24),
+                const Text(
+                  "Reset Your Password",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontFamily: 'CenturyGothic',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.fontColor,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const VerticalSpeacing(24),
-                        const Text(
-                          "Reset Your Password",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontFamily: 'CenturyGothic',
-                            fontSize: 24,
-                            fontWeight: FontWeight.w400,
-                            color: AppColor.fontColor,
-                          ),
-                        ),
-                        const VerticalSpeacing(24),
-                        const Text(
-                          "Please enter your email. We will send a link to your email to reset your password.",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontFamily: 'CenturyGothic',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xff8B8B97),
-                          ),
-                        ),
-                        const VerticalSpeacing(30),
-                        TextFieldCustom(
-                          controller: emailController,
-                          maxLines: 1,
-                          text: 'Email Address',
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        const VerticalSpeacing(80),
-                        RoundedButton(title: "Send Me Link", onpress: () {}),
-                        const VerticalSpeacing(
-                          200,
-                        ),
-                        // const VerticalSpeacing(300),
-                      ],
-                    ),
+                ),
+                const VerticalSpeacing(24),
+                const Text(
+                  "Please enter your email. We will send a link to your email to reset your password.",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontFamily: 'CenturyGothic',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff8B8B97),
                   ),
+                ),
+                const VerticalSpeacing(30),
+                TextFieldCustom(
+                  controller: emailController,
+                  maxLines: 1,
+                  text: 'Email Address',
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const VerticalSpeacing(80),
+                RoundedButton(title: "Send Me Link", onpress: () {}),
+                const VerticalSpeacing(
+                  200,
                 ),
                 const SizedBox(
                   height: 40,
