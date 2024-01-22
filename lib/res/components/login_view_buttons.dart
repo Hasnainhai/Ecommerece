@@ -6,49 +6,57 @@ class LoginViewButtons extends StatelessWidget {
     required this.color,
     required this.img,
     required this.onpress,
+    required this.text,
   });
   final Color color;
   final String img;
   final Function onpress;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onpress(),
       child: Container(
         height: 56,
-        width: 174,
+        width: (MediaQuery.of(context).size.width / 2.2) - 10,
         decoration: BoxDecoration(
           border: Border.all(
             color: color,
             width: 1,
           ),
-          // image: DecorationImage(
-          //   image: AssetImage(img),
-          //   fit: BoxFit.contain,
-          // ),
         ),
-        child: Row(
-          children: [
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: color,
-                image: DecorationImage(
-                  image: AssetImage(img),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            children: [
+              Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: color,
+                ),
+                child: Center(
+                  child: Image.asset(
+                    img,
+                    height: 14,
+                    width: 12,
+                  ),
                 ),
               ),
-            ),
-            Text(
-              "or",
-              style: TextStyle(
-                fontFamily: 'CenturyGothic',
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
-                color: color,
+              const SizedBox(
+                width: 40,
               ),
-            ),
-          ],
+              Text(
+                text,
+                style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                  color: color,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

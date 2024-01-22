@@ -1,12 +1,14 @@
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/view/Account/forget_pawword.view.dart';
+
+import 'package:ecommerece/view/Account/loginorsigin_view.dart';
+import 'package:ecommerece/view/Account/siginup_view.dart';
 import 'package:ecommerece/view/Home/dashboard/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/dashboard/profileScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/shop.dart';
-
-import 'package:ecommerece/view/Account/loginorsigin_view.dart';
 import 'package:ecommerece/view/Onboardings/onboarding1.dart';
 import 'package:ecommerece/view/Onboardings/onboarding3.dart';
 import 'package:ecommerece/view/Onboardings/onbording2.dart';
@@ -31,7 +33,7 @@ class Routes {
             builder: (BuildContext context) => const LoginScreen());
       case RoutesName.signUp:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const SignUpView());
+            builder: (BuildContext context) => const RegisterScreen());
       case RoutesName.onboarding1:
         return MaterialPageRoute(
             builder: (BuildContext context) => const OnBordingScreen1());
@@ -62,6 +64,11 @@ class Routes {
 
       case RoutesName.loginorsigin:
         return MaterialPageRoute(builder: (c) => const LoginOrSignUp());
+      case RoutesName.forgetpassword:
+        return MaterialPageRoute(
+          builder: (c) => const ForgetPasswordView(),
+        );
+
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

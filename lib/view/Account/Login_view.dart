@@ -155,6 +155,7 @@ import 'package:ecommerece/res/components/custom_text_field.dart';
 import 'package:ecommerece/res/components/login_view_buttons.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import '../../res/components/colors.dart';
 
@@ -253,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Vegan Life Style',
+                          text: 'e commerce app',
                           style: TextStyle(
                               fontFamily: 'CenturyGothic',
                               color: AppColor.primaryColor,
@@ -306,16 +307,24 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   // RoutesName.restscreen,
                     // );
                   },
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        "Forget Password?",
-                        style: TextStyle(
-                          fontFamily: 'CenturyGothic',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.fontColor,
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.forgetpassword,
+                          );
+                        },
+                        child: const Text(
+                          "Forget Password?",
+                          style: TextStyle(
+                            fontFamily: 'CenturyGothic',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.fontColor,
+                          ),
                         ),
                       ),
                     ],
@@ -331,7 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onpress: () {
                           // _submitFormOnLogin();
                         }),
-                const VerticalSpeacing(30.0),
+                const VerticalSpeacing(20.0),
                 // const AuthButton(
                 //   buttonText: 'Login with Google',
                 // ),
@@ -345,6 +354,26 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const VerticalSpeacing(20.0),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LoginViewButtons(
+                      color: AppColor.googleColor,
+                      img: "images/google2.png",
+                      onpress: () {},
+                      text: "Google",
+                    ),
+                    LoginViewButtons(
+                      color: AppColor.fontColor,
+                      img: "images/apple2.png",
+                      onpress: () {},
+                      text: "Apple",
+                    )
+                  ],
+                ),
+                const VerticalSpeacing(20.0),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -362,8 +391,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // Navigator.pushNamed(
-                        //     context, RoutesName.registerScreen);
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.signUp,
+                        );
                       },
                       child: const Text(
                         "Sign up",
@@ -375,15 +406,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    LoginViewButtons(
-                      color: AppColor.fontColor,
-                      img: "assets/apple2.png",
-                      onpress: () {},
-                    )
                   ],
                 ),
                 const VerticalSpeacing(90.0),

@@ -16,4 +16,6 @@ class RoutesName {
   static const String profile = 'profile_screen';
 
   static const String loginorsigin = 'loginorsigin';
+  static const String suginup = "siginup";
+  static const String forgetpassword = "forgetpassword";
 }
