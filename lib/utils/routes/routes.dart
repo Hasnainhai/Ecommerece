@@ -6,9 +6,9 @@ import 'package:ecommerece/view/Account/siginup_view.dart';
 import 'package:ecommerece/view/Home/dashboard/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/favouriteScreen.dart';
-import 'package:ecommerece/view/Home/dashboard/pre_love_screen.dart';
+import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/dashboard/profileScreen.dart';
-import 'package:ecommerece/view/Home/dashboard/shop.dart';
+import 'package:ecommerece/view/Home/shop/shop.dart';
 import 'package:ecommerece/view/Onboardings/onboarding1.dart';
 import 'package:ecommerece/view/Onboardings/onboarding3.dart';
 import 'package:ecommerece/view/Onboardings/onbording2.dart';
@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 
 import '../../view/Home/Home_Screen.dart';
 import '../../view/Account/Login_view.dart';
-import '../../view/Account/SignUpView.dart';
 import '../../view/splashView.dart';
 
 class Routes {
