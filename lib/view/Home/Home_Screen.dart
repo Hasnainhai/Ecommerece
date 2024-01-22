@@ -1,7 +1,10 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const VerticalSpeacing(20.0),
             ListTile(
@@ -79,6 +83,94 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: AppColor.fontColor,
                     )),
               ),
+            ),
+            const VerticalSpeacing(16.0),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Store',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'CenturyGothic',
+                    color: AppColor.fontColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'see more',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'CenturyGothic',
+                      color: AppColor.fontColor,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            const VerticalSpeacing(13.0),
+            const StoreWidget(),
+            const VerticalSpeacing(13.0),
+            const StoreWidget(),
+            const VerticalSpeacing(16.0),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Categories',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'CenturyGothic',
+                    color: AppColor.fontColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'see more',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'CenturyGothic',
+                      color: AppColor.fontColor,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+            const VerticalSpeacing(16.0),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  CategoryCart('All'),
+                  CategoryCart('Jakits'),
+                  CategoryCart('Shirt'),
+                  CategoryCart('Woman'),
+                  CategoryCart('Jakits'),
+                  CategoryCart('Shirt'),
+                  CategoryCart('Woman'),
+                ],
+              ),
+            ),
+            const VerticalSpeacing(16.0),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Populars',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'CenturyGothic',
+                    color: AppColor.fontColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Text(
+                  'see more',
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'CenturyGothic',
+                      color: AppColor.fontColor,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
             ),
           ],
         ),
