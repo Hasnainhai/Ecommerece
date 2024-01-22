@@ -90,7 +90,7 @@ class _DashBoardScreenState extends State<DashBoardScreen>
             ],
             unselectedItemColor: Colors.black,
             selectedItemColor: AppColor.primaryColor,
-            backgroundColor: AppColor.dashboardBgColor,
+            backgroundColor: AppColor.fieldBgColor,
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
             currentIndex: selectIndex,
