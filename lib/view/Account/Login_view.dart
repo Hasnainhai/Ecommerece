@@ -339,11 +339,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         title: "Login",
                         onpress: () {
                           // _submitFormOnLogin();
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.dashboardScreen,
+                          );
                         }),
                 const VerticalSpeacing(20.0),
-                // const AuthButton(
-                //   buttonText: 'Login with Google',
-                // ),
+
                 const Text(
                   "or",
                   style: TextStyle(
