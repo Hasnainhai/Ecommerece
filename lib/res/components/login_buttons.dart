@@ -19,9 +19,18 @@ class LoginButtons extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(
             color: color,
+            width: 1,
           ),
-          image: DecorationImage(
-            image: AssetImage(img),
+          // image: DecorationImage(
+          //   image: AssetImage(img),
+          //   fit: BoxFit.contain,
+          // ),
+        ),
+        child: Center(
+          child: Image.asset(
+            img,
+            height: 30,
+            width: 25,
           ),
         ),
       ),

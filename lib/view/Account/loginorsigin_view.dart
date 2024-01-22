@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/res/components/login_buttons.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 
 import '../../res/components/rounded_button.dart';
@@ -73,7 +74,10 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
               RoundedButton(
                   title: 'Login With Email',
                   onpress: () {
-                    // Navigator.pushNamed(context, RoutesName.loginscreen);
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.login,
+                    );
                   }),
               const VerticalSpeacing(50.0),
               const Text(
@@ -86,12 +90,31 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
                 ),
               ),
               const VerticalSpeacing(50.0),
-              const Padding(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                // child: AuthButton(
-                //   buttonText: 'SignUp with Google',
-                // ),
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LoginButtons(
+                    color: AppColor.fontColor,
+                    img: "images/apple.png",
+                    onpress: () {},
+                  ),
+                  LoginButtons(
+                    color: AppColor.googleColor,
+                    img: "images/google.png",
+                    onpress: () {},
+                  ),
+                  LoginButtons(
+                    color: AppColor.twitterColor,
+                    img: "images/twitter.png",
+                    onpress: () {},
+                  ),
+                  LoginButtons(
+                    color: AppColor.twitterColor,
+                    img: "images/facebook.png",
+                    onpress: () {},
+                  ),
+                ],
+              )
             ],
           ),
         )),
