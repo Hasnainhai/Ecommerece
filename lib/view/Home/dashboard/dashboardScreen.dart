@@ -4,7 +4,7 @@ import 'package:ecommerece/view/Home/dashboard/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/dashboard/profileScreen.dart';
-import 'package:ecommerece/view/Home/dashboard/shop.dart';
+import 'package:ecommerece/view/Home/shop/shop.dart';
 import 'package:flutter/material.dart';
 
 import '../Home_Screen.dart';
