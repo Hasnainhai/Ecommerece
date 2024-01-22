@@ -5,6 +5,8 @@ import 'package:ecommerece/view/Home/dashboard/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/dashboard/profileScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/shop.dart';
+
+import 'package:ecommerece/view/Account/loginorsigin_view.dart';
 import 'package:ecommerece/view/Onboardings/onboarding1.dart';
 import 'package:ecommerece/view/Onboardings/onboarding3.dart';
 import 'package:ecommerece/view/Onboardings/onbording2.dart';
@@ -13,6 +15,9 @@ import 'package:flutter/material.dart';
 import '../../view/Home/Home_Screen.dart';
 import '../../view/Login_view.dart';
 import '../../view/SignUpView.dart';
+import '../../view/Home_Screen.dart';
+import '../../view/Account/Login_view.dart';
+import '../../view/Account/SignUpView.dart';
 import '../../view/splashView.dart';
 
 class Routes {
@@ -57,6 +62,9 @@ class Routes {
       case RoutesName.profile:
         return MaterialPageRoute(
             builder: (BuildContext context) => const ProfileScreen());
+
+      case RoutesName.loginorsigin:
+        return MaterialPageRoute(builder: (c) => const LoginOrSignUp());
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

@@ -14,4 +14,6 @@ class RoutesName {
   static const String cartScreen = 'cart_screen';
   static const String favouriteScreen = 'favourite_screen';
   static const String profile = 'profile_screen';
+
+  static const String loginorsigin = 'loginorsigin';
 }

@@ -1,0 +1,101 @@
+// ignore_for_file: file_names
+import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
+
+import '../../res/components/rounded_button.dart';
+import '../../res/components/verticalSpacing.dart';
+
+import 'package:flutter/material.dart';
+
+class LoginOrSignUp extends StatefulWidget {
+  const LoginOrSignUp({super.key});
+
+  @override
+  State<LoginOrSignUp> createState() => _LoginOrSignUpState();
+}
+
+class _LoginOrSignUpState extends State<LoginOrSignUp> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+            child: Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20),
+          child: Column(
+            children: <Widget>[
+              const VerticalSpeacing(80.0),
+              // Container(
+              //   height: 80.0,
+              //   width: 215.0,
+              //   color: AppColor.logoBgColor,
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(15.0),
+              //     child: Center(
+              //       child: Image.asset('images/logo.png'),
+              //     ),
+              //   ),
+              // ),
+              const Text(
+                'Logo',
+                style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 40,
+                  fontWeight: FontWeight.w400,
+                  color: AppColor.fontColor,
+                ),
+              ),
+              const VerticalSpeacing(50.0),
+              const Center(
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Welcome to our \n',
+                    style: TextStyle(
+                      fontFamily: 'CenturyGothic',
+                      fontSize: 30,
+                      fontWeight: FontWeight.w300,
+                      color: AppColor.fontColor,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'e commerce app',
+                        style: TextStyle(
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.primaryColor,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 30.0),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const VerticalSpeacing(50.0),
+              RoundedButton(
+                  title: 'Login With Email',
+                  onpress: () {
+                    // Navigator.pushNamed(context, RoutesName.loginscreen);
+                  }),
+              const VerticalSpeacing(50.0),
+              const Text(
+                'OR',
+                style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: AppColor.fontColor,
+                ),
+              ),
+              const VerticalSpeacing(50.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                // child: AuthButton(
+                //   buttonText: 'SignUp with Google',
+                // ),
+              ),
+            ],
+          ),
+        )),
+      ),
+    );
+  }
+}
