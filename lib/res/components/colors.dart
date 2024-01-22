@@ -8,4 +8,5 @@ class AppColor {
   static const Color primaryColor = Color(0xffD4AF37);
 
   static const Color fontColor = Color(0xff222222);
+  static const Color dashboardBgColor = Color(0xffF9F9F9);
 }

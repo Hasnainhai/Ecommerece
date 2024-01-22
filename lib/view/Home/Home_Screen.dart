@@ -1,10 +1,6 @@
-import 'package:ecommerece/data/response/status.dart';
-import 'package:ecommerece/res/components/colors.dart';
+
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../utils/routes/routes_name.dart';
-import '../view_model/user_view_model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
