@@ -83,7 +83,10 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const VerticalSpeacing(80),
-                RoundedButton(title: "Send Me Link", onpress: () {}),
+                RoundedButton(
+                  color: AppColor.primaryColor,
+                  
+                  title: "Send Me Link", onpress: () {}),
                 const VerticalSpeacing(
                   200,
                 ),

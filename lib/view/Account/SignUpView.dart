@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../res/components/colors.dart';
 import '../../res/components/rounded_button.dart';
 import '../../utils/routes/routes_name.dart';
 import '../../utils/routes/utils.dart';
@@ -171,6 +172,7 @@ class _SignUpViewState extends State<SignUpView> {
                   }),
               SizedBox(height: height * .1),
               RoundedButton(
+                color: AppColor.primaryColor,
                 title: 'SignUp',
                 loading: false,
                 onpress: () {},

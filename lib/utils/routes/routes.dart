@@ -3,7 +3,7 @@ import 'package:ecommerece/view/Account/forget_pawword.view.dart';
 
 import 'package:ecommerece/view/Account/loginorsigin_view.dart';
 import 'package:ecommerece/view/Account/siginup_view.dart';
-import 'package:ecommerece/view/Home/dashboard/cartScreen.dart';
+import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';

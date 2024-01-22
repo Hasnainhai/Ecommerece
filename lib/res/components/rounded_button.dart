@@ -5,11 +5,13 @@ class RoundedButton extends StatelessWidget {
   final String title;
   final bool loading;
   final VoidCallback onpress;
+  final Color color;
   const RoundedButton({
     super.key,
     required this.title,
     required this.onpress,
     this.loading = false,
+    required this.color,
   });
 
   @override
@@ -17,11 +19,11 @@ class RoundedButton extends StatelessWidget {
     return InkWell(
       onTap: onpress,
       child: Container(
-        height: 56.0,
+        height: 60.0,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(0.0),
-          color: AppColor.primaryColor,
+          color: color,
         ),
         child: Center(
           child: loading
