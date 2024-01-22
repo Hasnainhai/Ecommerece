@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../res/components/colors.dart';
 import '../../res/components/onboarding_button.dart';
 import '../../res/components/verticalSpacing.dart';
-import '../../utils/routes/routes_name.dart';
 
 class OnBordingScreen3 extends StatelessWidget {
   const OnBordingScreen3({super.key});
