@@ -7,7 +7,7 @@ import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
-import 'package:ecommerece/view/Home/dashboard/profileScreen.dart';
+import 'package:ecommerece/view/Home/profile/profileScreen.dart';
 import 'package:ecommerece/view/Home/shop/shop.dart';
 import 'package:ecommerece/view/Onboardings/onboarding1.dart';
 import 'package:ecommerece/view/Onboardings/onboarding3.dart';
