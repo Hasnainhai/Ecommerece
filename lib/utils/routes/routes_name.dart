@@ -5,8 +5,8 @@ class RoutesName {
   static const String signUp = 'Sign_up';
 
   static const String onboarding1 = 'onboarding1';
-    static const String onboarding2 = 'onboarding2';
+  static const String onboarding2 = 'onboarding2';
 
   static const String onboarding3 = 'onboarding3';
-
+  static const String loginorsigin = 'loginorsigin';
 }
