@@ -72,6 +72,8 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
               ),
               const VerticalSpeacing(50.0),
               RoundedButton(
+                                  color: AppColor.primaryColor,
+
                   title: 'Login With Email',
                   onpress: () {
                     Navigator.pushNamed(

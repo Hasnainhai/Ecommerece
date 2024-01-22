@@ -1,3 +1,4 @@
+import 'package:ecommerece/res/components/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../res/components/rounded_button.dart';
@@ -134,6 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Login',
                 loading: false,
                 onpress: () {},
+                color: AppColor.primaryColor,
               ),
               SizedBox(height: height * 0.02),
               InkWell(

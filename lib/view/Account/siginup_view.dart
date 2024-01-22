@@ -176,7 +176,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ? const Center(
                                 child: CircularProgressIndicator(),
                               )
-                            : RoundedButton(title: "Register", onpress: () {}),
+                            : RoundedButton(
+                                                color: AppColor.primaryColor,
+
+                              
+                              title: "Register", onpress: () {}),
                         const VerticalSpeacing(30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
