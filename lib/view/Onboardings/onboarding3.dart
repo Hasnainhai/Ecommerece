@@ -1,9 +1,9 @@
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 
 import '../../res/components/colors.dart';
 import '../../res/components/onboarding_button.dart';
 import '../../res/components/verticalSpacing.dart';
-import '../../utils/routes/routes_name.dart';
 
 class OnBordingScreen3 extends StatelessWidget {
   const OnBordingScreen3({super.key});
@@ -56,7 +56,10 @@ class OnBordingScreen3 extends StatelessWidget {
                 OnButton(
                   progress: 1.0,
                   onTap: () {
-                    // Navigator.pushNamed(context, RoutesName.loginorsiginscreen);
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.loginorsigin,
+                    );
                   },
                 ),
               ],

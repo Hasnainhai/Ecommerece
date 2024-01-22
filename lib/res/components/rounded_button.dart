@@ -17,11 +17,11 @@ class RoundedButton extends StatelessWidget {
     return InkWell(
       onTap: onpress,
       child: Container(
-        height: 46.0,
-        width: 200.0,
+        height: 56.0,
+        width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: AppColor.buttonColor,
+          borderRadius: BorderRadius.circular(0.0),
+          color: AppColor.primaryColor,
         ),
         child: Center(
           child: loading
