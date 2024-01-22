@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      initialRoute: RoutesName.splash,
+      initialRoute: RoutesName.dashboardScreen,
       onGenerateRoute: Routes.generateRoute,
     );
     // MultiProvider(
