@@ -15,7 +15,6 @@ import 'package:ecommerece/view/Onboardings/onbording2.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/Home/Home_Screen.dart';
-
 import '../../view/Account/Login_view.dart';
 import '../../view/Account/SignUpView.dart';
 import '../../view/splashView.dart';
