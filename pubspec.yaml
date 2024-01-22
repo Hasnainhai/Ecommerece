@@ -77,6 +77,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: CenturyGothic
+      fonts:
+        - asset: fonts/century-gothic/Century Gothic.ttf
+        - asset: fonts/century-gothic/CenturyGothic.ttf
+        - asset: fonts/century-gothic/GOTHIC.TTF
+        - asset: fonts/century-gothic/GOTHICB.TTF
+        - asset: fonts/century-gothic/GOTHICB0.TTF
+        - asset: fonts/century-gothic/GOTHICBI.TTF
+        - asset: fonts/century-gothic/GOTHICI.TTF
+    - family: ShareFonts
+      fonts:
+        - asset: fonts/century-gothic/sharefonts.net.txt
   # fonts:
   #   - family: Schyler
   #     fonts:
