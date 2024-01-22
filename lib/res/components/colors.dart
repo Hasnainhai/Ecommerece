@@ -6,7 +6,6 @@ class AppColor {
   static const Color buttonColor = Colors.green;
   static const Color errorColor = Colors.red;
   static const Color primaryColor = Color(0xffD4AF37);
-
   static const Color fontColor = Color(0xff222222);
 
   static const Color googleColor = Color(0xffDD4B39);
