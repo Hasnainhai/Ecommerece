@@ -9,4 +9,6 @@ class RoutesName {
 
   static const String onboarding3 = 'onboarding3';
   static const String loginorsigin = 'loginorsigin';
+  static const String suginup = "siginup";
+  static const String forgetpassword = "forgetpassword";
 }
