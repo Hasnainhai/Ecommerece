@@ -41,7 +41,7 @@ class FavouriteScreen extends StatelessWidget {
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
-            return SaveCard();
+            return const SaveCard();
           },
         ),
       )),

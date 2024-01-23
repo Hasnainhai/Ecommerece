@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   _buildProfile() {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Text.rich(
           TextSpan(
             text: '  Alizay\n',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'CenturyGothic',
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -160,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: <TextSpan>[
               TextSpan(
                 text: 'ID: 1540580',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColor.whiteColor,
                   fontWeight: FontWeight.w200,
                   fontSize: 14.0,

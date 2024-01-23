@@ -59,8 +59,8 @@ class CartScreen extends StatelessWidget {
                     // physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 12.0),
                         child: CartWidget(),
                       );
                     },

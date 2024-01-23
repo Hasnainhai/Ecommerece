@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -9,7 +11,7 @@ class StoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return const ListTile(
         isThreeLine: false,
         leading: CircleAvatar(
           radius: 35.0,

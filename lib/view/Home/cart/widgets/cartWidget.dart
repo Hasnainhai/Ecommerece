@@ -6,6 +6,8 @@ int subTotal = 0;
 
 // ignore: must_be_immutable
 class CartWidget extends StatefulWidget {
+  const CartWidget({super.key});
+
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -27,11 +29,11 @@ class _CartWidgetState extends State<CartWidget> {
                   height: 80.0,
                   width: 58.0,
                   child: Image.asset('images/coat.png')),
-              title: Row(
+              title: const Row(
                 children: [
-                  const SizedBox(width: 30.0),
+                  SizedBox(width: 30.0),
                   Text.rich(
-                    const TextSpan(
+                    TextSpan(
                         text: 'hupper winter\n',
                         style: TextStyle(
                           fontFamily: 'CenturyGothic',
@@ -79,9 +81,9 @@ class _CartWidgetState extends State<CartWidget> {
                     const SizedBox(
                       width: 18,
                     ),
-                    Text(
+                    const Text(
                       '2',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -121,9 +123,9 @@ class _CartWidgetState extends State<CartWidget> {
                       size: 24,
                     ),
                   ),
-                  Text(
+                  const Text(
                     '20\$',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 16,
                       fontWeight: FontWeight.w800,
