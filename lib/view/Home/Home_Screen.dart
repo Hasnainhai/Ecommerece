@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpeacing(16.0),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -98,13 +98,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    'see more',
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w500),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, RoutesName.shopScreen);
+                    },
+                    child: Text(
+                      'see more',
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          fontFamily: 'CenturyGothic',
+                          color: AppColor.fontColor,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ],
               ),
@@ -151,10 +156,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpeacing(16.0),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Populars',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -163,13 +168,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    'see more',
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w500),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, RoutesName.popularsScreen);
+                    },
+                    child: const Text(
+                      'see more',
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          fontFamily: 'CenturyGothic',
+                          color: AppColor.fontColor,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ],
               ),
@@ -194,10 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpeacing(20.0),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Our new items',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -206,13 +216,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Text(
-                    'see more',
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w500),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, RoutesName.newItemsScreen);
+                    },
+                    child: const Text(
+                      'see more',
+                      style: TextStyle(
+                          fontSize: 14.0,
+                          fontFamily: 'CenturyGothic',
+                          color: AppColor.fontColor,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ],
               ),
