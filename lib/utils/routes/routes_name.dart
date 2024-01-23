@@ -8,7 +8,7 @@ class RoutesName {
   static const String onboarding2 = 'onboarding2';
 
   static const String onboarding3 = 'onboarding3';
-    static const String dashboardScreen = 'dashboard_screen';
+  static const String dashboardScreen = 'dashboard_screen';
   static const String shopScreen = 'shop_screen';
   static const String preLove = 'pre_love_screen';
   static const String cartScreen = 'cart_screen';
@@ -23,4 +23,5 @@ class RoutesName {
   static const String newItemsScreen = "new_items_screen";
 
 
+  static const String productdetail = "productdetail";
 }

@@ -195,7 +195,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                    return const ProLovedCard();
+                    return ProLovedCard(
+                      fun: () {
+                        Navigator.pushNamed(context, RoutesName.productdetail);
+                      },
+                    );
                   },
                 ),
               ),
@@ -238,11 +242,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                    return const ProLovedCard();
+                    return ProLovedCard(
+                      fun: () {},
+                    );
                   },
                 ),
               ),
-              const VerticalSpeacing(30.0),
+              const VerticalSpeacing(
+                30.0,
+              ),
             ],
           ),
         ],
