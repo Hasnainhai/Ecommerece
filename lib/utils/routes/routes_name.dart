@@ -19,4 +19,5 @@ class RoutesName {
   static const String suginup = "siginup";
   static const String forgetpassword = "forgetpassword";
   static const String productdetail = "productdetail";
+  static const String preLovedproductdetail = "preLovedproductdetail";
 }

@@ -3,6 +3,7 @@ import 'package:ecommerece/view/Account/forget_pawword.view.dart';
 
 import 'package:ecommerece/view/Account/loginorsigin_view.dart';
 import 'package:ecommerece/view/Account/siginup_view.dart';
+import 'package:ecommerece/view/Home/PreLovedProductDetail/preloved-product_detail_view.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
@@ -71,6 +72,10 @@ class Routes {
       case RoutesName.productdetail:
         return MaterialPageRoute(
           builder: (c) => const ProductDetailView(),
+        );
+      case RoutesName.preLovedproductdetail:
+        return MaterialPageRoute(
+          builder: (c) => const PreLovedProductDetailView(),
         );
 
       default:
