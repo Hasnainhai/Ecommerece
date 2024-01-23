@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -8,6 +10,7 @@ class CategoryCart extends StatefulWidget {
   CategoryCart(this.label);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CategoryCartState createState() => _CategoryCartState();
 }
 

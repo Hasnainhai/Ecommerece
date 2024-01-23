@@ -1,4 +1,5 @@
 import 'package:ecommerece/res/components/rounded_button.dart';
+import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -28,7 +29,12 @@ class CartScreen extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (c) => const DashBoardScreen(),
+              ),
+            );
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -53,8 +59,8 @@ class CartScreen extends StatelessWidget {
                     // physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
+                      return const Padding(
+                        padding: EdgeInsets.only(bottom: 12.0),
                         child: CartWidget(),
                       );
                     },
@@ -101,10 +107,10 @@ class CartScreen extends StatelessWidget {
                   ],
                 ),
                 const VerticalSpeacing(30.0),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Total Items",
                       style: TextStyle(
                         fontFamily: 'CenturyGothic',
@@ -115,7 +121,7 @@ class CartScreen extends StatelessWidget {
                     ),
                     Text(
                       '6',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -146,10 +152,10 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
                 const VerticalSpeacing(30.0),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Coupon dicount",
                       style: TextStyle(
                         fontFamily: 'CenturyGothic',
@@ -160,7 +166,7 @@ class CartScreen extends StatelessWidget {
                     ),
                     Text(
                       '\$6',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -191,10 +197,10 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
                 const VerticalSpeacing(12.0),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Shipping",
                       style: TextStyle(
                         fontFamily: 'CenturyGothic',
@@ -205,7 +211,7 @@ class CartScreen extends StatelessWidget {
                     ),
                     Text(
                       '\$60',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 16,
                         fontWeight: FontWeight.w800,
@@ -236,10 +242,10 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
                 const VerticalSpeacing(12.0),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Total Price",
                       style: TextStyle(
                         fontFamily: 'CenturyGothic',
@@ -250,7 +256,7 @@ class CartScreen extends StatelessWidget {
                     ),
                     Text(
                       '\$60',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 16,
                         fontWeight: FontWeight.w800,

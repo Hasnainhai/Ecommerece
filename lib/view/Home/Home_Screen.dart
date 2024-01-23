@@ -4,7 +4,6 @@ import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:flutter/material.dart';
 
 import 'pro_loved/Widgets/pro_loved_card.dart';
-import 'shop/Widgets/store_card.dart';
 import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -227,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              VerticalSpeacing(30.0),
+              const VerticalSpeacing(30.0),
             ],
           ),
         ],
