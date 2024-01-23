@@ -1,9 +1,11 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/Widget/image_slider.dart';
 import 'package:ecommerece/view/Home/ProductDetail/widgets/color_container.dart';
 import 'package:ecommerece/view/Home/ProductDetail/widgets/size_container.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
+import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -264,6 +266,39 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   ColorContainer(color: Color(0xff15F8C1)),
                 ],
               ),
+              const VerticalSpeacing(
+                20,
+              ),
+              const Divider(
+                color: Color(0xffBCBCBC),
+              ),
+              const VerticalSpeacing(
+                16,
+              ),
+              const Text(
+                "Related product",
+                style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.fontColor,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProLovedCard(
+                    fun: () {
+                      Navigator.pushNamed(context, RoutesName.productdetail);
+                    },
+                  ),
+                  ProLovedCard(
+                    fun: () {
+                      Navigator.pushNamed(context, RoutesName.productdetail);
+                    },
+                  )
+                ],
+              )
             ]),
           ),
         ),
