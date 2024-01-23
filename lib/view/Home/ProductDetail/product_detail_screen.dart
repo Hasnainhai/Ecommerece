@@ -236,9 +236,32 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 16,
               ),
               const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ColorContainer(color: Color(0xffFFD700)),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  ColorContainer(color: Color(0xffAE1B1B)),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  ColorContainer(color: Color(0xff5B36EF)),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  ColorContainer(color: Color(0xffD01363)),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  ColorContainer(color: Color(0xffFF06B9)),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  ColorContainer(color: Color(0xffFF1313)),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  ColorContainer(color: Color(0xff15F8C1)),
                 ],
               ),
             ]),
