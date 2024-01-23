@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../res/components/colors.dart';
 import '../res/components/rounded_button.dart';
 import '../utils/routes/routes_name.dart';
 import '../utils/routes/utils.dart';
-import '../view_model/auth_view_model.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -174,7 +172,7 @@ class _SignUpViewState extends State<SignUpView> {
               RoundedButton(
                 title: 'SignUp',
                 loading: false,
-                  color: AppColor.primaryColor,
+                color: AppColor.primaryColor,
                 onpress: () {},
               ),
               SizedBox(height: height * 0.02),
