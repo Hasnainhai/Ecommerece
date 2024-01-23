@@ -46,7 +46,9 @@ class PreLoveScreen extends StatelessWidget {
             ),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return const ProLovedCard();
+              return ProLovedCard(
+                fun: () {},
+              );
             },
           ),
         ),
