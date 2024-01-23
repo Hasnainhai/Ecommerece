@@ -1,4 +1,5 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/Widget/image_slider.dart';
@@ -284,6 +285,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   color: AppColor.fontColor,
                 ),
               ),
+              const VerticalSpeacing(
+                10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -298,7 +302,14 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     },
                   )
                 ],
-              )
+              ),
+              const VerticalSpeacing(
+                40,
+              ),
+              RoundedButton(
+                  title: "Add to card",
+                  onpress: () {},
+                  color: AppColor.primaryColor)
             ]),
           ),
         ),
