@@ -1,4 +1,5 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/shop/Widgets/store_card.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,12 @@ class ShopScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColor.fontColor),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (c) => const DashBoardScreen(),
+              ),
+            );
           },
         ),
         elevation: 0.0,

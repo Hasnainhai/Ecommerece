@@ -1,10 +1,10 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
-import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
+import 'package:ecommerece/view/Home/save/Widgets/save_card.dart';
 import 'package:flutter/material.dart';
 
-class PreLoveScreen extends StatelessWidget {
-  const PreLoveScreen({super.key});
+class FavouriteScreen extends StatelessWidget {
+  const FavouriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +36,15 @@ class PreLoveScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-            ),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return const ProLovedCard();
-            },
-          ),
+          child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return SaveCard();
+          },
         ),
-      ),
+      )),
     );
   }
 }
