@@ -1,4 +1,6 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view/Home/ProductDetail/Widget/image_slider.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +15,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: AppColor.whiteColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: AppColor.whiteColor,
         title: const Text(
           "Product Details",
           style: TextStyle(
@@ -42,6 +44,14 @@ class _ProductDetailViewState extends State<ProductDetailView> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ImageSlider(),
+                VerticalSpeacing(30),
+              ],
+            ),
+          ),
         ),
       ),
     );
