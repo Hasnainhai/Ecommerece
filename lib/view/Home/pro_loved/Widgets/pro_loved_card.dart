@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ProLovedCard extends StatefulWidget {
   const ProLovedCard({super.key, required this.fun});
-  final Function fun;
+  final VoidCallback fun;
   @override
   State<ProLovedCard> createState() => _ProLovedCardState();
 }
@@ -14,7 +14,7 @@ class _ProLovedCardState extends State<ProLovedCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.fun(),
+      onTap: widget.fun,
       child: Container(
         height: 200,
         width: 168,

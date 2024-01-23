@@ -1,5 +1,6 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -185,7 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {},
+                      fun: () {
+                        Navigator.pushNamed(context, RoutesName.productdetail);
+                      },
                     );
                   },
                 ),
