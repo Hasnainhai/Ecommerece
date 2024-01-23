@@ -78,6 +78,7 @@ class Routes {
       case RoutesName.newItemsScreen:
         return MaterialPageRoute(
           builder: (c) => const NewItemsScreem(),
+        );
 
       case RoutesName.productdetail:
         return MaterialPageRoute(
