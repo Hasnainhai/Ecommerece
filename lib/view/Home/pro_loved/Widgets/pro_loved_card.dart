@@ -128,7 +128,7 @@ class _ProLovedCardState extends State<ProLovedCard> {
                       ),
                       child: const Center(
                         child: Text(
-                          "Visit",
+                          "View",
                           style: TextStyle(
                             fontFamily: 'CenturyGothic',
                             fontSize: 10,

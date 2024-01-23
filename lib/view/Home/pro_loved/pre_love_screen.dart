@@ -1,4 +1,5 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,12 @@ class PreLoveScreen extends StatelessWidget {
             itemCount: 10,
             itemBuilder: (context, index) {
               return ProLovedCard(
-                fun: () {},
+                fun: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.preLovedproductdetail,
+                  );
+                },
               );
             },
           ),

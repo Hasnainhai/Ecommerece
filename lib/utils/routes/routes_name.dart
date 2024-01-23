@@ -24,4 +24,5 @@ class RoutesName {
 
 
   static const String productdetail = "productdetail";
+  static const String preLovedproductdetail = "preLovedproductdetail";
 }
