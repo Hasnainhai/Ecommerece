@@ -1,23 +1,29 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view/Home/ProductDetail/Widget/image_slider.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
-import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:flutter/material.dart';
 
-class PreLoveScreen extends StatelessWidget {
-  const PreLoveScreen({super.key});
+class ProductDetailView extends StatefulWidget {
+  const ProductDetailView({super.key});
 
+  @override
+  State<ProductDetailView> createState() => _ProductDetailViewState();
+}
+
+class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFFFFFF),
+      backgroundColor: AppColor.whiteColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffFFFFFF),
+        backgroundColor: AppColor.whiteColor,
         title: const Text(
-          "Pro Loved",
+          "Product Details",
           style: TextStyle(
             fontFamily: 'CenturyGothic',
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
             color: AppColor.fontColor,
           ),
         ),
@@ -38,18 +44,13 @@ class PreLoveScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ImageSlider(),
+                VerticalSpeacing(30),
+              ],
             ),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return ProLovedCard(
-                fun: () {},
-              );
-            },
           ),
         ),
       ),
