@@ -5,6 +5,7 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/address_select_widget.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/fast_shipping_container.dart';
+import 'package:ecommerece/view/Home/CheckOut/add_address_view.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +84,12 @@ class _CheckOutViewState extends State<CheckOutView> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AddAddressView(),
+                      );
+                    },
                     child: const Text(
                       'Add New',
                       style: TextStyle(
