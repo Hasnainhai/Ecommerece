@@ -219,7 +219,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                                     fontFamily: 'CenturyGothic',
                                     fontSize: 10,
                                     fontWeight: FontWeight.w300,
-                                    color: thirdButton
+                                    color: secondButton
                                         ? AppColor.whiteColor
                                         : AppColor.fontColor,
                                   ),
