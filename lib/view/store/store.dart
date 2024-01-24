@@ -1,10 +1,11 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
-import 'package:ecommerece/view/Home/shop/Widgets/store_card.dart';
+import 'package:ecommerece/view/store/Widgets/store_card.dart';
 import 'package:flutter/material.dart';
 
-class ShopScreen extends StatelessWidget {
-  const ShopScreen({super.key});
+class StoreScreen extends StatelessWidget {
+  const StoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,11 @@ class ShopScreen extends StatelessWidget {
             ),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return const StoreCard();
+              return StoreCard(
+                ontap: () {
+                  Navigator.pushNamed(context, RoutesName.visitStore);
+                },
+              );
             },
           ),
         ),

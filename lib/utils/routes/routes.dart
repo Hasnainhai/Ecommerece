@@ -13,7 +13,8 @@ import 'package:ecommerece/view/Home/populars/popular_packs.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/profile/profileScreen.dart';
-import 'package:ecommerece/view/Home/shop/shop.dart';
+import 'package:ecommerece/view/Orders/myorders.dart';
+import 'package:ecommerece/view/store/store.dart';
 import 'package:ecommerece/view/Onboardings/onboarding1.dart';
 import 'package:ecommerece/view/Onboardings/onboarding3.dart';
 import 'package:ecommerece/view/Onboardings/onbording2.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/material.dart';
 import '../../view/Home/Home_Screen.dart';
 import '../../view/Account/Login_view.dart';
 import '../../view/splashView.dart';
+import '../../view/store/visit_store.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -50,9 +52,9 @@ class Routes {
       case RoutesName.dashboardScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => const DashBoardScreen());
-      case RoutesName.shopScreen:
+      case RoutesName.storeScreen:
         return MaterialPageRoute(
-            builder: (BuildContext context) => const ShopScreen());
+            builder: (BuildContext context) => const StoreScreen());
       case RoutesName.preLove:
         return MaterialPageRoute(
             builder: (BuildContext context) => const PreLoveScreen());
@@ -92,6 +94,14 @@ class Routes {
       case RoutesName.checkout:
         return MaterialPageRoute(
           builder: (c) => const CheckOutView(),
+);
+      case RoutesName.visitStore:
+        return MaterialPageRoute(
+          builder: (c) => const VisitStore(),
+        );
+      case RoutesName.myOrders:
+        return MaterialPageRoute(
+          builder: (c) => const MyOrders(),
         );
 
       default:

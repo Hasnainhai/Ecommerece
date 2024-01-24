@@ -2,6 +2,7 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/filters/filters.dart';
 import 'package:flutter/material.dart';
 
 import 'pro_loved/Widgets/pro_loved_card.dart';
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 60,
                 width: (MediaQuery.of(context).size.width) - 40,
                 child: TextFormField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       hintText: "Search Here",
                       helperStyle: TextStyle(color: AppColor.fieldBgColor),
                       filled: true,
@@ -79,17 +80,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       prefixIcon: Icon(
                         Icons.search,
                       ),
-                      suffixIcon: Icon(
-                        Icons.tune_sharp,
-                        color: AppColor.fontColor,
-                      )),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const FilterPopUp()));
+                          },
+                          icon: Icon(
+                            Icons.tune_sharp,
+                            color: AppColor.fontColor,
+                          ))),
                 ),
               ),
               const VerticalSpeacing(16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Store',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -100,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, RoutesName.shopScreen);
+                      Navigator.pushNamed(context, RoutesName.storeScreen);
                     },
-                    child: Text(
+                    child: const Text(
                       'see more',
                       style: TextStyle(
                           fontSize: 14.0,
@@ -196,9 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
+                      fun: () {},
                     );
                   },
                 ),
@@ -248,9 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              const VerticalSpeacing(
-                30.0,
-              ),
+              const VerticalSpeacing(30.0),
             ],
           ),
         ],
