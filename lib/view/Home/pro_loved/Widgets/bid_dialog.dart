@@ -9,6 +9,7 @@ class BidDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+        insetPadding: const EdgeInsets.only(left: 12, right: 12),
         child: Container(
             decoration: BoxDecoration(
               color: AppColor.whiteColor,
