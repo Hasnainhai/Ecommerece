@@ -1,4 +1,5 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/view/Home/CheckOut/add_address_view.dart';
 import 'package:ecommerece/view/Home/MyAddress/Widgets/my_address_widget.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
@@ -37,16 +38,24 @@ class _MyAddressViewState extends State<MyAddressView> {
             );
           },
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Text(
-              "Add address",
-              style: TextStyle(
-                fontFamily: 'CenturyGothic',
-                fontSize: 14,
-                fontWeight: FontWeight.w300,
-                color: AppColor.primaryColor,
+            padding: const EdgeInsets.only(right: 16.0),
+            child: InkWell(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const AddAddressView(),
+                );
+              },
+              child: const Text(
+                "Add address",
+                style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                  color: AppColor.primaryColor,
+                ),
               ),
             ),
           ),
@@ -62,7 +71,7 @@ class _MyAddressViewState extends State<MyAddressView> {
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  return MyAddressWidget();
+                  return const MyAddressWidget();
                 },
               ),
             ),
