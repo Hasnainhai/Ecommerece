@@ -2,6 +2,7 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/Widget/image_slider.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
+import 'package:ecommerece/view/Home/pro_loved/Widgets/bid_dialog.dart';
 import 'package:flutter/material.dart';
 
 class PreLovedProductDetailView extends StatefulWidget {
@@ -180,31 +181,39 @@ class _PreLovedProductDetailViewState extends State<PreLovedProductDetailView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 34,
-                    width: 92,
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor,
-                      borderRadius: BorderRadius.circular(
-                        4,
-                      ),
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: AppColor.whiteColor,
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => BidDialog(),
+                      );
+                    },
+                    child: Container(
+                      height: 34,
+                      width: 92,
+                      decoration: BoxDecoration(
+                        color: AppColor.primaryColor,
+                        borderRadius: BorderRadius.circular(
+                          4,
                         ),
-                        Text(
-                          "Bid now",
-                          style: TextStyle(
-                            fontFamily: 'CenturyGothic',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
+                      ),
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.add,
                             color: AppColor.whiteColor,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Bid now",
+                            style: TextStyle(
+                              fontFamily: 'CenturyGothic',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Container(
