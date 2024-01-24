@@ -2,6 +2,7 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/filters/filters.dart';
 import 'package:flutter/material.dart';
 
 import 'pro_loved/Widgets/pro_loved_card.dart';
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 60,
                 width: (MediaQuery.of(context).size.width) - 40,
                 child: TextFormField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       hintText: "Search Here",
                       helperStyle: TextStyle(color: AppColor.fieldBgColor),
                       filled: true,
@@ -79,10 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       prefixIcon: Icon(
                         Icons.search,
                       ),
-                      suffixIcon: Icon(
-                        Icons.tune_sharp,
-                        color: AppColor.fontColor,
-                      )),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const FilterPopUp()));
+                          },
+                          icon: Icon(
+                            Icons.tune_sharp,
+                            color: AppColor.fontColor,
+                          ))),
                 ),
               ),
               const VerticalSpeacing(16.0),
