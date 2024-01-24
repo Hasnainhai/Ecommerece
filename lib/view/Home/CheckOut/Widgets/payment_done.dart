@@ -2,7 +2,6 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
-import 'package:ecommerece/view/Orders/myorders.dart';
 import 'package:flutter/material.dart';
 
 class CheckOutDoneScreen extends StatelessWidget {
@@ -25,7 +24,9 @@ class CheckOutDoneScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 3,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
-                  color: Color(0xffEEEEEE),
+                  color: Color(
+                    0xffEEEEEE,
+                  ),
                 ),
                 child: Center(
                   child: Container(
