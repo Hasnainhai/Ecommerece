@@ -266,7 +266,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.myaddress,
+                    );
+                  },
                   tColor: const Color(0xff6DF5FC),
                   bColor: const Color(0xff46C5CA),
                   icon: Icons.home_outlined,

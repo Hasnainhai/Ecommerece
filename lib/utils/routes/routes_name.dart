@@ -29,4 +29,5 @@ class RoutesName {
   static const String visitStore = 'visit_store';
   static const String myOrders = 'my_orders';
   static const String paymentdone = 'paymentdone';
+  static const String myaddress = 'myaddress';
 }
