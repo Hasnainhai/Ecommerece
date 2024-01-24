@@ -18,11 +18,11 @@ class RoutesName {
   static const String loginorsigin = 'loginorsigin';
   static const String suginup = "siginup";
   static const String forgetpassword = "forgetpassword";
-    static const String popularsScreen = "populars_screen";
+  static const String popularsScreen = "populars_screen";
 
   static const String newItemsScreen = "new_items_screen";
 
-
   static const String productdetail = "productdetail";
   static const String preLovedproductdetail = "preLovedproductdetail";
+  static const String checkout = "checkout";
 }
