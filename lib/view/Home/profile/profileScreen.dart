@@ -1,3 +1,4 @@
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -237,7 +238,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'Dashboard'),
                 const Divider(),
                 ProfileWidgets(
-                    ontap: () {},
+                    ontap: () {
+                      Navigator.pushNamed(context, RoutesName.myOrders);
+                    },
                     tColor: const Color(0xffDF9EF5),
                     bColor: const Color(0xffA24ABF),
                     icon: Icons.notifications_outlined,
