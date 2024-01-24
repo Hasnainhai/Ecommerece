@@ -4,7 +4,7 @@ import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/profile/profileScreen.dart';
-import 'package:ecommerece/view/Home/shop/shop.dart';
+import 'package:ecommerece/view/store/store.dart';
 import 'package:flutter/material.dart';
 
 import '../Home_Screen.dart';
@@ -41,7 +41,7 @@ class _DashBoardScreenState extends State<DashBoardScreen>
         controller: tabController,
         children: const [
           HomeScreen(),
-          ShopScreen(),
+          StoreScreen(),
           PreLoveScreen(),
           CartScreen(),
           FavouriteScreen(),

@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Store',
                     style: TextStyle(
                       fontSize: 18.0,
@@ -100,9 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, RoutesName.shopScreen);
+                      Navigator.pushNamed(context, RoutesName.storeScreen);
                     },
-                    child: Text(
+                    child: const Text(
                       'see more',
                       style: TextStyle(
                           fontSize: 14.0,
@@ -196,9 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
+                      fun: () {},
                     );
                   },
                 ),
@@ -248,9 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-              const VerticalSpeacing(
-                30.0,
-              ),
+              const VerticalSpeacing(30.0),
             ],
           ),
         ],

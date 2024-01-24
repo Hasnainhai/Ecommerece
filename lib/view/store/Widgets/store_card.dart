@@ -3,7 +3,8 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:flutter/material.dart';
 
 class StoreCard extends StatelessWidget {
-  const StoreCard({super.key});
+  const StoreCard({super.key, required this.ontap});
+  final Function ontap;
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +74,26 @@ class StoreCard extends StatelessWidget {
                   color: AppColor.fontColor,
                 ),
               ),
-              Container(
-                height: 18,
-                width: 44,
-                decoration: BoxDecoration(
-                  color: AppColor.primaryColor,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Visit",
-                    style: TextStyle(
-                      fontFamily: 'CenturyGothic',
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                      color: AppColor.whiteColor,
+              InkWell(
+                onTap: (){
+                  ontap();
+                },
+                child: Container(
+                  height: 18,
+                  width: 44,
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryColor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: const Center(
+                    child: Text(
+                      "Visit",
+                      style: TextStyle(
+                        fontFamily: 'CenturyGothic',
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.whiteColor,
+                      ),
                     ),
                   ),
                 ),

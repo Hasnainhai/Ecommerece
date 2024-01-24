@@ -9,7 +9,7 @@ class RoutesName {
 
   static const String onboarding3 = 'onboarding3';
   static const String dashboardScreen = 'dashboard_screen';
-  static const String shopScreen = 'shop_screen';
+  static const String storeScreen = 'shop_screen';
   static const String preLove = 'pre_love_screen';
   static const String cartScreen = 'cart_screen';
   static const String favouriteScreen = 'favourite_screen';
@@ -18,11 +18,11 @@ class RoutesName {
   static const String loginorsigin = 'loginorsigin';
   static const String suginup = "siginup";
   static const String forgetpassword = "forgetpassword";
-    static const String popularsScreen = "populars_screen";
+  static const String popularsScreen = "populars_screen";
 
   static const String newItemsScreen = "new_items_screen";
 
-
   static const String productdetail = "productdetail";
   static const String preLovedproductdetail = "preLovedproductdetail";
+  static const String visitStore = 'visit_store';
 }
