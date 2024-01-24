@@ -37,6 +37,20 @@ class _MyAddressViewState extends State<MyAddressView> {
             );
           },
         ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: Text(
+              "Add address",
+              style: TextStyle(
+                fontFamily: 'CenturyGothic',
+                fontSize: 14,
+                fontWeight: FontWeight.w300,
+                color: AppColor.primaryColor,
+              ),
+            ),
+          ),
+        ],
         elevation: 0.0,
         centerTitle: true,
       ),
