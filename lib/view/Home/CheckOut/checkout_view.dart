@@ -164,12 +164,13 @@ class _CheckOutViewState extends State<CheckOutView> {
                           ),
                         ),
                       ),
+                      const SizedBox(width: 16.0),
                       InkWell(
                         onTap: () {
                           setState(() {
                             firstButton = false;
-                            secondButton = false;
-                            thirdButton = !thirdButton;
+                            secondButton = !secondButton;
+                            thirdButton = false;
                             paymentType = 'cash on Delivery';
                           });
                         },
@@ -178,12 +179,12 @@ class _CheckOutViewState extends State<CheckOutView> {
                             height: 55,
                             width: 100,
                             decoration: BoxDecoration(
-                              color: thirdButton
+                              color: secondButton
                                   ? AppColor.primaryColor
                                   : Colors.transparent,
                               border: Border.all(
                                   width: 1,
-                                  color: thirdButton
+                                  color: secondButton
                                       ? AppColor.primaryColor
                                       : AppColor.primaryColor),
                             ),
@@ -216,6 +217,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                           ),
                         ),
                       ),
+                      const SizedBox(width: 16.0),
                       InkWell(
                         onTap: () {
                           setState(() {
