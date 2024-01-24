@@ -3,7 +3,9 @@ import 'package:ecommerece/view/Account/forget_pawword.view.dart';
 
 import 'package:ecommerece/view/Account/loginorsigin_view.dart';
 import 'package:ecommerece/view/Account/siginup_view.dart';
+import 'package:ecommerece/view/Home/CheckOut/Widgets/payment_done.dart';
 import 'package:ecommerece/view/Home/CheckOut/checkout_view.dart';
+import 'package:ecommerece/view/Home/MyAddress/my_address_view.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/preloved-product_detail_view.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/cart/cartScreen.dart';
@@ -94,7 +96,7 @@ class Routes {
       case RoutesName.checkout:
         return MaterialPageRoute(
           builder: (c) => const CheckOutView(),
-);
+        );
       case RoutesName.visitStore:
         return MaterialPageRoute(
           builder: (c) => const VisitStore(),
@@ -102,6 +104,14 @@ class Routes {
       case RoutesName.myOrders:
         return MaterialPageRoute(
           builder: (c) => const MyOrders(),
+        );
+      case RoutesName.paymentdone:
+        return MaterialPageRoute(
+          builder: (c) => const CheckOutDoneScreen(),
+        );
+      case RoutesName.myaddress:
+        return MaterialPageRoute(
+          builder: (c) => const MyAddressView(),
         );
 
       default:

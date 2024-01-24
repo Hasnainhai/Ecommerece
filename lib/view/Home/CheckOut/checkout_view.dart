@@ -2,8 +2,10 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/custom_text_field.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/address_select_widget.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/fast_shipping_container.dart';
+import 'package:ecommerece/view/Home/CheckOut/add_address_view.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +84,12 @@ class _CheckOutViewState extends State<CheckOutView> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AddAddressView(),
+                      );
+                    },
                     child: const Text(
                       'Add New',
                       style: TextStyle(
@@ -396,9 +403,15 @@ class _CheckOutViewState extends State<CheckOutView> {
               ),
               const VerticalSpeacing(34),
               RoundedButton(
-                  title: "Make payment pkr 2345",
-                  onpress: () {},
-                  color: AppColor.primaryColor),
+                title: "Make payment pkr 2345",
+                onpress: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.paymentdone,
+                  );
+                },
+                color: AppColor.primaryColor,
+              ),
             ]),
           ),
         ),
