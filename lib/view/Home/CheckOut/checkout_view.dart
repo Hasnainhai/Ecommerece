@@ -2,6 +2,7 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/custom_text_field.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/address_select_widget.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/fast_shipping_container.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
@@ -396,9 +397,15 @@ class _CheckOutViewState extends State<CheckOutView> {
               ),
               const VerticalSpeacing(34),
               RoundedButton(
-                  title: "Make payment pkr 2345",
-                  onpress: () {},
-                  color: AppColor.primaryColor),
+                title: "Make payment pkr 2345",
+                onpress: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.paymentdone,
+                  );
+                },
+                color: AppColor.primaryColor,
+              ),
             ]),
           ),
         ),
