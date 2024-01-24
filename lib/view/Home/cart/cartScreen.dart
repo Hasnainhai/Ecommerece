@@ -1,4 +1,5 @@
 import 'package:ecommerece/res/components/rounded_button.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -285,7 +286,12 @@ class CartScreen extends StatelessWidget {
                   child: RoundedButton(
                       color: AppColor.primaryColor,
                       title: 'Process To CheckOut',
-                      onpress: () {}),
+                      onpress: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.checkout,
+                        );
+                      }),
                 ),
                 const VerticalSpeacing(12.0),
                 SizedBox(

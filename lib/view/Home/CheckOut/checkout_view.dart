@@ -1,4 +1,7 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view/Home/CheckOut/Widgets/address_select_widget.dart';
+import 'package:ecommerece/view/Home/CheckOut/Widgets/fast_shipping_container.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +19,7 @@ class _CheckOutViewState extends State<CheckOutView> {
       appBar: AppBar(
         backgroundColor: AppColor.whiteColor,
         title: const Text(
-          "Product Details",
+          "Checkout",
           style: TextStyle(
             fontFamily: 'CenturyGothic',
             fontSize: 18,
@@ -42,7 +45,49 @@ class _CheckOutViewState extends State<CheckOutView> {
           child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          children: [],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Select delivery address',
+                  style: TextStyle(
+                    fontFamily: 'CenturyGothic',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: AppColor.blackColor,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: const Text(
+                    'Add New',
+                    style: TextStyle(
+                      fontFamily: 'CenturyGothic',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300,
+                      color: AppColor.primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const VerticalSpeacing(16),
+            const AddressSelectWidget(),
+            const VerticalSpeacing(20),
+            const Text(
+              'Shipping option',
+              style: TextStyle(
+                fontFamily: 'CenturyGothic',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: AppColor.blackColor,
+              ),
+            ),
+            const VerticalSpeacing(14),
+            FastShippingContainer()
+          ],
         ),
       )),
     );
