@@ -27,43 +27,23 @@ class _myOrderCardState extends State<myOrderCard> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '25 NOV',
+                  'order ID : 0099#',
                   style: TextStyle(
-                    color: AppColor.fieldBgColor,
+                    color: AppColor.secondaryFontColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 12.0,
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    // debugPrint("this is the img:${widget.img}");
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (c) => OrderTrackingScreen(
-                    //       img: widget.img,
-                    //     ),
-                    //   ),
-                    // );
-                  },
-                  child: Container(
-                    height: 30,
-                    width: 80,
-                    color: AppColor.primaryColor,
-                    child: const Center(
-                      child: Text(
-                        ' Order Id',
-                        style: TextStyle(
-                          color: AppColor.whiteColor,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 14.0,
-                        ),
-                      ),
-                    ),
+                Text(
+                  '25 NOV',
+                  style: TextStyle(
+                    color: AppColor.secondaryFontColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
@@ -75,27 +55,58 @@ class _myOrderCardState extends State<myOrderCard> {
                 const Text(
                   'Status:',
                   style: TextStyle(
-                    color: AppColor.fieldBgColor,
+                    color: AppColor.secondaryFontColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 14.0,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Pending',
-                    style: const TextStyle(
-                      color: AppColor.primaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14.0,
+                _buildStatusIndicator('Confirmed', AppColor.primaryColor),
+                _buildStatusIndicator('Pending', Colors.green),
+                _buildStatusIndicator('Cancell', Colors.red),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 30,
+                    width: 80,
+                    color: AppColor.primaryColor,
+                    child: const Center(
+                      child: Text(
+                        'View',
+                        style: TextStyle(
+                          color: AppColor.whiteColor,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14.0,
+                        ),
+                      ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildStatusIndicator(String status, Color color) {
+    return Column(
+      children: [
+        Container(
+          width: 15,
+          height: 15,
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.8),
+            shape: BoxShape.rectangle,
+          ),
+          // child: Icon(Icons.check, color: color),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          status,
+          style: const TextStyle(color: AppColor.primaryColor),
+        ),
+      ],
     );
   }
 }
