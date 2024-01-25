@@ -3,6 +3,7 @@ import 'package:ecommerece/view/Account/forget_pawword.view.dart';
 
 import 'package:ecommerece/view/Account/loginorsigin_view.dart';
 import 'package:ecommerece/view/Account/siginup_view.dart';
+import 'package:ecommerece/view/Home/Bidding/bidding_view.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/payment_done.dart';
 import 'package:ecommerece/view/Home/CheckOut/checkout_view.dart';
 import 'package:ecommerece/view/Home/MyAddress/my_address_view.dart';
@@ -112,6 +113,10 @@ class Routes {
       case RoutesName.myaddress:
         return MaterialPageRoute(
           builder: (c) => const MyAddressView(),
+        );
+      case RoutesName.biddingrequest:
+        return MaterialPageRoute(
+          builder: (c) => const BiddingView(),
         );
 
       default:

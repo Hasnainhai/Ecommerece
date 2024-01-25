@@ -249,7 +249,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'order'),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.biddingrequest,
+                    );
+                  },
                   tColor: const Color(0xff6DF5FC),
                   bColor: const Color(0xff46C5CA),
                   icon: Icons.settings_outlined,

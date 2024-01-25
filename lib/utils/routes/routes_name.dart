@@ -30,4 +30,5 @@ class RoutesName {
   static const String myOrders = 'my_orders';
   static const String paymentdone = 'paymentdone';
   static const String myaddress = 'myaddress';
+  static const String biddingrequest = 'biddingrequest';
 }
