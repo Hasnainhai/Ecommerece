@@ -19,7 +19,7 @@ class _AddAddressViewState extends State<AddAddressView> {
         child: Container(
             decoration: BoxDecoration(
               color: AppColor.whiteColor,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(0),
             ),
             child: Padding(
               padding: const EdgeInsets.only(left: 12, right: 12),
