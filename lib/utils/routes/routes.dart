@@ -10,6 +10,8 @@ import 'package:ecommerece/view/Home/MyAddress/my_address_view.dart';
 import 'package:ecommerece/view/Home/Notification/notification_view.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/preloved-product_detail_view.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
+import 'package:ecommerece/view/Home/Review/review_view.dart';
+import 'package:ecommerece/view/Home/Review/total_review.dart';
 import 'package:ecommerece/view/Home/WishList/wishlist_view.dart';
 import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
@@ -129,6 +131,14 @@ class Routes {
       case RoutesName.notification:
         return MaterialPageRoute(
           builder: (c) => const NotificationView(),
+        );
+      case RoutesName.totalreview:
+        return MaterialPageRoute(
+          builder: (c) => const TotalReveiw(),
+        );
+      case RoutesName.rating:
+        return MaterialPageRoute(
+          builder: (c) => const Rating(),
         );
       case RoutesName.myOrderHistory:
         return MaterialPageRoute(

@@ -293,7 +293,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                   ),
                 ]),
               ),
-              VerticalSpeacing(22),
+              const VerticalSpeacing(22),
               TextFieldCustom(
                 controller: nameController,
                 maxLines: 1,

@@ -116,14 +116,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (c) => TotalRatingScreen(
-                  //         productType: "products",
-                  //         productId: widget.productId),
-                  //   ),
-                  // );
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.totalreview,
+                  );
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

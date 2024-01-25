@@ -1,6 +1,7 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view/Home/Review/review_view.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -69,12 +70,11 @@ class CheckOutDoneScreen extends StatelessWidget {
               ),
               RoundedButton(
                   color: AppColor.primaryColor,
-                  title: "Continue",
+                  title: "Review",
                   onpress: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (c) => const DashBoardScreen()),
+                      MaterialPageRoute(builder: (c) => const Rating()),
                     );
                   }),
               const VerticalSpeacing(

@@ -1,5 +1,6 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/Widget/image_slider.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/bid_dialog.dart';
@@ -113,14 +114,10 @@ class _PreLovedProductDetailViewState extends State<PreLovedProductDetailView> {
               ),
               InkWell(
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (c) => TotalRatingScreen(
-                  //         productType: "products",
-                  //         productId: widget.productId),
-                  //   ),
-                  // );
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.totalreview,
+                  );
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -185,7 +182,7 @@ class _PreLovedProductDetailViewState extends State<PreLovedProductDetailView> {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) => BidDialog(),
+                        builder: (BuildContext context) => const BidDialog(),
                       );
                     },
                     child: Container(
