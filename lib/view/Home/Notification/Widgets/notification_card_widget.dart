@@ -26,11 +26,11 @@ class NotificationCard extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            Expanded(
-              child: const Column(
+            const Expanded(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "your order complte send review",
                     style: TextStyle(
                       fontFamily: 'CenturyGothic',
@@ -39,7 +39,7 @@ class NotificationCard extends StatelessWidget {
                       color: AppColor.fontColor,
                     ),
                   ),
-                  const Text(
+                  Text(
                     "Hot Deal Buy one get free one Offer Hery...",
                     style: TextStyle(
                       fontFamily: 'CenturyGothic',
@@ -48,7 +48,7 @@ class NotificationCard extends StatelessWidget {
                       color: Color(0xff8B8B97),
                     ),
                   ),
-                  const Text(
+                  Text(
                     "10 Minute Ago",
                     style: TextStyle(
                       fontFamily: 'CenturyGothic',
@@ -57,7 +57,7 @@ class NotificationCard extends StatelessWidget {
                       color: Color(0xff8B8B97),
                     ),
                   ),
-                  const VerticalSpeacing(10),
+                  VerticalSpeacing(10),
                 ],
               ),
             ),

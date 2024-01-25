@@ -75,25 +75,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: (MediaQuery.of(context).size.width) - 40,
                 child: TextFormField(
                   decoration: InputDecoration(
-                      hintText: "Search Here",
-                      helperStyle:
-                          const TextStyle(color: AppColor.fieldBgColor),
-                      filled: true,
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(
-                        Icons.search,
+                    hintText: "Search Here",
+                    helperStyle: const TextStyle(color: AppColor.fieldBgColor),
+                    filled: true,
+                    border: InputBorder.none,
+                    prefixIcon: const Icon(
+                      Icons.search,
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FilterPopUp()));
+                      },
+                      icon: const Icon(
+                        Icons.tune_sharp,
+                        color: AppColor.fontColor,
                       ),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FilterPopUp()));
-                          },
-                          icon: Icon(
-                            Icons.tune_sharp,
-                            color: AppColor.fontColor,
-                          ))),
+                    ),
+                  ),
                 ),
               ),
               const VerticalSpeacing(16.0),
@@ -186,10 +187,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Text(
                       'see more',
                       style: TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: 'CenturyGothic',
-                          color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
+                        fontSize: 14.0,
+                        fontFamily: 'CenturyGothic',
+                        color: AppColor.fontColor,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
@@ -207,7 +209,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {},
+                      fun: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.productdetail,
+                        );
+                      },
                     );
                   },
                 ),
@@ -252,7 +259,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {},
+                      fun: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.productdetail,
+                        );
+                      },
                     );
                   },
                 ),
