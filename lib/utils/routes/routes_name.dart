@@ -34,4 +34,5 @@ class RoutesName {
   static const String wishlist = 'wishlist';
   static const String notification = 'notification';
   static const String totalreview = 'totalreview';
+  static const String rating = 'rating';
 }
