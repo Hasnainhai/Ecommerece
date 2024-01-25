@@ -291,12 +291,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.pushNamed(context, RoutesName.chatScreen);
+                  },
                   tColor: const Color(0xffFF9CCB),
                   bColor: const Color(0xffEC4091),
-                  icon: Icons.logout_outlined,
+                  icon: Icons.chat,
                   trIcon: Icons.arrow_forward_ios,
-                  title: 'track order',
+                  title: 'chatting',
                 ),
                 const Divider(),
                 ProfileWidgets(
