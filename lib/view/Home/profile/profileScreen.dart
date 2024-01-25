@@ -1,4 +1,5 @@
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/view/Account/Logout/Logout_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -248,7 +249,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     title: 'order'),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.biddingrequest,
+                    );
+                  },
                   tColor: const Color(0xff6DF5FC),
                   bColor: const Color(0xff46C5CA),
                   icon: Icons.settings_outlined,
@@ -257,7 +263,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.wishlist,
+                    );
+                  },
                   tColor: const Color(0xffDF9EF5),
                   bColor: const Color(0xffA24ABF),
                   icon: Icons.wallet_outlined,
@@ -289,7 +300,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const LogoutView(),
+                    );
+                  },
                   tColor: const Color(0xff6DF5FC),
                   bColor: const Color(0xff46C5CA),
                   icon: Icons.logout_outlined,
