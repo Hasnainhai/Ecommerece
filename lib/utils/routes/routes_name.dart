@@ -35,4 +35,5 @@ class RoutesName {
   static const String notification = 'notification';
 
   static const String myOrderHistory = 'order_history';
+  static const String chatScreen = 'chat_screen';
 }
