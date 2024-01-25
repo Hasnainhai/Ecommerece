@@ -32,4 +32,5 @@ class RoutesName {
   static const String myaddress = 'myaddress';
   static const String biddingrequest = 'biddingrequest';
   static const String wishlist = 'wishlist';
+  static const String notification = 'notification';
 }
