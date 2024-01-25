@@ -263,7 +263,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const Divider(),
                 ProfileWidgets(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.wishlist,
+                    );
+                  },
                   tColor: const Color(0xffDF9EF5),
                   bColor: const Color(0xffA24ABF),
                   icon: Icons.wallet_outlined,
