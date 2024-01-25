@@ -60,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontFamily: 'CenturyGothic'),
                 ),
                 trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RoutesName.notification);
+                    },
                     icon: const Icon(
                       Icons.notifications_rounded,
                       color: AppColor.blackColor,
@@ -74,10 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextFormField(
                   decoration: InputDecoration(
                       hintText: "Search Here",
-                      helperStyle: TextStyle(color: AppColor.fieldBgColor),
+                      helperStyle:
+                          const TextStyle(color: AppColor.fieldBgColor),
                       filled: true,
                       border: InputBorder.none,
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.search,
                       ),
                       suffixIcon: IconButton(
