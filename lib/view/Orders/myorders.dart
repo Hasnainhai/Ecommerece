@@ -1,3 +1,4 @@
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import '../../res/components/colors.dart';
 import '../../res/components/verticalSpacing.dart';
@@ -50,22 +51,22 @@ class _MyOrdersState extends State<MyOrders>
         ),
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(70.0),
+          preferredSize: const Size.fromHeight(70.0),
           child: SafeArea(
             child: TabBar(
               controller: _tabController, // Provide the TabController here
               indicatorColor: AppColor.primaryColor,
               labelColor: AppColor.primaryColor,
               unselectedLabelColor: AppColor.secondaryFontColor,
-              tabs: <Widget>[
+              tabs: const <Widget>[
                 Tab(
-                  text: 'All',
+                  text: 'All(12)',
                 ),
                 Tab(
-                  text: 'Running',
+                  text: 'Running(10)',
                 ),
                 Tab(
-                  text: 'Previous',
+                  text: 'Previous(2)',
                 ),
               ],
             ),
@@ -73,7 +74,6 @@ class _MyOrdersState extends State<MyOrders>
         ),
       ),
       body: TabBarView(
-        // Provide the TabController
         controller: _tabController,
         children: <Widget>[
           // Content for the "All" tab
@@ -81,7 +81,11 @@ class _MyOrdersState extends State<MyOrders>
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: myOrderCard(), // Corrected widget name to MyOrderCard
+                child: myOrderCard(
+                  ontap: () {
+                    Navigator.pushNamed(context, RoutesName.myOrderHistory);
+                  },
+                ),
               )
             ],
           ),
@@ -90,18 +94,25 @@ class _MyOrdersState extends State<MyOrders>
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: myOrderCard(), // Corrected widget name to MyOrderCard
+                child: myOrderCard(
+                  ontap: () {
+                    Navigator.pushNamed(context, RoutesName.myOrderHistory);
+                  },
+                ),
               )
             ],
           ),
           // Content for the "Previous" tab
           Column(
             children: [
-              VerticalSpeacing(
-                  20.0), // Corrected widget name to VerticalSpacing
+              const VerticalSpeacing(20.0),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: myOrderCard(), // Corrected widget name to MyOrderCard
+                child: myOrderCard(
+                  ontap: () {
+                    Navigator.pushNamed(context, RoutesName.myOrderHistory);
+                  },
+                ),
               )
             ],
           ),

@@ -33,4 +33,6 @@ class RoutesName {
   static const String biddingrequest = 'biddingrequest';
   static const String wishlist = 'wishlist';
   static const String notification = 'notification';
+
+  static const String myOrderHistory = 'order_history';
 }

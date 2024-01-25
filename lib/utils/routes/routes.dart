@@ -18,6 +18,7 @@ import 'package:ecommerece/view/Home/populars/popular_packs.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/profile/profileScreen.dart';
+import 'package:ecommerece/view/Orders/myorder_history.dart';
 import 'package:ecommerece/view/Orders/myorders.dart';
 import 'package:ecommerece/view/store/store.dart';
 import 'package:ecommerece/view/Onboardings/onboarding1.dart';
@@ -127,6 +128,10 @@ class Routes {
       case RoutesName.notification:
         return MaterialPageRoute(
           builder: (c) => const NotificationView(),
+        );
+      case RoutesName.myOrderHistory:
+        return MaterialPageRoute(
+          builder: (c) => const MyOrderHistory(),
         );
 
       default:

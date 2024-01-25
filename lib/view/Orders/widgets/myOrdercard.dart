@@ -8,7 +8,9 @@ import '../../../res/components/verticalSpacing.dart';
 class myOrderCard extends StatefulWidget {
   const myOrderCard({
     super.key,
+    required this.ontap,
   });
+  final Function ontap;
 
   @override
   State<myOrderCard> createState() => _myOrderCardState();
@@ -20,7 +22,7 @@ class _myOrderCardState extends State<myOrderCard> {
     return Container(
       height: 114.0,
       width: double.infinity,
-      color: AppColor.whiteColor,
+      color: AppColor.fieldBgColor,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -64,7 +66,9 @@ class _myOrderCardState extends State<myOrderCard> {
                 _buildStatusIndicator('Pending', Colors.green),
                 _buildStatusIndicator('Cancell', Colors.red),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    widget.ontap();
+                  },
                   child: Container(
                     height: 30,
                     width: 80,
