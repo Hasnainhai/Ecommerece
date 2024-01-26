@@ -1,6 +1,7 @@
 // ignore_for_file:
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/view/Home/cart/cartScreen.dart';
+import 'package:ecommerece/view/Home/dashboard/Products/product_view.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/profile/profileScreen.dart';
@@ -45,7 +46,7 @@ class _DashBoardScreenState extends State<DashBoardScreen>
           PreLoveScreen(),
           CartScreen(),
           FavouriteScreen(),
-          ProfileScreen()
+          Product(),
         ],
       ),
       bottomNavigationBar: Stack(
@@ -83,9 +84,9 @@ class _DashBoardScreenState extends State<DashBoardScreen>
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.account_circle,
-                ),
-                label: ('Profile'),
+                    // Icons.account_circle,
+                    Icons.token_outlined),
+                label: ('Product'),
               ),
             ],
             unselectedItemColor: Colors.black,

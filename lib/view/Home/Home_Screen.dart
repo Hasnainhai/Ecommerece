@@ -38,11 +38,19 @@ class _HomeScreenState extends State<HomeScreen> {
               const VerticalSpeacing(20.0),
               ListTile(
                 horizontalTitleGap: 16.0,
-                leading: const CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: NetworkImage(
-                      'https://i.pinimg.com/474x/e7/a9/4b/e7a94b352d281a23d847a13352be652c.jpg',
-                      scale: 0.1),
+                leading: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.profile,
+                    );
+                  },
+                  child: const CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: NetworkImage(
+                        'https://i.pinimg.com/474x/e7/a9/4b/e7a94b352d281a23d847a13352be652c.jpg',
+                        scale: 0.1),
+                  ),
                 ),
                 title: const Text(
                   'Wellcome',
