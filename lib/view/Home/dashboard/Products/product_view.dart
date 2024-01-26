@@ -44,138 +44,140 @@ class _ProductState extends State<Product> {
         centerTitle: true,
       ),
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(
-          20,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 60,
-                width: (MediaQuery.of(context).size.width) - 40,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Search Here",
-                    helperStyle: const TextStyle(color: AppColor.fieldBgColor),
-                    filled: true,
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(
-                      Icons.search,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FilterPopUp(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.tune_sharp,
-                        color: AppColor.fontColor,
+        child: Padding(
+          padding: const EdgeInsets.all(
+            20,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 60,
+                  width: (MediaQuery.of(context).size.width) - 40,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "Search Here",
+                      helperStyle:
+                          const TextStyle(color: AppColor.fieldBgColor),
+                      filled: true,
+                      border: InputBorder.none,
+                      prefixIcon: const Icon(
+                        Icons.search,
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const FilterPopUp(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.tune_sharp,
+                          color: AppColor.fontColor,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const VerticalSpeacing(16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Populars',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.popularsScreen);
-                    },
-                    child: const Text(
-                      'see more',
+                const VerticalSpeacing(16.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Populars',
                       style: TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: 'CenturyGothic',
-                          color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
+                        fontSize: 18.0,
+                        fontFamily: 'CenturyGothic',
+                        color: AppColor.fontColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const VerticalSpeacing(14),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesName.popularsScreen);
+                      },
+                      child: const Text(
+                        'see more',
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
                 ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return ProLovedCard(
-                    fun: () {
-                      Navigator.pushNamed(context, RoutesName.productdetail);
-                    },
-                  );
-                },
-              ),
-              const VerticalSpeacing(16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Our new items',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
+                const VerticalSpeacing(14),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.newItemsScreen);
-                    },
-                    child: const Text(
-                      'see more',
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return ProLovedCard(
+                      fun: () {
+                        Navigator.pushNamed(context, RoutesName.productdetail);
+                      },
+                    );
+                  },
+                ),
+                const VerticalSpeacing(16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Our new items',
                       style: TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: 'CenturyGothic',
-                          color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
+                        fontSize: 18.0,
+                        fontFamily: 'CenturyGothic',
+                        color: AppColor.fontColor,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const VerticalSpeacing(14),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesName.newItemsScreen);
+                      },
+                      child: const Text(
+                        'see more',
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
                 ),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return ProLovedCard(
-                    fun: () {
-                      Navigator.pushNamed(context, RoutesName.productdetail);
-                    },
-                  );
-                },
-              ),
-            ],
+                const VerticalSpeacing(14),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    return ProLovedCard(
+                      fun: () {
+                        Navigator.pushNamed(context, RoutesName.productdetail);
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
