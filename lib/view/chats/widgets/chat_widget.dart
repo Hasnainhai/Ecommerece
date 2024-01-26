@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -38,18 +39,59 @@ class ChatScreenState extends State<ChatScreenWidget> {
       child: Container(
         alignment:
             message.isSender ? Alignment.centerRight : Alignment.centerLeft,
-        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
         child: Container(
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: message.isSender
-                ? AppColor.secondaryColor
-                : AppColor.primaryColor,
-            borderRadius: BorderRadius.circular(12.0),
+                ? AppColor.primaryColor
+                : Colors.grey, // Change colors accordingly
+            borderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(16),
+              topLeft: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+            ),
           ),
-          child: Text(
-            message.text,
-            style: const TextStyle(color: Colors.white),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                message.text, // Use the actual message text
+                style: TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w300,
+                  color: message.isSender
+                      ? Colors.white
+                      : Colors.black, // Change colors accordingly
+                ),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "00:00",
+                    style: TextStyle(
+                      fontFamily: 'CenturyGothic',
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300,
+                      color: message.isSender
+                          ? Colors.white
+                          : Colors.black, // Change colors accordingly
+                    ),
+                  ),
+                  Icon(
+                    Icons.check,
+                    color: message.isSender
+                        ? Colors.white
+                        : Colors.black, // Change colors accordingly
+                    size: 16,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -68,7 +110,6 @@ class ChatScreenState extends State<ChatScreenWidget> {
             },
           ),
         ),
-        const Divider(height: 1.0),
         Container(
           decoration: const BoxDecoration(
             color: Colors.white,
@@ -80,34 +121,80 @@ class ChatScreenState extends State<ChatScreenWidget> {
   }
 
   Widget _buildTextComposer() {
-    return Container(
-      margin: const EdgeInsets.all(10.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: _textController,
-              onSubmitted: _handleSubmitted,
-              decoration: const InputDecoration(
-                  hintText: 'Type a message...',
-                  hintStyle: TextStyle(
-                    color: AppColor.whiteColor,
-                  )),
+    return Column(
+      children: [
+        const Divider(height: 1.0, color: Color(0xFFEBEBEB)),
+        Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFFEBEBEB),
+              borderRadius: BorderRadius.circular(16.0),
             ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.send,
-              color: AppColor.primaryColor,
-            ),
-            onPressed: () {
-              if (_textController.text.isNotEmpty) {
-                _handleSubmitted(_textController.text);
-              }
-            },
-          ),
-        ],
-      ),
+            margin: const EdgeInsets.all(8.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.emoji_emotions),
+                    onPressed: () {
+                      // Handle emoji icon press
+                    },
+                  ),
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      decoration: const InputDecoration(
+                        hintText: 'Digite aqui sua mensagem...',
+                        border: InputBorder.none,
+                      ),
+                      style: const TextStyle(fontSize: 16.0),
+                      maxLines: 1,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed: () {
+                      if (_textController.text.isNotEmpty) {
+                        _handleSubmitted(_textController.text);
+                      }
+                      // Handle send icon press
+                    },
+                  ),
+                ],
+              ),
+            )),
+        const Divider(height: 1.0, color: Color(0xFFEBEBEB)),
+        const VerticalSpeacing(14),
+      ],
     );
+    // return Container(
+    //   margin: const EdgeInsets.all(10.0),
+    //   child: Row(
+    //     children: [
+    //       Expanded(
+    //         child: TextField(
+    //           controller: _textController,
+    //           onSubmitted: _handleSubmitted,
+    //           decoration: const InputDecoration(
+    //               hintText: 'Type a message...',
+    //               hintStyle: TextStyle(
+    //                 color: AppColor.whiteColor,
+    //               )),
+    //         ),
+    //       ),
+    //       IconButton(
+    //         icon: const Icon(
+    //           Icons.send,
+    //           color: AppColor.primaryColor,
+    //         ),
+    //         onPressed: () {
+    //           if (_textController.text.isNotEmpty) {
+    //             _handleSubmitted(_textController.text);
+    //           }
+    //         },
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }
