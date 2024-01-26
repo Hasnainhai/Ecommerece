@@ -199,15 +199,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const VerticalSpeacing(16.0),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 4,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12.0,
-                    mainAxisSpacing: 12.0,
-                  ),
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemExtent: MediaQuery.of(context).size.width / 2.2,
+                  itemBuilder: (BuildContext context, int index) {
                     return ProLovedCard(
                       fun: () {
                         Navigator.pushNamed(
@@ -249,15 +245,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 4,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12.0,
-                    mainAxisSpacing: 12.0,
-                  ),
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemExtent: MediaQuery.of(context).size.width / 2.2,
+                  itemBuilder: (BuildContext context, int index) {
                     return ProLovedCard(
                       fun: () {
                         Navigator.pushNamed(
