@@ -135,7 +135,7 @@ class ChatScreenState extends State<ChatScreenWidget> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.emoji_emotions),
+                    icon: const Icon(Icons.emoji_emotions_outlined),
                     onPressed: () {
                       // Handle emoji icon press
                     },
