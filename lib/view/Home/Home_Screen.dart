@@ -267,6 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
+                  itemExtent: MediaQuery.of(context).size.width / 2.2,
                   itemBuilder: (BuildContext context, int index) {
                     return ProLovedCard(
                       fun: () {
