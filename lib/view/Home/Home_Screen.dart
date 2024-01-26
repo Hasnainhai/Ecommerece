@@ -214,25 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                 ),
-                // GridView.builder(
-                //   physics: const NeverScrollableScrollPhysics(),
-                //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //     crossAxisCount: 2,
-                //     crossAxisSpacing: 12.0,
-                //     mainAxisSpacing: 12.0,
-                //   ),
-                //   itemCount: 2,
-                //   itemBuilder: (context, index) {
-                //     return ProLovedCard(
-                //       fun: () {
-                //         Navigator.pushNamed(
-                //           context,
-                //           RoutesName.productdetail,
-                //         );
-                //       },
-                //     );
-                //   },
-                // ),
               ),
               const VerticalSpeacing(20.0),
               Row(
