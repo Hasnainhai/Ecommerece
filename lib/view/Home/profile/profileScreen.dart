@@ -1,5 +1,6 @@
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Account/Logout/Logout_view.dart';
+import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../res/components/colors.dart';
@@ -94,9 +95,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         centerTitle: true,
-        leading: const Icon(
-          Icons.arrow_back,
-          color: AppColor.blackColor,
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (c) => const DashBoardScreen(),
+              ),
+            );
+          },
+          child: const Icon(
+            Icons.arrow_back,
+            color: AppColor.whiteColor,
+          ),
         ),
       ),
       body: SingleChildScrollView(
