@@ -69,7 +69,7 @@ class _DashBoardScreenState extends State<DashBoardScreen>
                   icon: Icon(
                     Icons.favorite,
                   ),
-                  label: ('Pre Love')),
+                  label: ('Pro Loved')),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.shopping_cart_outlined,
