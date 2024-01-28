@@ -82,105 +82,118 @@ class VisitStore extends StatelessWidget {
                 ),
               ),
               const VerticalSpeacing(27.0),
-              const VerticalSpeacing(
-                20.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Populars',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Populars',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RoutesName.popularsScreen);
+                          },
+                          child: const Text(
+                            'see more',
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'CenturyGothic',
+                                color: AppColor.fontColor,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.popularsScreen);
-                    },
-                    child: const Text(
-                      'see more',
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: 'CenturyGothic',
-                          color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
+                    const VerticalSpeacing(27.0),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 2.3,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12.0,
+                          mainAxisSpacing: 12.0,
+                        ),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return ProLovedCard(
+                            fun: () {
+                              Navigator.pushNamed(
+                                  context, RoutesName.productdetail);
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const VerticalSpeacing(16.0),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 1.8,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12.0,
-                    mainAxisSpacing: 12.0,
-                  ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                    );
-                  },
+                    const VerticalSpeacing(20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'New T Shirts',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RoutesName.popularsScreen);
+                          },
+                          child: const Text(
+                            'see more',
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'CenturyGothic',
+                                color: AppColor.fontColor,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const VerticalSpeacing(16.0),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 2.4,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12.0,
+                          mainAxisSpacing: 12.0,
+                        ),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return ProLovedCard(
+                            fun: () {
+                              Navigator.pushNamed(
+                                  context, RoutesName.productdetail);
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    const VerticalSpeacing(40.0),
+                  ],
                 ),
               ),
-              const VerticalSpeacing(20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'New T Shirts',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.popularsScreen);
-                    },
-                    child: const Text(
-                      'see more',
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          fontFamily: 'CenturyGothic',
-                          color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-              const VerticalSpeacing(16.0),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 1.8,
-                child: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 12.0,
-                    mainAxisSpacing: 12.0,
-                  ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                    );
-                  },
-                ),
-              ),
-              const VerticalSpeacing(40.0),
             ],
           ),
         ],
