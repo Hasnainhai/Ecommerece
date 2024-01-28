@@ -1,3 +1,4 @@
+import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -89,6 +90,33 @@ class VisitStore extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
+                    const Row(
+                      children: [
+                        Text(
+                          'Categories',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          CategoryCart('All'),
+                          CategoryCart('Jakits'),
+                          CategoryCart('Shirt'),
+                          CategoryCart('Woman'),
+                          CategoryCart('Jakits'),
+                          CategoryCart('Shirt'),
+                          CategoryCart('Woman'),
+                        ],
+                      ),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
