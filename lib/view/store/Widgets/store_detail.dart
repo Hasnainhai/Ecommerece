@@ -66,6 +66,17 @@ class StoreDetailCard extends StatelessWidget {
               Radius.circular(4),
             ),
           ),
+          child: const Center(
+            child: Text(
+              "Contact us",
+              style: TextStyle(
+                fontFamily: 'CenturyGothic',
+                fontSize: 8,
+                fontWeight: FontWeight.w600,
+                color: AppColor.whiteColor,
+              ),
+            ),
+          ),
         )
       ],
     );
