@@ -90,6 +90,7 @@ class VisitStore extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
+                    // const VerticalSpeacing(16.0),
                     const Row(
                       children: [
                         Text(
@@ -103,6 +104,7 @@ class VisitStore extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const VerticalSpeacing(16.0),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
