@@ -1,6 +1,4 @@
 import 'package:ecommerece/res/components/colors.dart';
-import 'package:ecommerece/res/components/custom_text_field.dart';
-import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/view/Account/Logout/widgets/logout_buttons_widgets.dart';
 import 'package:flutter/material.dart';

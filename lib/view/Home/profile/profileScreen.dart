@@ -2,9 +2,11 @@ import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Account/Logout/Logout_view.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/components/colors.dart';
 import '../../../res/components/verticalSpacing.dart';
+import '../../../view_model/user_view_model.dart';
 import 'widgets/profile_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -79,6 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final double tHeight = 200.0;
   final double top = 130.0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -231,6 +234,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // }
 
   _buildProfileFeatures() {
+    final userPrefrences = Provider.of<UserViewModel>(context, listen: false);
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.44,
       width: MediaQuery.of(context).size.width * 0.9,
@@ -314,10 +319,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const Divider(),
                 ProfileWidgets(
                   ontap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => const LogoutView(),
-                    );
+                    userPrefrences.removerUser().then((value) {
+                      Navigator.pushNamed(context, RoutesName.login);
+                    });
                   },
                   tColor: const Color(0xff6DF5FC),
                   bColor: const Color(0xff46C5CA),
