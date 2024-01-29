@@ -6,7 +6,10 @@ import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../res/components/colors.dart';
+import '../../utils/routes/utils.dart';
+import '../../view_model/auth_view_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -20,6 +23,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordController2 = TextEditingController();
+
   File? image;
 
   @override
@@ -28,12 +33,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     passwordController.dispose();
     emailController.dispose();
     nameController.dispose();
+    passwordController2.dispose();
   }
 
   bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       backgroundColor: const Color(0xffF7F7F7),
       body: SafeArea(
@@ -100,33 +108,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             color: AppColor.fontColor,
                           ),
                         ),
-                        // Center(
-                        //   child: Stack(
-                        //     alignment: AlignmentDirectional.bottomCenter,
-                        //     children: [
-                        //       Padding(
-                        //         padding: const EdgeInsets.only(bottom: 10),
-                        //         child: CircleAvatar(
-                        //           radius: 50,
-                        //           backgroundColor: AppColor.primaryColor,
-                        //           foregroundImage: image == null
-                        //               ? null
-                        //               : FileImage(
-                        //                   image!,
-                        //                 ),
-                        //         ),
-                        //       ),
-                        //       GestureDetector(
-                        //         child: Container(
-                        //             height: 28,
-                        //             width: 28,
-                        //             color: Colors.white,
-                        //             child: const Icon(Icons.add)),
-                        //         onTap: () {},
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
 
                         const VerticalSpeacing(30),
                         // Name
@@ -157,14 +138,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                         const VerticalSpeacing(30),
-                        // Password
+                        // Password 1
                         TextFieldCustom(
                           controller: passwordController,
                           maxLines: 1,
                           text: "Password",
                           obscureText: true,
                           validator: (value) {
-                            if (value!.isEmpty || value.length < 7) {
+                            if (value!.isEmpty || value.length < 4) {
+                              return "Please enter a valid password";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        // Password 2
+                        TextFieldCustom(
+                          controller: passwordController2,
+                          maxLines: 1,
+                          text: "Password",
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty || value.length < 4) {
                               return "Please enter a valid password";
                             } else {
                               return null;
@@ -177,10 +172,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: CircularProgressIndicator(),
                               )
                             : RoundedButton(
-                                                color: AppColor.primaryColor,
-
-                              
-                              title: "Register", onpress: () {}),
+                                color: AppColor.primaryColor,
+                                title: "Register",
+                                onpress: () {
+                                  if (emailController.text.isEmpty) {
+                                    Utils.flushBarErrorMessage(
+                                        'please enter your email', context);
+                                  } else if (passwordController.text.isEmpty) {
+                                    Utils.flushBarErrorMessage(
+                                        'please enter your password', context);
+                                  } else if (nameController.text.isEmpty) {
+                                    Utils.flushBarErrorMessage(
+                                        'please enter your name', context);
+                                  } else if (passwordController2.text.length <
+                                      4) {
+                                    Utils.flushBarErrorMessage(
+                                        'plase enter more than four digits',
+                                        context);
+                                  } else {
+                                    Map data = {
+                                      "username":
+                                          nameController.text.toString(),
+                                      "email": emailController.text.toString(),
+                                      "password1":
+                                          passwordController.text.toString(),
+                                      "password2":
+                                          passwordController2.text.toString(),
+                                    };
+                                    authViewModel.signUpApi(data, context);
+                                    print('SuccessFully Register');
+                                  }
+                                }),
                         const VerticalSpeacing(30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

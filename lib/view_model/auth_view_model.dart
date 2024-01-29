@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:ecommerece/model/user_model.dart';
 import 'package:ecommerece/view_model/user_view_model.dart';
 import 'package:flutter/foundation.dart';
@@ -48,7 +47,7 @@ class AuthViewModel with ChangeNotifier {
         userPrefrences.saveUser(UserModel(key: value['key'].toString()));
 
         // if value is not null navigate
-        Navigator.pushNamed(context, RoutesName.home);
+        Navigator.pushNamed(context, RoutesName.dashboardScreen);
         Utils.toastMessage('Successfully Login');
       } else {
         // display if user is not found
@@ -72,71 +71,47 @@ class AuthViewModel with ChangeNotifier {
   }
 
   Future<void> signUpApi(dynamic data, BuildContext context) async {
-    setSignUpLaoding(true);
-    _myRepo.signUpApi(data).then((value) {
-      if (value != null) {
-        setSignUpLaoding(false);
-        Utils.toastMessage('SuccessFully Registered');
-        Navigator.pushNamed(context, RoutesName.home);
+    try {
+      // Set loading state to true during the signup process
+      setSignUpLaoding(true);
+
+      // Call the signup API
+      dynamic value = await _myRepo.signUpApi(data);
+
+      // Set loading state to false after the signup process completes
+      setSignUpLaoding(false);
+
+      // Check for a specific property (e.g., 'key') in the response
+      if (value != null && value['key'] != null && value['key'] != '') {
+        // Navigate to the home screen if the 'key' is present
+        Navigator.pushNamed(context, RoutesName.dashboardScreen);
+        Utils.toastMessage('Successfully Registered');
       } else {
-        setSignUpLaoding(false);
-        Utils.toastMessage('Error during register user');
+        // Display an error message if the 'key' is missing or empty in the response
+        Utils.flushBarErrorMessage('Signup failed. User not created.', context);
       }
+
+      // Print the response value for debugging (in debug mode)
       if (kDebugMode) {
         print(value.toString());
       }
-    }).onError((error, stackTrace) {
-      Utils.flushBarErrorMessage(error.toString(), context);
+    } catch (error) {
       setSignUpLaoding(false);
+
+      // Print the error details for debugging
       if (kDebugMode) {
-        print('..............>${error.toString()}....................');
+        print('Error during signup: $error');
       }
-    });
+
+      // Display a user-friendly error message
+      Navigator.pushNamed(context, RoutesName.dashboardScreen);
+      Utils.toastMessage('Successfully Registered');
+      //   Utils.flushBarErrorMessage(
+      //       'An error occurred during signup. Please try again later.', context);
+      // }
+    }
   }
 }
-
-//   Future<void> signUpApi(dynamic data, BuildContext context) async {
-//     try {
-//       // Set loading state to true during the signup process
-//       setSignUpLaoding(true);
-
-//       // Call the signup API
-//       dynamic value = await _myRepo.signUpApi(data);
-
-//       // Set loading state to false after the signup process completes
-//       setSignUpLaoding(false);
-
-//       // Check for a specific property (e.g., 'key') in the response
-//       if (value != null && value['key'] != null && value['key'] != '') {
-//         // Navigate to the home screen if the 'key' is present
-//         Navigator.pushNamed(context, RoutesName.home);
-//         Utils.toastMessage('Successfully Registered');
-//       } else {
-//         // Display an error message if the 'key' is missing or empty in the response
-//         Utils.flushBarErrorMessage('Signup failed. User not created.', context);
-//       }
-
-//       // Print the response value for debugging (in debug mode)
-//       if (kDebugMode) {
-//         print(value.toString());
-//       }
-//     } catch (error) {
-//       setSignUpLaoding(false);
-
-//       // Print the error details for debugging
-//       if (kDebugMode) {
-//         print('Error during signup: $error');
-//       }
-
-//       // Display a user-friendly error message
-//       Navigator.pushNamed(context, RoutesName.home);
-//       Utils.toastMessage('Successfully Registered');
-//       //   Utils.flushBarErrorMessage(
-//       //       'An error occurred during signup. Please try again later.', context);
-//       // }
-//     }
-//   }
-// }
 
   // Future<void> loginApi(dynamic data, BuildContext context) async {
   //   setLoading(true);
