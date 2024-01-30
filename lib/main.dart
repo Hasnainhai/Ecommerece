@@ -1,3 +1,4 @@
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'utils/routes/routes.dart';
@@ -15,9 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        //  ChangeNotifierProvider(
-        //   create: (_) => SplashView(),
-        // ),
+        ChangeNotifierProvider(
+          create: (_) => HomeViewModel(),
+        ),
         ChangeNotifierProvider(
           create: (_) => AuthViewModel(),
         ),
