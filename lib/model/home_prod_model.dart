@@ -142,6 +142,8 @@ class Products {
         "average_review": averageReview,
         "vendor": vendor.toJson(),
       };
+
+  convertToProduct() {}
 }
 
 class Vendor {

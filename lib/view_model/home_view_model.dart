@@ -15,7 +15,7 @@ class HomeViewModel with ChangeNotifier {
 
   Future<void> fetchAllProdApi() async {
     setAllProd(ApiResponse.loading());
-    _myRepo.fetchAllProd().then((value) {
+    await _myRepo.fetchAllProd().then((value) {
       setAllProd(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setAllProd(ApiResponse.error(error.toString()));
