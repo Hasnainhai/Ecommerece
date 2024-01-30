@@ -1,4 +1,3 @@
-import 'package:ecommerece/repository/home_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
@@ -7,6 +6,7 @@ import 'package:ecommerece/view/filters/filters.dart';
 import 'package:flutter/material.dart';
 
 import 'pro_loved/Widgets/pro_loved_card.dart';
+import 'repository/home_repository.dart';
 import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    homeRepository.fetchAllProd();
+    homeRepository.getHomeProd();
   }
 
   @override
