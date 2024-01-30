@@ -336,8 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: CircularProgressIndicator(),
                       )
                     : RoundedButton(
-                                        color: AppColor.primaryColor,
-
+                        color: AppColor.primaryColor,
                         title: "Login",
                         onpress: () {
                           // _submitFormOnLogin();
