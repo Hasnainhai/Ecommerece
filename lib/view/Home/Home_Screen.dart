@@ -1,3 +1,4 @@
+import 'package:ecommerece/repository/home_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
@@ -16,12 +17,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // HomeViewModel homeViewModel = HomeViewModel();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   homeViewModel.fetchAllProdApi();
-  // }
+  HomeRepository homeRepository = HomeRepository();
+  @override
+  void initState() {
+    super.initState();
+    homeRepository.fetchAllProd();
+  }
 
   @override
   Widget build(BuildContext context) {

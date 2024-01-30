@@ -10,12 +10,12 @@ class LoginViewButtons extends StatelessWidget {
   });
   final Color color;
   final String img;
-  final Function onpress;
+  final VoidCallback onpress;
   final String text;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onpress(),
+      onTap: onpress,
       child: Container(
         height: 56,
         width: (MediaQuery.of(context).size.width / 2.2) - 10,
