@@ -1,7 +1,6 @@
 class AppUrl {
-  static var baseUrl = 'https://seedswild.exarth.com/api';
-  static var loginEndPoint = '$baseUrl/accounts/auth/login/';
-  static var registerEndPoint = '$baseUrl/accounts/auth/registration/';
-  static var allProdEndPoint = '$baseUrl/v1/home/';
+  static var baseUrl = 'http://zarozar.exarth.com';
+  static var loginEndPoint = '$baseUrl/accounts/api/auth/login/';
+  static var registerEndPoint = '$baseUrl/accounts/api/auth/registration/';
+  static var allProdEndPoint = '$baseUrl/web/api/home/';
 }
-

@@ -157,7 +157,10 @@ import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../res/components/colors.dart';
+import '../../utils/routes/utils.dart';
+import '../../view_model/auth_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -170,49 +173,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
   }
 
   bool _isLoading = false;
-  // void _submitFormOnLogin() async {
-  //   final isValid = _formKey.currentState!.validate();
-  //   if (isValid) {
-  //     _formKey.currentState!.save();
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     try {
-  //       await authInstance.signInWithEmailAndPassword(
-  //           email: emailController.text.toLowerCase().trim(),
-  //           password: passwordController.text.trim());
-  //       Utils.toastMessage('SuccessFully Login');
-  //       Navigator.pushNamedAndRemoveUntil(
-  //           context, RoutesName.dashboardScreen, (route) => false);
-  //     } on FirebaseException catch (e) {
-  //       Utils.flushBarErrorMessage('NetWork Error', context);
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     } catch (e) {
-  //       Utils.flushBarErrorMessage('SignUp Fail', context);
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     } finally {
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -221,17 +197,6 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 const VerticalSpeacing(40.0),
-                // Container(
-                //   height: 80.0,
-                //   width: 215.0,
-                //   color: AppColor.logoBgColor,
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(15.0),
-                //     child: Center(
-                //       child: Image.asset('images/logo.png'),
-                //     ),
-                //   ),
-                // ),
                 const Text(
                   'Logo',
                   style: TextStyle(
@@ -271,6 +236,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       TextFieldCustom(
+                        controller: nameController,
+                        maxLines: 1,
+                        text: 'username',
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please enter a valid Email adress";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      TextFieldCustom(
                         controller: emailController,
                         maxLines: 1,
                         text: 'Email Address',
@@ -290,7 +268,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         obscureText: true,
                         validator: (value) {
-                          if (value!.isEmpty || value.length < 7) {
+                          if (value!.isEmpty || value.length < 4) {
                             return "Please enter a valid password";
                           } else {
                             return null;
@@ -339,14 +317,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: AppColor.primaryColor,
                         title: "Login",
                         onpress: () {
-                          // _submitFormOnLogin();
-                          Navigator.pushNamed(
-                            context,
-                            RoutesName.dashboardScreen,
-                          );
+                          if (emailController.text.isEmpty) {
+                            Utils.flushBarErrorMessage(
+                                'please enter your email', context);
+                          } else if (passwordController.text.isEmpty) {
+                            Utils.flushBarErrorMessage(
+                                'please enter your password', context);
+                          } else if (passwordController.text.length < 6) {
+                            Utils.flushBarErrorMessage(
+                                'plase enter more than six digits', context);
+                          } else {
+                            Map data = {
+                              'username': nameController.text.toString(),
+                              'email': emailController.text.toString(),
+                              'password': passwordController.text.toString(),
+                            };
+                            if (data.isNotEmpty) {
+                              authViewModel.loginApi(data, context);
+                              print('Successfully Login');
+                            }
+                          }
                         }),
                 const VerticalSpeacing(20.0),
-
                 const Text(
                   "or",
                   style: TextStyle(
@@ -357,7 +349,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const VerticalSpeacing(20.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -376,7 +367,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const VerticalSpeacing(20.0),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

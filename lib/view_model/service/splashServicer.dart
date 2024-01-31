@@ -11,10 +11,10 @@ class SplashServices {
     getUserData().then((value) {
       if (value.key.isEmpty || value.key == '') {
         Future.delayed(const Duration(seconds: 3));
-        Navigator.pushNamed(context, RoutesName.login);
+        Navigator.pushNamed(context, RoutesName.onboarding1);
       } else {
         Future.delayed(const Duration(seconds: 5));
-        Navigator.pushNamed(context, RoutesName.home);
+        Navigator.pushNamed(context, RoutesName.dashboardScreen);
       }
     }).onError((error, stackTrace) {
       if (kDebugMode) {

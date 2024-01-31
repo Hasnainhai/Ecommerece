@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ecommerece/res/components/colors.dart';
 
 import '../utils/routes/routes_name.dart';
+import '../view_model/service/splashServicer.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -14,24 +15,24 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  void startTimer() async {
-    await Future.delayed(const Duration(seconds: 5), () async {
-      await Navigator.pushNamed(context, RoutesName.onboarding1);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    startTimer();
-  }
-  // SplashServices splashServices = SplashServices();
+  // void startTimer() async {
+  //   await Future.delayed(const Duration(seconds: 5), () async {
+  //     await Navigator.pushNamed(context, RoutesName.onboarding1);
+  //   });
+  // }
 
   // @override
   // void initState() {
-  //   splashServices.checkAuthenTication(context);
   //   super.initState();
+  //   startTimer();
   // }
+  SplashServices splashServices = SplashServices();
+
+  @override
+  void initState() {
+    splashServices.checkAuthenTication(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
