@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ecommerece/model/home_prod_model.dart';
-import 'package:ecommerece/view/Home/dashboard/Products/product_view.dart';
 import 'package:http/http.dart' as http;
 
 class HomeRepository {
@@ -29,9 +28,9 @@ class HomeRepository {
 
         // Access the data in the model
         List<Category> productCategories = homeProdModel.productCategories;
-        List<Product> newProducts = homeProdModel.productsNew.cast<Product>();
-        List<Product> productsFeature =
-            homeProdModel.productsFeature.cast<Product>();
+        List<Products> newProducts = homeProdModel.productsNew.cast<Products>();
+        List<Products> productsFeature =
+            homeProdModel.productsFeature.cast<Products>();
         List<Products> productsTopDiscount = homeProdModel.productsTopDiscount;
         List<Products> productsTopOrder = homeProdModel.productsTopOrder;
         List<Products> productsTopRated = homeProdModel.productsTopRated;
@@ -47,7 +46,7 @@ class HomeRepository {
           print('Category ID: ${category.id}, Name: ${category.name}');
         }
         for (var product in productsFeature) {
-          print('Product ID: ${product.key}');
+          print('Product ID: ${product.id}');
         }
 
         print('\nproductsFeature:');
@@ -55,7 +54,7 @@ class HomeRepository {
           print('Category ID: ${product.id}, Name: ${product.title}');
         }
         for (var product in newProducts) {
-          print('Product ID: ${product.key}');
+          print('Product ID: ${product.id}');
         }
 
         print('\nCategories:');
