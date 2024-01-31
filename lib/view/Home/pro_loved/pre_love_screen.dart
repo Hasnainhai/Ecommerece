@@ -83,13 +83,16 @@ class PreLoveScreen extends StatelessWidget {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(
-                          context,
-                          RoutesName.preLovedproductdetail,
-                        );
-                      },
-                    );
+                        fun: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.preLovedproductdetail,
+                          );
+                        },
+                        name: "",
+                        rating: 0,
+                        price: "",
+                        discount: 0);
                   },
                 ),
               ),

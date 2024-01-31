@@ -2,6 +2,7 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/Products/product_view.dart';
+import 'package:ecommerece/view/Home/repository/home_repository.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/profile/profileScreen.dart';
@@ -19,6 +20,7 @@ class DashBoardScreen extends StatefulWidget {
 
 class _DashBoardScreenState extends State<DashBoardScreen>
     with SingleTickerProviderStateMixin {
+  HomeRepository homeRepository = HomeRepository();
   TabController? tabController;
   int selectIndex = 0;
   onItemClick(int index) {
@@ -40,8 +42,10 @@ class _DashBoardScreenState extends State<DashBoardScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
-        children: const [
-          HomeScreen(),
+        children: [
+          HomeScreen(
+            products: homeRepository.newProducts,
+          ),
           StoreScreen(),
           PreLoveScreen(),
           CartScreen(),

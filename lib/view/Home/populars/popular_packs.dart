@@ -83,10 +83,14 @@ class PopularsScreen extends StatelessWidget {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                    );
+                        fun: () {
+                          Navigator.pushNamed(
+                              context, RoutesName.productdetail);
+                        },
+                        name: "",
+                        rating: 0,
+                        price: "",
+                        discount: 0);
                   },
                 ),
               ),

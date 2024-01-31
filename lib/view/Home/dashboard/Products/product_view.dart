@@ -121,10 +121,14 @@ class _ProductState extends State<Product> {
                   itemCount: 4,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                    );
+                        fun: () {
+                          Navigator.pushNamed(
+                              context, RoutesName.productdetail);
+                        },
+                        name: "",
+                        rating: 0,
+                        price: "",
+                        discount: 0);
                   },
                 ),
                 const VerticalSpeacing(16),
@@ -167,10 +171,14 @@ class _ProductState extends State<Product> {
                   itemCount: 4,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                    );
+                        fun: () {
+                          Navigator.pushNamed(
+                              context, RoutesName.productdetail);
+                        },
+                        name: "",
+                        rating: 0,
+                        price: "",
+                        discount: 0);
                   },
                 ),
               ],
