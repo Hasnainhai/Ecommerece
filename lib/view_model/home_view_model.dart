@@ -1,8 +1,7 @@
 import 'package:ecommerece/data/response/api_response.dart';
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/repository/home_repository.dart';
 import 'package:flutter/foundation.dart';
-
-import '../model/home_prod_model.dart';
 
 class HomeViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
@@ -15,7 +14,7 @@ class HomeViewModel with ChangeNotifier {
 
   Future<void> fetchAllProdApi() async {
     setAllProd(ApiResponse.loading());
-    await _myRepo.fetchAllProd().then((value) {
+    _myRepo.fetchAllProd().then((value) {
       setAllProd(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
       setAllProd(ApiResponse.error(error.toString()));
