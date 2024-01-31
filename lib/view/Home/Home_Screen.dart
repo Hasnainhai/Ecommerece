@@ -15,9 +15,9 @@ import 'repository/home_repository.dart';
 import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
-  final List<Products> products;
-
-  const HomeScreen({super.key, required this.products});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

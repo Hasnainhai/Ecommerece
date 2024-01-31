@@ -5,7 +5,6 @@ import 'package:ecommerece/view/Home/dashboard/Products/product_view.dart';
 import 'package:ecommerece/view/Home/repository/home_repository.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
-import 'package:ecommerece/view/Home/profile/profileScreen.dart';
 import 'package:ecommerece/view/store/store.dart';
 import 'package:flutter/material.dart';
 
@@ -42,10 +41,8 @@ class _DashBoardScreenState extends State<DashBoardScreen>
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: tabController,
-        children: [
-          HomeScreen(
-            products: homeRepository.newProducts,
-          ),
+        children: const [
+          HomeScreen(),
           StoreScreen(),
           PreLoveScreen(),
           CartScreen(),

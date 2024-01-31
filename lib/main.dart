@@ -1,4 +1,3 @@
-import 'package:ecommerece/view/Home/repository/home_repository.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/home_repository_provider.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(create: (_) => HomeRepositoryProvider()),
           ],
-          child: MyApp(),
+          child: const MyApp(),
         ),
       ],
       child: MaterialApp(

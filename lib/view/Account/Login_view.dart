@@ -156,12 +156,10 @@ import 'package:ecommerece/res/components/login_view_buttons.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
-import 'package:ecommerece/view/Home/Home_Screen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../res/components/colors.dart';
-import '../../utils/routes/utils.dart';
 import '../../view_model/auth_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -322,7 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (c) => DashBoardScreen()),
+                                  builder: (c) => const DashBoardScreen()),
                               (route) => false);
                           // if (emailController.text.isEmpty) {
                           //   Utils.flushBarErrorMessage(
