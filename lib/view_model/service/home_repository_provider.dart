@@ -12,8 +12,9 @@ class HomeRepositoryProvider extends ChangeNotifier {
   }
 
   String calculateDiscountedPrice(double originalPrice, double discount) {
-    double discountedPrice = originalPrice - (originalPrice * (discount / 100));
-    int truncatedDiscountedPrice = discountedPrice.truncate();
-    return truncatedDiscountedPrice.toString();
+    String discountedPrice =
+        _homeRepository.calculateDiscountedPrice(originalPrice, discount);
+    notifyListeners();
+    return discountedPrice;
   }
 }

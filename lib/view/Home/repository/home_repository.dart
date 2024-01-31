@@ -6,7 +6,11 @@ import 'package:http/http.dart' as http;
 
 class HomeRepository extends ChangeNotifier {
   List<Products> newProducts = [];
-
+  List<Category> productCategories = [];
+  List<Products> productsFeature = [];
+  List<Products> productsTopDiscount = [];
+  List<Products> productsTopOrder = [];
+  List<Products> productsTopRated = [];
   Future<void> getHomeProd() async {
     // API endpoint
     const String apiUrl = 'http://zarozar.exarth.com/web/api/home/';
@@ -26,16 +30,13 @@ class HomeRepository extends ChangeNotifier {
         // Parse JSON response
         final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
-        // Create an instance of HomeProdModel using the generated method
         HomeProdModel homeProdModel = HomeProdModel.fromJson(jsonResponse);
 
-        // Access the data in the model
-        List<Category> productCategories = homeProdModel.productCategories;
-        List<Products> productsFeature =
-            homeProdModel.productsFeature.cast<Products>();
-        List<Products> productsTopDiscount = homeProdModel.productsTopDiscount;
-        List<Products> productsTopOrder = homeProdModel.productsTopOrder;
-        List<Products> productsTopRated = homeProdModel.productsTopRated;
+        productCategories = homeProdModel.productCategories;
+        productsFeature = homeProdModel.productsFeature.cast<Products>();
+        productsTopDiscount = homeProdModel.productsTopDiscount;
+        productsTopOrder = homeProdModel.productsTopOrder;
+        productsTopRated = homeProdModel.productsTopRated;
 
         newProducts = homeProdModel.productsNew.cast<Products>();
         print('newProducts: $newProducts');

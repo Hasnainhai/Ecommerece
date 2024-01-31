@@ -1,13 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view/filters/filters.dart';
-import 'package:flutter/material.dart';
 
 class NewItemsScreem extends StatelessWidget {
-  const NewItemsScreem({super.key});
+  final List<Products> newProducts;
+  const NewItemsScreem({
+    Key? key,
+    required this.newProducts,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +89,18 @@ class NewItemsScreem extends StatelessWidget {
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
                   ),
-                  itemCount: 10,
+                  itemCount: newProducts.length,
                   itemBuilder: (context, index) {
+                    Products product = newProducts[index];
+
                     return ProLovedCard(
                       fun: () {
                         Navigator.pushNamed(context, RoutesName.productdetail);
                       },
-                      name: "",
-                      rating: 0,
-                      price: "",
-                      discount: "0",
+                      name: product.title,
+                      rating: product.averageReview,
+                      price: product.price,
+                      discount: product.discount.toString(),
                     );
                   },
                 ),
