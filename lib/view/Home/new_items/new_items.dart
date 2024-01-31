@@ -85,14 +85,14 @@ class NewItemsScreem extends StatelessWidget {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
-                        fun: () {
-                          Navigator.pushNamed(
-                              context, RoutesName.productdetail);
-                        },
-                        name: "",
-                        rating: 0,
-                        price: "",
-                        discount: 0);
+                      fun: () {
+                        Navigator.pushNamed(context, RoutesName.productdetail);
+                      },
+                      name: "",
+                      rating: 0,
+                      price: "",
+                      discount: "0",
+                    );
                   },
                 ),
               ),

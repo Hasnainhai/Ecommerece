@@ -477,7 +477,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               name: product.title,
                               rating: product.averageReview,
                               price: product.price,
-                              discount: product.discount);
+                              discount: product.discount.toString());
                         },
                       );
                     }

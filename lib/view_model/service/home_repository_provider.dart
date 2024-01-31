@@ -10,4 +10,10 @@ class HomeRepositoryProvider extends ChangeNotifier {
     await _homeRepository.getHomeProd();
     notifyListeners();
   }
+
+  String calculateDiscountedPrice(double originalPrice, double discount) {
+    double discountedPrice = originalPrice - (originalPrice * (discount / 100));
+    int truncatedDiscountedPrice = discountedPrice.truncate();
+    return truncatedDiscountedPrice.toString();
+  }
 }
