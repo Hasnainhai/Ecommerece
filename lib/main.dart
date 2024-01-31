@@ -1,4 +1,5 @@
 import 'package:ecommerece/view_model/home_view_model.dart';
+import 'package:ecommerece/view_model/service/home_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'utils/routes/routes.dart';
@@ -16,14 +17,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => HomeViewModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => AuthViewModel(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => UserViewModel(),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => HomeViewModel(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => AuthViewModel(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => UserViewModel(),
+            ),
+            ChangeNotifierProvider(create: (_) => HomeRepositoryProvider()),
+          ],
+          child: const MyApp(),
         ),
       ],
       child: MaterialApp(

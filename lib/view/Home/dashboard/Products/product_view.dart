@@ -124,6 +124,10 @@ class _ProductState extends State<Product> {
                       fun: () {
                         Navigator.pushNamed(context, RoutesName.productdetail);
                       },
+                      name: "",
+                      rating: 0,
+                      price: "",
+                      discount: "0",
                     );
                   },
                 ),
@@ -170,6 +174,10 @@ class _ProductState extends State<Product> {
                       fun: () {
                         Navigator.pushNamed(context, RoutesName.productdetail);
                       },
+                      name: "",
+                      rating: 0,
+                      price: "",
+                      discount: "0",
                     );
                   },
                 ),

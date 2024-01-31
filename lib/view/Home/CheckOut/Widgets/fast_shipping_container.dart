@@ -1,5 +1,4 @@
 import 'package:ecommerece/res/components/colors.dart';
-import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:flutter/material.dart';
 
 class FastShippingContainer extends StatelessWidget {

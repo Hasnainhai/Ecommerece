@@ -1,18 +1,44 @@
+import 'dart:ffi';
+
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view/Home/repository/home_repository.dart';
+import 'package:ecommerece/view_model/service/home_repository_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProLovedCard extends StatefulWidget {
-  const ProLovedCard({super.key, required this.fun});
+  ProLovedCard({
+    super.key,
+    required this.fun,
+    required this.name,
+    required this.price,
+    required this.rating,
+    required this.discount,
+  });
   final VoidCallback fun;
+  String name;
+  int rating;
+  String price;
+  String discount;
   @override
   State<ProLovedCard> createState() => _ProLovedCardState();
 }
 
 class _ProLovedCardState extends State<ProLovedCard> {
   bool isLike = false;
+  HomeRepository homeRepository = HomeRepository();
   @override
   Widget build(BuildContext context) {
+    HomeRepositoryProvider homeRepoProvider =
+        Provider.of<HomeRepositoryProvider>(context, listen: false);
+
+    // Calculate discounted price using the HomeRepositoryProvider
+    double originalPrice = double.parse(widget.price);
+    double originalDiscount = double.parse(widget.discount);
+
+    String discountedPrice = homeRepoProvider.homeRepository
+        .calculateDiscountedPrice(originalPrice, originalDiscount);
     return InkWell(
       onTap: widget.fun,
       child: Container(
@@ -50,14 +76,14 @@ class _ProLovedCardState extends State<ProLovedCard> {
             ),
           ),
           const VerticalSpeacing(7),
-          const Padding(
-            padding: EdgeInsets.only(left: 12, right: 12),
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Upper winter",
-                  style: TextStyle(
+                  widget.name,
+                  style: const TextStyle(
                     fontFamily: 'CenturyGothic',
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
@@ -66,14 +92,14 @@ class _ProLovedCardState extends State<ProLovedCard> {
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.star,
                       color: Colors.amber,
                       size: 12,
                     ),
                     Text(
-                      "4.5",
-                      style: TextStyle(
+                      widget.rating.toString(),
+                      style: const TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 10,
                         fontWeight: FontWeight.w300,
@@ -91,23 +117,23 @@ class _ProLovedCardState extends State<ProLovedCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Row(
+                Row(
                   children: [
                     Text(
-                      "\$600",
-                      style: TextStyle(
+                      discountedPrice,
+                      style: const TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 10,
                         fontWeight: FontWeight.w300,
                         color: AppColor.fontColor,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 4,
                     ),
                     Text(
-                      "\$900",
-                      style: TextStyle(
+                      "\$${widget.price}",
+                      style: const TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 10,
                         fontWeight: FontWeight.w300,

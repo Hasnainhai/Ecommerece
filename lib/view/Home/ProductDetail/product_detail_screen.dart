@@ -291,11 +291,19 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     fun: () {
                       Navigator.pushNamed(context, RoutesName.productdetail);
                     },
+                    name: "",
+                    rating: 0,
+                    price: "",
+                    discount: "0",
                   ),
                   ProLovedCard(
                     fun: () {
                       Navigator.pushNamed(context, RoutesName.productdetail);
                     },
+                    name: "",
+                    rating: 0,
+                    price: "",
+                    discount: "0",
                   )
                 ],
               ),

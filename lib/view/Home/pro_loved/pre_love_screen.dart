@@ -89,6 +89,10 @@ class PreLoveScreen extends StatelessWidget {
                           RoutesName.preLovedproductdetail,
                         );
                       },
+                      name: "",
+                      rating: 0,
+                      price: "",
+                      discount: "0",
                     );
                   },
                 ),

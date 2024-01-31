@@ -165,6 +165,10 @@ class VisitStore extends StatelessWidget {
                               Navigator.pushNamed(
                                   context, RoutesName.productdetail);
                             },
+                            name: "",
+                            rating: 0,
+                            price: "",
+                            discount: "0",
                           );
                         },
                       ),
@@ -216,6 +220,10 @@ class VisitStore extends StatelessWidget {
                               Navigator.pushNamed(
                                   context, RoutesName.productdetail);
                             },
+                            name: "",
+                            rating: 0,
+                            price: "",
+                            discount: "0",
                           );
                         },
                       ),

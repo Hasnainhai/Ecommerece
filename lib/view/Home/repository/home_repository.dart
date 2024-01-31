@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class HomeRepository {
-  void getHomeProd() async {
+class HomeRepository extends ChangeNotifier {
+  List<Products> newProducts = [];
+
+  Future<void> getHomeProd() async {
     // API endpoint
     const String apiUrl = 'http://zarozar.exarth.com/web/api/home/';
     try {
@@ -23,51 +26,31 @@ class HomeRepository {
         // Parse JSON response
         final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
-        // Create an instance of AllProdModel using the generated method
+        // Create an instance of HomeProdModel using the generated method
         HomeProdModel homeProdModel = HomeProdModel.fromJson(jsonResponse);
 
         // Access the data in the model
         List<Category> productCategories = homeProdModel.productCategories;
-        List<Products> newProducts = homeProdModel.productsNew.cast<Products>();
         List<Products> productsFeature =
             homeProdModel.productsFeature.cast<Products>();
         List<Products> productsTopDiscount = homeProdModel.productsTopDiscount;
         List<Products> productsTopOrder = homeProdModel.productsTopOrder;
         List<Products> productsTopRated = homeProdModel.productsTopRated;
 
-        // Do whatever you need with the data
-        print('All Products:');
-        for (var product in productsTopDiscount) {
-          print('Product ID: ${product.id}, Title: ${product.title}');
-        }
-
-        print('\nCategories:');
-        for (var category in productCategories) {
-          print('Category ID: ${category.id}, Name: ${category.name}');
-        }
-        for (var product in productsFeature) {
-          print('Product ID: ${product.id}');
-        }
-
-        print('\nproductsFeature:');
-        for (var product in productsTopOrder) {
-          print('Category ID: ${product.id}, Name: ${product.title}');
-        }
-        for (var product in newProducts) {
-          print('Product ID: ${product.id}');
-        }
-
-        print('\nCategories:');
-        for (var product in productsTopRated) {
-          print('Category ID: ${product.id}, Name: ${product.title}');
-        }
+        newProducts = homeProdModel.productsNew.cast<Products>();
+        print('newProducts: $newProducts');
       } else {
-        // Handle non-successful response
         print('Error: ${response.statusCode}');
       }
     } catch (e) {
-      // Handle exceptions
       print('Exception: $e');
     }
+  }
+
+  String calculateDiscountedPrice(
+      double originalPrice, double discountPercentage) {
+    double discountedPrice =
+        originalPrice - (originalPrice * (discountPercentage / 100));
+    return '\$${discountedPrice.toStringAsFixed(2)}';
   }
 }

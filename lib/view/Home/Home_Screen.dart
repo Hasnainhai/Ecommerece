@@ -1,8 +1,10 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
+import 'package:ecommerece/view_model/service/home_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +15,9 @@ import 'repository/home_repository.dart';
 import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    homeRepository.getHomeProd();
+    Provider.of<HomeRepositoryProvider>(context, listen: false).getHomeProd();
   }
 
   @override
@@ -301,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       // isLike = !isLike;
                                     });
                                   },
-                                  child: Icon(Icons.favorite,
+                                  child: const Icon(Icons.favorite,
                                       color: AppColor.primaryColor
                                       // : const Color(0xfff6f6f6f6),
                                       ),
@@ -440,25 +444,47 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               // New productsNew Cart
-
               SizedBox(
                 height: MediaQuery.of(context).size.height / 4,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemExtent: MediaQuery.of(context).size.width / 2.2,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(
-                          context,
-                          RoutesName.productdetail,
-                        );
-                      },
-                    );
+                child: Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    // Check if the data has been loaded
+                    if (homeRepo.homeRepository.newProducts.isEmpty) {
+                      // If data is not yet available, you might want to show a loading indicator
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      // If data is available, display it using a ListView.builder
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: homeRepo.homeRepository.newProducts.length,
+                        itemExtent: MediaQuery.of(context).size.width / 2.2,
+                        itemBuilder: (BuildContext context, int index) {
+                          Products product =
+                              homeRepo.homeRepository.newProducts[index];
+
+                          // Display ProLovedCard for each product
+                          return ProLovedCard(
+                              fun: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutesName.productdetail,
+                                  // Pass the selected product to the product detail screen
+                                  // arguments: product,
+                                );
+                              },
+                              name: product.title,
+                              rating: product.averageReview,
+                              price: product.price,
+                              discount: product.discount.toString());
+                        },
+                      );
+                    }
                   },
                 ),
               ),
+
               const VerticalSpeacing(30.0),
             ],
           ),

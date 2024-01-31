@@ -86,6 +86,10 @@ class PopularsScreen extends StatelessWidget {
                       fun: () {
                         Navigator.pushNamed(context, RoutesName.productdetail);
                       },
+                      name: "",
+                      rating: 0,
+                      price: "",
+                      discount: "0",
                     );
                   },
                 ),

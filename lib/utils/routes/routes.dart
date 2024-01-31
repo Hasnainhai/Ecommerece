@@ -17,6 +17,7 @@ import 'package:ecommerece/view/Home/cart/cartScreen.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/new_items/new_items.dart';
 import 'package:ecommerece/view/Home/populars/popular_packs.dart';
+import 'package:ecommerece/view/Home/repository/home_repository.dart';
 import 'package:ecommerece/view/Home/save/Widgets/favouriteScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/pre_love_screen.dart';
 import 'package:ecommerece/view/Home/profile/profileScreen.dart';
@@ -41,8 +42,12 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => const SplashView());
       case RoutesName.home:
+        HomeRepository homeRepository = HomeRepository();
+
         return MaterialPageRoute(
-            builder: (BuildContext context) => const HomeScreen());
+            builder: (BuildContext context) => HomeScreen(
+                  products: homeRepository.newProducts,
+                ));
       case RoutesName.login:
         return MaterialPageRoute(
             builder: (BuildContext context) => const LoginScreen());
