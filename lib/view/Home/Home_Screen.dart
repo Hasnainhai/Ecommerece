@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    homeRepository.fetchAllProd();
+    homeRepository.getHomeProd();
   }
 
   @override
@@ -298,15 +298,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 InkWell(
                                   onTap: () {
                                     setState(() {
-                                      isLike = !isLike;
+                                      // isLike = !isLike;
                                     });
                                   },
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: isLike
-                                        ? AppColor.primaryColor
-                                        : const Color(0xfff6f6f6f6),
-                                  ),
+                                  child: Icon(Icons.favorite,
+                                      color: AppColor.primaryColor
+                                      // : const Color(0xfff6f6f6f6),
+                                      ),
                                 )
                               ],
                             ),

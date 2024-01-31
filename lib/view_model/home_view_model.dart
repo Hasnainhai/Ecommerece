@@ -1,13 +1,13 @@
 import 'package:ecommerece/data/response/api_response.dart';
-import 'package:ecommerece/model/all_prod_model.dart';
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/repository/home_repository.dart';
 import 'package:flutter/foundation.dart';
 
 class HomeViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
-  ApiResponse<AllProdModel> allProd = ApiResponse.loading();
+  ApiResponse<HomeProdModel> allProd = ApiResponse.loading();
 
-  setAllProd(ApiResponse<AllProdModel> response) {
+  setAllProd(ApiResponse<HomeProdModel> response) {
     allProd = response;
     notifyListeners();
   }
