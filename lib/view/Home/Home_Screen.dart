@@ -415,32 +415,44 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const VerticalSpeacing(20.0),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Our new items',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.newItemsScreen);
-                    },
-                    child: const Text(
-                      'see more',
-                      style: TextStyle(
-                          fontSize: 14.0,
+              Consumer<HomeRepositoryProvider>(
+                builder: (context, homeRepo, child) {
+                  List<Products> newProducts =
+                      homeRepo.homeRepository.newProducts;
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Our new items',
+                        style: TextStyle(
+                          fontSize: 18.0,
                           fontFamily: 'CenturyGothic',
                           color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.newItemsScreen,
+                            arguments: newProducts,
+                          );
+                        },
+                        child: const Text(
+                          'see more',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
 
               // New productsNew Cart
@@ -448,14 +460,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: MediaQuery.of(context).size.height / 4,
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
-                    // Check if the data has been loaded
                     if (homeRepo.homeRepository.newProducts.isEmpty) {
-                      // If data is not yet available, you might want to show a loading indicator
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
-                      // If data is available, display it using a ListView.builder
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: homeRepo.homeRepository.newProducts.length,
@@ -464,20 +473,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           Products product =
                               homeRepo.homeRepository.newProducts[index];
 
-                          // Display ProLovedCard for each product
                           return ProLovedCard(
-                              fun: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  RoutesName.productdetail,
-                                  // Pass the selected product to the product detail screen
-                                  // arguments: product,
-                                );
-                              },
-                              name: product.title,
-                              rating: product.averageReview,
-                              price: product.price,
-                              discount: product.discount.toString());
+                            fun: () {
+                              Navigator.pushNamed(
+                                context,
+                                RoutesName.productdetail,
+                              );
+                            },
+                            name: product.title,
+                            rating: product.averageReview,
+                            price: product.price,
+                            discount: product.discount.toString(),
+                          );
                         },
                       );
                     }
