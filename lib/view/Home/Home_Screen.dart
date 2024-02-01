@@ -138,10 +138,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              const VerticalSpeacing(13.0),
-              const StoreWidget(),
-              const VerticalSpeacing(13.0),
-              const StoreWidget(),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 5,
+                child: Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    if (homeRepo.homeRepository.productsTopRated.isEmpty) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: 2,
+                        // itemExtent: MediaQuery.of(context).size.width / 2.2,
+                        itemBuilder: (BuildContext context, int index) {
+                          Products product =
+                              homeRepo.homeRepository.productsTopRated[index];
+
+                          return const StoreWidget();
+
+                          // ProLovedCard(
+                          //   fun: () {
+                          //     Navigator.pushNamed(
+                          //       context,
+                          //       RoutesName.productdetail,
+                          //     );
+                          //   },
+                          //   name: product.title,
+                          //   rating: product.averageReview,
+                          //   price: product.price,
+                          //   discount: product.discount.toString(),
+                          // );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
+              // const VerticalSpeacing(13.0),
+              // const StoreWidget(),
+              // const VerticalSpeacing(13.0),
+              // const StoreWidget(),
               const VerticalSpeacing(16.0),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
