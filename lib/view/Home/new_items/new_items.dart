@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ecommerece/view_model/service/new_items_view_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerece/model/home_prod_model.dart';
@@ -8,13 +9,22 @@ import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view/filters/filters.dart';
+import 'package:provider/provider.dart';
 
-class NewItemsScreem extends StatelessWidget {
+class NewItemsScreem extends StatefulWidget {
   final List<Products> newProducts;
   const NewItemsScreem({
     Key? key,
     required this.newProducts,
   }) : super(key: key);
+
+  @override
+  State<NewItemsScreem> createState() => _NewItemsScreemState();
+}
+
+class _NewItemsScreemState extends State<NewItemsScreem> {
+  TextEditingController searchController = TextEditingController();
+  bool isSearching = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,59 +63,111 @@ class NewItemsScreem extends StatelessWidget {
               SizedBox(
                 height: 60,
                 width: (MediaQuery.of(context).size.width) - 40,
-                child: TextFormField(
-                  onChanged: (value) {},
-                  decoration: InputDecoration(
-                    hintText: "Search Here",
-                    helperStyle: const TextStyle(color: AppColor.fieldBgColor),
-                    filled: true,
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(
-                      Icons.search,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FilterPopUp(),
-                          ),
-                        );
+                child: Consumer<NewItemsViewModel>(
+                  builder: (context, viewModel, _) {
+                    return TextFormField(
+                      controller: searchController,
+                      onChanged: (value) {
+                        if (searchController.text.length == 3) {
+                          setState(() {
+                            isSearching = true;
+                          });
+                        }
+                        viewModel.searchAndFetchData(value, widget.newProducts);
                       },
-                      icon: const Icon(
-                        Icons.tune_sharp,
-                        color: AppColor.fontColor,
+                      decoration: InputDecoration(
+                        hintText: "Search Here",
+                        helperStyle:
+                            const TextStyle(color: AppColor.fieldBgColor),
+                        filled: true,
+                        border: InputBorder.none,
+                        prefixIcon: const Icon(
+                          Icons.search,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const FilterPopUp(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.tune_sharp,
+                            color: AppColor.fontColor,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
               const VerticalSpeacing(
                 20,
               ),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  itemCount: newProducts.length,
-                  itemBuilder: (context, index) {
-                    Products product = newProducts[index];
+              isSearching
+                  ? Expanded(
+                      child: Consumer<NewItemsViewModel>(
+                        builder: (context, homeRepo, child) {
+                          if (homeRepo.homeRepository.searchProducts.isEmpty) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            return GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                              ),
+                              itemCount:
+                                  homeRepo.homeRepository.searchProducts.length,
+                              itemBuilder: (context, index) {
+                                Products product = homeRepo
+                                    .homeRepository.searchProducts[index];
+                                return ProLovedCard(
+                                  fun: () {
+                                    Navigator.pushNamed(
+                                        context, RoutesName.productdetail);
+                                  },
+                                  name: product.title,
+                                  rating: product.averageReview,
+                                  price: product.price,
+                                  discount: product.discount.toString(),
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    )
+                  : Expanded(
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                        ),
+                        itemCount: widget.newProducts.length,
+                        itemBuilder: (context, index) {
+                          Products product = widget.newProducts[index];
 
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                      name: product.title,
-                      rating: product.averageReview,
-                      price: product.price,
-                      discount: product.discount.toString(),
-                    );
-                  },
-                ),
-              ),
+                          return ProLovedCard(
+                            fun: () {
+                              Navigator.pushNamed(
+                                  context, RoutesName.productdetail);
+                            },
+                            name: product.title,
+                            rating: product.averageReview,
+                            price: product.price,
+                            discount: product.discount.toString(),
+                          );
+                        },
+                      ),
+                    ),
             ],
           ),
         ),

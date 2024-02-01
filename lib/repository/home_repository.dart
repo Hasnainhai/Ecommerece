@@ -55,7 +55,6 @@ class HomeRepository extends ChangeNotifier {
     // API endpoint
 
     try {
-      // Make GET request
       final response = await http.get(
         Uri.parse(AppUrl.allProdEndPoint),
         headers: {
@@ -65,9 +64,7 @@ class HomeRepository extends ChangeNotifier {
         },
       );
 
-      // Check if the request was successful (status code 200)
       if (response.statusCode == 200) {
-        // Parse JSON response
         final Map<String, dynamic> jsonResponse = json.decode(response.body);
 
         HomeProdModel homeProdModel = HomeProdModel.fromJson(jsonResponse);
