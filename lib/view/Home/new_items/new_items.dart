@@ -54,6 +54,7 @@ class NewItemsScreem extends StatelessWidget {
                 height: 60,
                 width: (MediaQuery.of(context).size.width) - 40,
                 child: TextFormField(
+                  onChanged: (value) {},
                   decoration: InputDecoration(
                     hintText: "Search Here",
                     helperStyle: const TextStyle(color: AppColor.fieldBgColor),
