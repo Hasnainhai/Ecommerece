@@ -85,8 +85,12 @@ class Routes {
           builder: (c) => const ForgetPasswordView(),
         );
       case RoutesName.popularsScreen:
+        final List<Products> topProducts = settings.arguments as List<Products>;
+
         return MaterialPageRoute(
-          builder: (c) => const PopularsScreen(),
+          builder: (c) => PopularsScreen(
+            productsTopOrder: topProducts,
+          ),
         );
       case RoutesName.newItemsScreen:
         final List<Products> newProducts = settings.arguments as List<Products>;

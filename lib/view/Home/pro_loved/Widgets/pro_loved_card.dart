@@ -2,8 +2,7 @@ import 'dart:ffi';
 
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
-import 'package:ecommerece/view/Home/repository/home_repository.dart';
-import 'package:ecommerece/view_model/service/home_repository_provider.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +26,6 @@ class ProLovedCard extends StatefulWidget {
 
 class _ProLovedCardState extends State<ProLovedCard> {
   bool isLike = false;
-  HomeRepository homeRepository = HomeRepository();
   @override
   Widget build(BuildContext context) {
     HomeRepositoryProvider homeRepoProvider =

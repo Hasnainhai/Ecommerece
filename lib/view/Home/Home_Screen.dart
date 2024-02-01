@@ -4,14 +4,11 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
-import 'package:ecommerece/view_model/service/home_repository_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/response/status.dart';
 import '../../view_model/home_view_model.dart';
 import 'pro_loved/Widgets/pro_loved_card.dart';
-import 'repository/home_repository.dart';
 import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,16 +21,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  HomeRepository homeRepository = HomeRepository();
   @override
   void initState() {
     super.initState();
-    Provider.of<HomeRepositoryProvider>(context, listen: false).getHomeProd();
+    Provider.of<HomeRepositoryProvider>(context, listen: false).getHomeProd(
+      context,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // final userPrefrences = Provider.of<UserViewModel>(context, listen: false);
     return Scaffold(
         body: SafeArea(
             child: Padding(
@@ -141,10 +138,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              const VerticalSpeacing(13.0),
-              const StoreWidget(),
-              const VerticalSpeacing(13.0),
-              const StoreWidget(),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 5,
+                child: Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    if (homeRepo.homeRepository.productsTopRated.isEmpty) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: 2,
+                        // itemExtent: MediaQuery.of(context).size.width / 2.2,
+                        itemBuilder: (BuildContext context, int index) {
+                          Products product =
+                              homeRepo.homeRepository.productsTopRated[index];
+
+                          return const StoreWidget();
+
+                          // ProLovedCard(
+                          //   fun: () {
+                          //     Navigator.pushNamed(
+                          //       context,
+                          //       RoutesName.productdetail,
+                          //     );
+                          //   },
+                          //   name: product.title,
+                          //   rating: product.averageReview,
+                          //   price: product.price,
+                          //   discount: product.discount.toString(),
+                          // );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
+              // const VerticalSpeacing(13.0),
+              // const StoreWidget(),
+              // const VerticalSpeacing(13.0),
+              // const StoreWidget(),
               const VerticalSpeacing(16.0),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,237 +217,124 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpeacing(16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Populars',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.popularsScreen);
-                    },
-                    child: const Text(
-                      'see more',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Consumer<HomeViewModel>(builder: (context, value, _) {
-                switch (value.allProd.status) {
-                  case Status.LOADING:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case Status.ERROR:
-                    return Center(
-                        child: Text(value.allProd.message.toString()));
-                  case Status.COMPLETED:
-                    return ListView.builder(
-                        itemCount: 1,
-                        // value.allProd.data!.productsTopRated.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Card(
-                              child: ListTile(
-                                leading: Image.network(
-                                  value.allProd.data!.productsTopRated[index]
-                                      .thumbnailImage
-                                      .toString(),
-                                  errorBuilder: (context, error, stack) {
-                                    return const Center(
-                                      child: Icon(
-                                        Icons.error,
-                                        color: AppColor.errorColor,
-                                      ),
-                                    );
-                                  },
-                                ),
-                                title: Text(value
-                                    .allProd.data!.productsTopRated[index].title
-                                    .toString()),
-                                subtitle: Text(value
-                                    .allProd.data!.productsTopRated[index].slug
-                                    .toString()),
-                                trailing: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(value.allProd.data!
-                                        .productsTopRated[index].price
-                                        .toString()),
-                                    Text(value.allProd.data!
-                                        .productsTopRated[index].discount
-                                        .toString()),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        });
+              Consumer<HomeRepositoryProvider>(
+                builder: (context, homeRepo, child) {
+                  List<Products> newProducts =
+                      homeRepo.homeRepository.productsTopOrder;
 
-                  default:
-                }
-                return Container();
-              }),
-              // Top Rated Popular Cart
-              const VerticalSpeacing(16.0),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 4,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemExtent: MediaQuery.of(context).size.width / 2.2,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 200,
-                        width: 168,
-                        color: const Color(0xffF9F9F9),
-                        child: Column(children: [
-                          const VerticalSpeacing(8),
-                          Container(
-                            height: 100,
-                            width: 146,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("images/coat.png"),
-                              ),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      // isLike = !isLike;
-                                    });
-                                  },
-                                  child: const Icon(Icons.favorite,
-                                      color: AppColor.primaryColor
-                                      // : const Color(0xfff6f6f6f6),
-                                      ),
-                                )
-                              ],
-                            ),
-                          ),
-                          const VerticalSpeacing(7),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 12, right: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Upper winter",
-                                  style: TextStyle(
-                                    fontFamily: 'CenturyGothic',
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColor.fontColor,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                      size: 12,
-                                    ),
-                                    Text(
-                                      "4.5",
-                                      style: TextStyle(
-                                        fontFamily: 'CenturyGothic',
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColor.fontColor,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          const VerticalSpeacing(4),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 12, right: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Row(
-                                  children: [
-                                    Text(
-                                      "\$600",
-                                      style: TextStyle(
-                                        fontFamily: 'CenturyGothic',
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColor.fontColor,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      "\$900",
-                                      style: TextStyle(
-                                        fontFamily: 'CenturyGothic',
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColor.fontColor,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 18,
-                                      width: 44,
-                                      decoration: BoxDecoration(
-                                        color: AppColor.primaryColor,
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          "View",
-                                          style: TextStyle(
-                                            fontFamily: 'CenturyGothic',
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColor.whiteColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ]),
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Populars',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'CenturyGothic',
+                          color: AppColor.fontColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    );
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.popularsScreen,
+                            arguments: newProducts,
+                          );
+                        },
+                        child: const Text(
+                          'see more',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     const Text(
+              //       'Populars',
+              //       style: TextStyle(
+              //         fontSize: 18.0,
+              //         fontFamily: 'CenturyGothic',
+              //         color: AppColor.fontColor,
+              //         fontWeight: FontWeight.w600,
+              //       ),
+              //     ),
+              //     InkWell(
+              //       onTap: () {
+              //         Navigator.pushNamed(context, RoutesName.popularsScreen);
+              //       },
+              //       child: const Text(
+              //         'see more',
+              //         style: TextStyle(
+              //           fontSize: 14.0,
+              //           fontFamily: 'CenturyGothic',
+              //           color: AppColor.fontColor,
+              //           fontWeight: FontWeight.w500,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              const VerticalSpeacing(
+                12,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 5,
+                child: Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    if (homeRepo.homeRepository.productsTopRated.isEmpty) {
+                      return
+                          // const Center(
+                          //   child: Text(
+                          //     'No Products to show',
+                          //     style: TextStyle(
+                          //       fontSize: 14.0,
+                          //       fontFamily: 'CenturyGothic',
+                          //       color: AppColor.fontColor,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // );
+                          const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: homeRepo.homeRepository.newProducts.length,
+                        itemExtent: MediaQuery.of(context).size.width / 2.2,
+                        itemBuilder: (BuildContext context, int index) {
+                          Products product =
+                              homeRepo.homeRepository.productsTopRated[index];
+
+                          return ProLovedCard(
+                            fun: () {
+                              Navigator.pushNamed(
+                                context,
+                                RoutesName.productdetail,
+                              );
+                            },
+                            name: product.title,
+                            rating: product.averageReview,
+                            price: product.price,
+                            discount: product.discount.toString(),
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
               ),
               const VerticalSpeacing(20.0),
-
               Consumer<HomeRepositoryProvider>(
                 builder: (context, homeRepo, child) {
                   List<Products> newProducts =
@@ -454,14 +374,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-
-              // New productsNew Cart
+              const VerticalSpeacing(
+                12,
+              ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 4,
+                height: MediaQuery.of(context).size.height / 5,
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
                     if (homeRepo.homeRepository.newProducts.isEmpty) {
-                      return const Center(
+                      return
+                          // const Center(
+                          //   child: Text(
+                          //     'No Products to show',
+                          //     style: TextStyle(
+                          //       fontSize: 14.0,
+                          //       fontFamily: 'CenturyGothic',
+                          //       color: AppColor.fontColor,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // );
+                          const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
@@ -491,7 +424,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-
               const VerticalSpeacing(30.0),
             ],
           ),
