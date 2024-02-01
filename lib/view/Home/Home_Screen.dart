@@ -256,20 +256,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
                     if (homeRepo.homeRepository.productsTopRated.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          'No Products to show',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                      return
+                          // const Center(
+                          //   child: Text(
+                          //     'No Products to show',
+                          //     style: TextStyle(
+                          //       fontSize: 14.0,
+                          //       fontFamily: 'CenturyGothic',
+                          //       color: AppColor.fontColor,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // );
+                          const Center(
+                        child: CircularProgressIndicator(),
                       );
-                      //  Center(
-                      //   child: CircularProgressIndicator(),
-                      // );
                     } else {
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
@@ -345,20 +346,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
                     if (homeRepo.homeRepository.newProducts.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          'No Products to show',
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                      return
+                          // const Center(
+                          //   child: Text(
+                          //     'No Products to show',
+                          //     style: TextStyle(
+                          //       fontSize: 14.0,
+                          //       fontFamily: 'CenturyGothic',
+                          //       color: AppColor.fontColor,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // );
+                          const Center(
+                        child: CircularProgressIndicator(),
                       );
-                      //  Center(
-                      //   child: CircularProgressIndicator(),
-                      // );
                     } else {
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
