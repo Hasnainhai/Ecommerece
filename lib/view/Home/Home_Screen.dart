@@ -181,34 +181,73 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpeacing(16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Populars',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.popularsScreen);
-                    },
-                    child: const Text(
-                      'see more',
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w500,
+              Consumer<HomeRepositoryProvider>(
+                builder: (context, homeRepo, child) {
+                  List<Products> newProducts =
+                      homeRepo.homeRepository.productsTopOrder;
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Populars',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontFamily: 'CenturyGothic',
+                          color: AppColor.fontColor,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ),
-                ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.popularsScreen,
+                            arguments: newProducts,
+                          );
+                        },
+                        child: const Text(
+                          'see more',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     const Text(
+              //       'Populars',
+              //       style: TextStyle(
+              //         fontSize: 18.0,
+              //         fontFamily: 'CenturyGothic',
+              //         color: AppColor.fontColor,
+              //         fontWeight: FontWeight.w600,
+              //       ),
+              //     ),
+              //     InkWell(
+              //       onTap: () {
+              //         Navigator.pushNamed(context, RoutesName.popularsScreen);
+              //       },
+              //       child: const Text(
+              //         'see more',
+              //         style: TextStyle(
+              //           fontSize: 14.0,
+              //           fontFamily: 'CenturyGothic',
+              //           color: AppColor.fontColor,
+              //           fontWeight: FontWeight.w500,
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const VerticalSpeacing(
                 12,
               ),
@@ -302,7 +341,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 12,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 4,
+                height: MediaQuery.of(context).size.height / 5,
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
                     if (homeRepo.homeRepository.newProducts.isEmpty) {

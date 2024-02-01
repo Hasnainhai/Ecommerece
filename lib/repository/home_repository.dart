@@ -39,6 +39,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/res/app_url.dart';
 import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -52,11 +53,11 @@ class HomeRepository extends ChangeNotifier {
   List<Products> productsTopRated = [];
   Future<void> getHomeProd(BuildContext context) async {
     // API endpoint
-    const String apiUrl = 'http://zarozar.exarth.com/web/api/home/';
+
     try {
       // Make GET request
       final response = await http.get(
-        Uri.parse(apiUrl),
+        Uri.parse(AppUrl.allProdEndPoint),
         headers: {
           'accept': 'application/json',
           'X-CSRFToken':
