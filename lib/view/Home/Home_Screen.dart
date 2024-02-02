@@ -111,32 +111,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpeacing(16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Store',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RoutesName.storeScreen);
-                    },
-                    child: const Text(
-                      'see more',
-                      style: TextStyle(
-                          fontSize: 14.0,
+              Consumer<HomeRepositoryProvider>(
+                builder: (context, homeRepo, child) {
+                  List<Products> newProducts =
+                      homeRepo.homeRepository.productsTopRated;
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Store',
+                        style: TextStyle(
+                          fontSize: 18.0,
                           fontFamily: 'CenturyGothic',
                           color: AppColor.fontColor,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.storeScreen,
+                            arguments: newProducts,
+                          );
+                        },
+                        child: const Text(
+                          'see more',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontFamily: 'CenturyGothic',
+                            color: AppColor.fontColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 5,
