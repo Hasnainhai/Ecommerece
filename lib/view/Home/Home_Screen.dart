@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: MediaQuery.of(context).size.height / 5,
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
-                    if (homeRepo.homeRepository.productsTopRated.isEmpty) {
+                    if (homeRepo.homeRepository.topShops.isEmpty) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
@@ -151,10 +151,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: 2,
                         // itemExtent: MediaQuery.of(context).size.width / 2.2,
                         itemBuilder: (BuildContext context, int index) {
-                          Products product =
-                              homeRepo.homeRepository.productsTopRated[index];
+                          TopShop shop =
+                              homeRepo.homeRepository.topShops[index];
 
-                          return const StoreWidget();
+                          return StoreWidget(
+                            title: shop.shopName,
+                            img: '',
+                            rating: shop.averageRating.toString(),
+                            address: shop.shopAddress,
+                          );
 
                           // ProLovedCard(
                           //   fun: () {
