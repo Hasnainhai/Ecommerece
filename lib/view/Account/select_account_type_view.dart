@@ -1,5 +1,6 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Account/widgets/account_container.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,12 @@ class SelectAccountType extends StatelessWidget {
               ),
               const VerticalSpeacing(46),
               AccountContainer(
-                onpress: () {},
+                onpress: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesName.loginorsigin,
+                  );
+                },
                 title: 'Sign Up As\n A buyer',
               ),
               const VerticalSpeacing(34),
