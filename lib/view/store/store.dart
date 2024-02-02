@@ -5,7 +5,9 @@ import 'package:ecommerece/view/store/Widgets/store_card.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
-  const StoreScreen({super.key});
+  final List<dynamic> stores;
+
+  const StoreScreen({super.key, required this.stores});
 
   @override
   Widget build(BuildContext context) {

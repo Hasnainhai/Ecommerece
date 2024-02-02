@@ -113,8 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const VerticalSpeacing(16.0),
               Consumer<HomeRepositoryProvider>(
                 builder: (context, homeRepo, child) {
-                  List<Products> newProducts =
-                      homeRepo.homeRepository.productsTopRated;
+                  List<TopShop> topShop = homeRepo.homeRepository.topShops;
 
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -133,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.pushNamed(
                             context,
                             RoutesName.storeScreen,
-                            arguments: newProducts,
+                            arguments: topShop,
                           );
                         },
                         child: const Text(
