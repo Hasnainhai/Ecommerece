@@ -7,21 +7,29 @@ import '../../../res/components/colors.dart';
 class StoreWidget extends StatelessWidget {
   const StoreWidget({
     super.key,
+    required this.title,
+    required this.img,
+    required this.rating,
+    required this.address,
   });
+  final String title;
+  final String img;
+  final String rating;
+  final String address;
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
+    return ListTile(
         isThreeLine: false,
-        leading: CircleAvatar(
+        leading: const CircleAvatar(
           radius: 35.0,
           backgroundColor: AppColor.primaryColor,
           backgroundImage: NetworkImage(
               'https://www.shutterstock.com/image-vector/red-store-vector-sign-promotion-260nw-1918121837.jpg'),
         ),
         title: Text(
-          'best day cloth house',
-          style: TextStyle(
+          title,
+          style: const TextStyle(
               fontSize: 14.0,
               color: AppColor.fontColor,
               fontWeight: FontWeight.w600,
@@ -29,22 +37,22 @@ class StoreWidget extends StatelessWidget {
         ),
         subtitle: Text.rich(
           TextSpan(
-              text: 'New hussaiabad',
-              style: TextStyle(
+              text: address,
+              style: const TextStyle(
                   fontSize: 14.0,
                   color: AppColor.fontColor,
                   fontFamily: 'CenturyGothic'),
               children: [
                 TextSpan(
-                  text: '\n⭐️ 4.5 rating',
-                  style: TextStyle(
+                  text: '\n⭐️ $rating',
+                  style: const TextStyle(
                       fontSize: 14.0,
                       color: AppColor.fontColor,
                       fontFamily: 'CenturyGothic'),
                 )
               ]),
         ),
-        trailing: Icon(
+        trailing: const Icon(
           Icons.arrow_forward_ios_outlined,
           color: AppColor.blackColor,
         ));

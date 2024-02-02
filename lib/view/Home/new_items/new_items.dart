@@ -109,8 +109,9 @@ class _NewItemsScreemState extends State<NewItemsScreem> {
               isSearching
                   ? Expanded(
                       child: Consumer<NewItemsViewModel>(
-                        builder: (context, homeRepo, child) {
-                          if (homeRepo.homeRepository.searchProducts.isEmpty) {
+                        builder: (context, searchRepo, child) {
+                          if (searchRepo
+                              .newItemsRepository.searchProducts.isEmpty) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
@@ -122,11 +123,11 @@ class _NewItemsScreemState extends State<NewItemsScreem> {
                                 crossAxisSpacing: 16,
                                 mainAxisSpacing: 16,
                               ),
-                              itemCount:
-                                  homeRepo.homeRepository.searchProducts.length,
+                              itemCount: searchRepo
+                                  .newItemsRepository.searchProducts.length,
                               itemBuilder: (context, index) {
-                                Products product = homeRepo
-                                    .homeRepository.searchProducts[index];
+                                Products product = searchRepo
+                                    .newItemsRepository.searchProducts[index];
                                 return ProLovedCard(
                                   fun: () {
                                     Navigator.pushNamed(
@@ -134,7 +135,7 @@ class _NewItemsScreemState extends State<NewItemsScreem> {
                                   },
                                   name: product.title,
                                   rating: product.averageReview,
-                                  price: product.price,
+                                  price: product.price.toString(),
                                   discount: product.discount.toString(),
                                 );
                               },
@@ -162,7 +163,7 @@ class _NewItemsScreemState extends State<NewItemsScreem> {
                             },
                             name: product.title,
                             rating: product.averageReview,
-                            price: product.price,
+                            price: product.price.toString(),
                             discount: product.discount.toString(),
                           );
                         },
