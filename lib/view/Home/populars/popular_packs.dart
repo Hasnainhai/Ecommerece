@@ -154,8 +154,7 @@ class _PopularsScreenState extends State<PopularsScreen> {
                         itemCount: widget.productsTopOrder.length,
                         itemBuilder: (context, index) {
                           Products product = widget.productsTopOrder[index];
-                          debugPrint(
-                              "this is the price of the product:${product.price.toString}");
+
                           return ProLovedCard(
                             fun: () {
                               Navigator.pushNamed(
