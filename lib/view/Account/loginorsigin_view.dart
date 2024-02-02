@@ -2,6 +2,7 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/login_buttons.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 
 import '../../res/components/rounded_button.dart';
 import '../../res/components/verticalSpacing.dart';
@@ -25,7 +26,32 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
           padding: const EdgeInsets.only(left: 20.0, right: 20),
           child: Column(
             children: <Widget>[
-              const VerticalSpeacing(80.0),
+              const VerticalSpeacing(40.0),
+              InkWell(
+                onTap: () {
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (c) => const DashBoardScreen()),
+                      (route) => false);
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Skip Login',
+                      style: TextStyle(
+                        fontFamily: 'CenturyGothic',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColor.primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const VerticalSpeacing(40.0),
+
               // Container(
               //   height: 80.0,
               //   width: 215.0,
@@ -72,8 +98,7 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
               ),
               const VerticalSpeacing(50.0),
               RoundedButton(
-                                  color: AppColor.primaryColor,
-
+                  color: AppColor.primaryColor,
                   title: 'Login With Email',
                   onpress: () {
                     Navigator.pushNamed(
