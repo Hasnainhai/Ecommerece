@@ -1,9 +1,10 @@
-import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/store/Widgets/store_card.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({
@@ -42,19 +43,29 @@ class StoreScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 16,
-              mainAxisSpacing: 16,
-            ),
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return StoreCard(
-                ontap: () {
-                  Navigator.pushNamed(context, RoutesName.visitStore);
-                },
-              );
+          child: Consumer<HomeRepositoryProvider>(
+            builder: (context, homeRepo, child) {
+              if (homeRepo.homeRepository.topShops.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: homeRepo.homeRepository.topShops.length,
+                  itemBuilder: (context, index) {
+                    return StoreCard(
+                      ontap: () {
+                        Navigator.pushNamed(context, RoutesName.visitStore);
+                      },
+                    );
+                  },
+                );
+              }
             },
           ),
         ),
