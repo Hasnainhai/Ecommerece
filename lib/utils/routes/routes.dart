@@ -63,12 +63,8 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => const DashBoardScreen());
       case RoutesName.storeScreen:
-        final List<TopShop> stores = settings.arguments as List<TopShop>;
-
         return MaterialPageRoute(
-            builder: (BuildContext context) => StoreScreen(
-                  stores: stores,
-                ));
+            builder: (BuildContext context) => const StoreScreen());
       case RoutesName.preLove:
         return MaterialPageRoute(
             builder: (BuildContext context) => const PreLoveScreen());

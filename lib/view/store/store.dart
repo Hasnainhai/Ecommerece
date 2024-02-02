@@ -1,3 +1,4 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
@@ -5,9 +6,9 @@ import 'package:ecommerece/view/store/Widgets/store_card.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
-  final List<dynamic> stores;
-
-  const StoreScreen({super.key, required this.stores});
+  const StoreScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
