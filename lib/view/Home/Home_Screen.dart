@@ -172,29 +172,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? '${shop.shopAddress.substring(0, 27)}...'
                                 : shop.shopAddress,
                           );
-
-                          // ProLovedCard(
-                          //   fun: () {
-                          //     Navigator.pushNamed(
-                          //       context,
-                          //       RoutesName.productdetail,
-                          //     );
-                          //   },
-                          //   name: product.title,
-                          //   rating: product.averageReview,
-                          //   price: product.price,
-                          //   discount: product.discount.toString(),
-                          // );
                         },
                       );
                     }
                   },
                 ),
               ),
-              // const VerticalSpeacing(13.0),
-              // const StoreWidget(),
-              // const VerticalSpeacing(13.0),
-              // const StoreWidget(),
               const VerticalSpeacing(16.0),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -273,7 +256,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-
               const VerticalSpeacing(
                 12,
               ),
@@ -360,19 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
                     if (homeRepo.homeRepository.newProducts.isEmpty) {
-                      return
-                          // const Center(
-                          //   child: Text(
-                          //     'No Products to show',
-                          //     style: TextStyle(
-                          //       fontSize: 14.0,
-                          //       fontFamily: 'CenturyGothic',
-                          //       color: AppColor.fontColor,
-                          //       fontWeight: FontWeight.w500,
-                          //     ),
-                          //   ),
-                          // );
-                          const Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
