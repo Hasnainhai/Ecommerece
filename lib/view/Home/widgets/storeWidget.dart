@@ -29,7 +29,7 @@ class StoreWidget extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14.0,
               color: AppColor.fontColor,
               fontWeight: FontWeight.w600,
