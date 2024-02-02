@@ -58,7 +58,7 @@ class OnBordingScreen3 extends StatelessWidget {
                   onTap: () {
                     Navigator.pushNamed(
                       context,
-                      RoutesName.loginorsigin,
+                      RoutesName.selectaccounttype,
                     );
                   },
                 ),
