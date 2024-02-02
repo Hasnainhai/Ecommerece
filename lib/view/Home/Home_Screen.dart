@@ -292,19 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Consumer<HomeRepositoryProvider>(
                   builder: (context, homeRepo, child) {
                     if (homeRepo.homeRepository.productsTopRated.isEmpty) {
-                      return
-                          // const Center(
-                          //   child: Text(
-                          //     'No Products to show',
-                          //     style: TextStyle(
-                          //       fontSize: 14.0,
-                          //       fontFamily: 'CenturyGothic',
-                          //       color: AppColor.fontColor,
-                          //       fontWeight: FontWeight.w500,
-                          //     ),
-                          //   ),
-                          // );
-                          const Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     } else {
@@ -325,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             name: product.title,
                             rating: product.averageReview,
-                            price: product.price,
+                            price: product.price.toString(),
                             discount: product.discount.toString(),
                           );
                         },
@@ -415,7 +403,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             name: product.title,
                             rating: product.averageReview,
-                            price: product.price,
+                            price: product.price.toString(),
                             discount: product.discount.toString(),
                           );
                         },

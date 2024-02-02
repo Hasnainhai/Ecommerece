@@ -51,9 +51,9 @@ class HomeRepository extends ChangeNotifier {
   List<Products> productsTopDiscount = [];
   List<Products> productsTopOrder = [];
   List<Products> productsTopRated = [];
-  Future<void> getHomeProd(BuildContext context) async {
-    // API endpoint
+  List<TopShop> topShops = [];
 
+  Future<void> getHomeProd(BuildContext context) async {
     try {
       final response = await http.get(
         Uri.parse(AppUrl.allProdEndPoint),
@@ -69,15 +69,18 @@ class HomeRepository extends ChangeNotifier {
 
         HomeProdModel homeProdModel = HomeProdModel.fromJson(jsonResponse);
 
+        // Assigning values to lists
         productCategories = homeProdModel.productCategories;
-        productsFeature = homeProdModel.productsFeature.cast<Products>();
+        productsFeature = homeProdModel.productsFeature;
         productsTopDiscount = homeProdModel.productsTopDiscount;
         productsTopOrder = homeProdModel.productsTopOrder;
         productsTopRated = homeProdModel.productsTopRated;
+        topShops = homeProdModel.topShops;
+        newProducts = homeProdModel.productsNew;
 
-        newProducts = homeProdModel.productsNew.cast<Products>();
-        print('newProducts: $newProducts');
+        notifyListeners();
       } else {
+        // Handle different HTTP status codes
         if (response.statusCode == 404) {
           Utils.flushBarErrorMessage("Products not found", context);
         } else {
@@ -85,6 +88,9 @@ class HomeRepository extends ChangeNotifier {
         }
       }
     } catch (e) {
+      // Handle exceptions
+      print("Exception: $e");
+
       if (e is SocketException) {
         Utils.flushBarErrorMessage(
             "Network error. Check your internet connection.", context);

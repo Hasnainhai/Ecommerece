@@ -1,16 +1,6 @@
-// To parse this JSON data, do
-//
-//     final homeProdModel = homeProdModelFromJson(jsonString);
-
-import 'dart:convert';
-
-HomeProdModel homeProdModelFromJson(String str) =>
-    HomeProdModel.fromJson(json.decode(str));
-
-String homeProdModelToJson(HomeProdModel data) => json.encode(data.toJson());
-
 class HomeProdModel {
   List<Category> productCategories;
+  List<TopShop> topShops;
   List<Products> productsNew;
   List<Products> productsFeature;
   List<Products> productsTopOrder;
@@ -19,6 +9,7 @@ class HomeProdModel {
 
   HomeProdModel({
     required this.productCategories,
+    required this.topShops,
     required this.productsNew,
     required this.productsFeature,
     required this.productsTopOrder,
@@ -26,174 +17,139 @@ class HomeProdModel {
     required this.productsTopDiscount,
   });
 
-  factory HomeProdModel.fromJson(Map<String, dynamic> json) => HomeProdModel(
-        productCategories: List<Category>.from(
-            json["product_categories"].map((x) => Category.fromJson(x))),
-        productsNew: List<Products>.from(
-            json["products_new"].map((x) => Products.fromJson(x))),
-        productsFeature: List<Products>.from(
-            json["products_feature"].map((x) => Products.fromJson(x))),
-        productsTopOrder: List<Products>.from(
-            json["products_top_order"].map((x) => Products.fromJson(x))),
-        productsTopRated: List<Products>.from(
-            json["products_top_rated"].map((x) => Products.fromJson(x))),
-        productsTopDiscount: List<Products>.from(
-            json["products_top_discount"].map((x) => Products.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "product_categories":
-            List<dynamic>.from(productCategories.map((x) => x.toJson())),
-        "products_new": List<dynamic>.from(productsNew.map((x) => x.toJson())),
-        "products_feature":
-            List<dynamic>.from(productsFeature.map((x) => x.toJson())),
-        "products_top_order":
-            List<dynamic>.from(productsTopOrder.map((x) => x.toJson())),
-        "products_top_rated":
-            List<dynamic>.from(productsTopRated.map((x) => x.toJson())),
-        "products_top_discount":
-            List<dynamic>.from(productsTopDiscount.map((x) => x.toJson())),
-      };
+  factory HomeProdModel.fromJson(Map<String, dynamic> json) {
+    return HomeProdModel(
+      productCategories: List<Category>.from(
+        json['product_categories']
+            .map((category) => Category.fromJson(category)),
+      ),
+      topShops: List<TopShop>.from(
+        json['top_shops'].map((shop) => TopShop.fromJson(shop)),
+      ),
+      productsNew: List<Products>.from(
+        json['products_new'].map((product) => Products.fromJson(product)),
+      ),
+      productsFeature: List<Products>.from(
+        json['products_feature'].map((product) => Products.fromJson(product)),
+      ),
+      productsTopOrder: List<Products>.from(
+        json['products_top_order'].map((product) => Products.fromJson(product)),
+      ),
+      productsTopRated: List<Products>.from(
+        json['products_top_rated'].map((product) => Products.fromJson(product)),
+      ),
+      productsTopDiscount: List<Products>.from(
+        json['products_top_discount']
+            .map((product) => Products.fromJson(product)),
+      ),
+    );
+  }
 }
 
 class Category {
   String id;
   String name;
   String thumbnailImage;
-  dynamic bannerImage;
+  String? bannerImage;
 
   Category({
     required this.id,
     required this.name,
     required this.thumbnailImage,
-    required this.bannerImage,
+    this.bannerImage,
   });
 
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"],
-        name: json["name"],
-        thumbnailImage: json["thumbnail_image"],
-        bannerImage: json["banner_image"],
-      );
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category(
+      id: json['id'],
+      name: json['name'],
+      thumbnailImage: json['thumbnail_image'],
+      bannerImage: json['banner_image'],
+    );
+  }
+}
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "thumbnail_image": thumbnailImage,
-        "banner_image": bannerImage,
-      };
+class TopShop {
+  int id;
+  String logo;
+  String? coverImage;
+  String shopName;
+  String? tagline;
+  String shopAddress;
+  String? shopPostalCode;
+  String shopCity;
+  String shopState;
+  String? shopCountry;
+  bool isApproved;
+  double averageRating;
+  int totalReviews;
+
+  TopShop({
+    required this.id,
+    required this.logo,
+    this.coverImage,
+    required this.shopName,
+    this.tagline,
+    required this.shopAddress,
+    this.shopPostalCode,
+    required this.shopCity,
+    required this.shopState,
+    this.shopCountry,
+    required this.isApproved,
+    required this.averageRating,
+    required this.totalReviews,
+  });
+
+  factory TopShop.fromJson(Map<String, dynamic> json) {
+    return TopShop(
+      id: json['id'],
+      logo: json['logo'],
+      coverImage: json['cover_image'],
+      shopName: json['shop_name'],
+      tagline: json['tagline'],
+      shopAddress: json['shop_address'],
+      shopPostalCode: json['shop_postal_code'],
+      shopCity: json['shop_city'],
+      shopState: json['shop_state'],
+      shopCountry: json['shop_country'],
+      isApproved: json['is_approved'],
+      averageRating: json['average_rating'],
+      totalReviews: json['total_reviews'],
+    );
+  }
 }
 
 class Products {
-  String id;
-  String sku;
-  String title;
-  Category category;
-  String slug;
-  String thumbnailImage;
-  String price;
-  int discount;
-  dynamic promotional;
-  int totalReviews;
-  int averageReview;
-  Vendor vendor;
+  final String id;
+  final String title;
+  final Category category; // Assuming you have a Category class
+  final String thumbnailImage;
+  final double price;
+  final int discount;
+  final int totalReviews;
+  final int averageReview;
 
   Products({
     required this.id,
-    required this.sku,
     required this.title,
     required this.category,
-    required this.slug,
     required this.thumbnailImage,
     required this.price,
     required this.discount,
-    required this.promotional,
     required this.totalReviews,
     required this.averageReview,
-    required this.vendor,
   });
 
-  factory Products.fromJson(Map<String, dynamic> json) => Products(
-        id: json["id"],
-        sku: json["sku"],
-        title: json["title"],
-        category: Category.fromJson(json["category"]),
-        slug: json["slug"],
-        thumbnailImage: json["thumbnail_image"],
-        price: json["price"],
-        discount: json["discount"],
-        promotional: json["promotional"],
-        totalReviews: json["total_reviews"],
-        averageReview: json["average_review"],
-        vendor: Vendor.fromJson(json["vendor"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "sku": sku,
-        "title": title,
-        "category": category.toJson(),
-        "slug": slug,
-        "thumbnail_image": thumbnailImage,
-        "price": price,
-        "discount": discount,
-        "promotional": promotional,
-        "total_reviews": totalReviews,
-        "average_review": averageReview,
-        "vendor": vendor.toJson(),
-      };
-
-  convertToProduct() {}
-}
-
-class Vendor {
-  int id;
-  String username;
-  String email;
-  VendorDetails vendorDetails;
-
-  Vendor({
-    required this.id,
-    required this.username,
-    required this.email,
-    required this.vendorDetails,
-  });
-
-  factory Vendor.fromJson(Map<String, dynamic> json) => Vendor(
-        id: json["id"],
-        username: json["username"],
-        email: json["email"],
-        vendorDetails: VendorDetails.fromJson(json["vendor_details"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "username": username,
-        "email": email,
-        "vendor_details": vendorDetails.toJson(),
-      };
-}
-
-class VendorDetails {
-  int id;
-  String shopName;
-  dynamic tagline;
-
-  VendorDetails({
-    required this.id,
-    required this.shopName,
-    required this.tagline,
-  });
-
-  factory VendorDetails.fromJson(Map<String, dynamic> json) => VendorDetails(
-        id: json["id"],
-        shopName: json["shop_name"],
-        tagline: json["tagline"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "shop_name": shopName,
-        "tagline": tagline,
-      };
+  factory Products.fromJson(Map<String, dynamic> json) {
+    return Products(
+      id: json['id'],
+      title: json['title'],
+      category: Category.fromJson(json['category']),
+      thumbnailImage: json['thumbnail_image'],
+      price: double.parse(json['price']),
+      discount: json['discount'],
+      totalReviews: json['total_reviews'],
+      averageReview: json['average_review'],
+    );
+  }
 }
