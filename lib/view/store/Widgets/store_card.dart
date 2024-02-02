@@ -3,8 +3,19 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:flutter/material.dart';
 
 class StoreCard extends StatelessWidget {
-  const StoreCard({super.key, required this.ontap});
+  const StoreCard({
+    super.key,
+    required this.ontap,
+    required this.name,
+    required this.rating,
+    required this.address,
+    required this.img,
+  });
   final Function ontap;
+  final String name;
+  final String rating;
+  final String address;
+  final String img;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +35,14 @@ class StoreCard extends StatelessWidget {
           ),
         ),
         const VerticalSpeacing(7),
-        const Padding(
-          padding: EdgeInsets.only(left: 12, right: 12),
+        Padding(
+          padding: const EdgeInsets.only(left: 12, right: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "best day cloth",
-                style: TextStyle(
+                name.length > 18 ? '${name.substring(0, 18)}...' : name,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
@@ -40,14 +51,14 @@ class StoreCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.star,
                     color: Colors.amber,
                     size: 12,
                   ),
                   Text(
-                    "4.5",
-                    style: TextStyle(
+                    rating,
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 10,
                       fontWeight: FontWeight.w300,
@@ -65,9 +76,11 @@ class StoreCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "New hussaiabad",
-                style: TextStyle(
+              Text(
+                address.length > 15
+                    ? '${address.substring(0, 15)}...'
+                    : address,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 10,
                   fontWeight: FontWeight.w300,
@@ -75,7 +88,7 @@ class StoreCard extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: (){
+                onTap: () {
                   ontap();
                 },
                 child: Container(

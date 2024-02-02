@@ -1,3 +1,4 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
@@ -58,10 +59,15 @@ class StoreScreen extends StatelessWidget {
                   ),
                   itemCount: homeRepo.homeRepository.topShops.length,
                   itemBuilder: (context, index) {
+                    TopShop shop = homeRepo.homeRepository.topShops[index];
                     return StoreCard(
                       ontap: () {
                         Navigator.pushNamed(context, RoutesName.visitStore);
                       },
+                      name: shop.shopName,
+                      rating: shop.averageRating.toString(),
+                      address: shop.shopAddress,
+                      img: "",
                     );
                   },
                 );
