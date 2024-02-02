@@ -160,7 +160,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else {
                       return ListView.builder(
                         itemCount: 2,
-                        // itemExtent: MediaQuery.of(context).size.width / 2.2,
                         itemBuilder: (BuildContext context, int index) {
                           TopShop shop =
                               homeRepo.homeRepository.topShops[index];
@@ -169,7 +168,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             title: shop.shopName,
                             img: '',
                             rating: shop.averageRating.toString(),
-                            address: shop.shopAddress,
+                            address: shop.shopAddress.length > 15
+                                ? '${shop.shopAddress.substring(0, 27)}...'
+                                : shop.shopAddress,
                           );
 
                           // ProLovedCard(
