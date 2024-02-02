@@ -220,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Consumer<HomeRepositoryProvider>(
                 builder: (context, homeRepo, child) {
                   List<Products> newProducts =
-                      homeRepo.homeRepository.productsTopOrder;
+                      homeRepo.homeRepository.productsTopRated;
 
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,34 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     const Text(
-              //       'Populars',
-              //       style: TextStyle(
-              //         fontSize: 18.0,
-              //         fontFamily: 'CenturyGothic',
-              //         color: AppColor.fontColor,
-              //         fontWeight: FontWeight.w600,
-              //       ),
-              //     ),
-              //     InkWell(
-              //       onTap: () {
-              //         Navigator.pushNamed(context, RoutesName.popularsScreen);
-              //       },
-              //       child: const Text(
-              //         'see more',
-              //         style: TextStyle(
-              //           fontSize: 14.0,
-              //           fontFamily: 'CenturyGothic',
-              //           color: AppColor.fontColor,
-              //           fontWeight: FontWeight.w500,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
+
               const VerticalSpeacing(
                 12,
               ),
