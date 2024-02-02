@@ -3,6 +3,7 @@ import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Account/forget_pawword.view.dart';
 
 import 'package:ecommerece/view/Account/loginorsigin_view.dart';
+import 'package:ecommerece/view/Account/select_account_type_view.dart';
 import 'package:ecommerece/view/Account/siginup_view.dart';
 import 'package:ecommerece/view/Home/Bidding/bidding_view.dart';
 import 'package:ecommerece/view/Home/CheckOut/Widgets/payment_done.dart';
@@ -62,6 +63,10 @@ class Routes {
       case RoutesName.dashboardScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => const DashBoardScreen());
+      case RoutesName.selectaccounttype:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => const SelectAccountType(),
+        );
       case RoutesName.storeScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => const StoreScreen());

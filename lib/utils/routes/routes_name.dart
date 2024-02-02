@@ -17,6 +17,8 @@ class RoutesName {
 
   static const String loginorsigin = 'loginorsigin';
   static const String suginup = "siginup";
+  static const String selectaccounttype = "selectaccounttype";
+
   static const String forgetpassword = "forgetpassword";
   static const String popularsScreen = "populars_screen";
 
