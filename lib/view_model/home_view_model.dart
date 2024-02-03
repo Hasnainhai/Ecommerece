@@ -40,4 +40,9 @@ class HomeRepositoryProvider extends ChangeNotifier {
     notifyListeners();
     return discountedPrice;
   }
+
+  void search(String searchTerm) {
+    _homeRepository.search(searchTerm);
+    notifyListeners();
+  }
 }

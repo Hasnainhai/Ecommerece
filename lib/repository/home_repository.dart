@@ -52,6 +52,7 @@ class HomeRepository extends ChangeNotifier {
   List<Products> productsTopOrder = [];
   List<Products> productsTopRated = [];
   List<TopShop> topShops = [];
+  List<Products> searchResults = [];
 
   Future<void> getHomeProd(BuildContext context) async {
     try {
@@ -107,5 +108,25 @@ class HomeRepository extends ChangeNotifier {
     double discountedPrice =
         originalPrice - (originalPrice * (discountPercentage / 100));
     return '\$${discountedPrice.toStringAsFixed(2)}';
+  }
+
+  void search(String searchTerm) {
+    searchResults.clear();
+
+    // Search in productsTopOrder list
+    for (var product in productsTopOrder) {
+      if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchResults.add(product);
+      }
+    }
+
+    // Search in productsNew list
+    for (var product in newProducts) {
+      if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchResults.add(product);
+      }
+    }
+
+    notifyListeners();
   }
 }
