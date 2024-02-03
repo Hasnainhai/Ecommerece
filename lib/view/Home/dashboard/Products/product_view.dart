@@ -1,10 +1,13 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view/filters/filters.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Product extends StatefulWidget {
   const Product({super.key});
@@ -82,54 +85,84 @@ class _ProductState extends State<Product> {
                   ),
                 ),
                 const VerticalSpeacing(16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Populars',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoutesName.popularsScreen);
-                      },
-                      child: const Text(
-                        'see more',
-                        style: TextStyle(
-                            fontSize: 14.0,
+                Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    List<Products> newProducts =
+                        homeRepo.homeRepository.productsTopRated;
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Populars',
+                          style: TextStyle(
+                            fontSize: 18.0,
                             fontFamily: 'CenturyGothic',
                             color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpeacing(14),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                      name: "",
-                      rating: 0,
-                      price: "",
-                      discount: "0",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RoutesName.popularsScreen,
+                              arguments: newProducts,
+                            );
+                          },
+                          child: const Text(
+                            'see more',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'CenturyGothic',
+                              color: AppColor.fontColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
+                ),
+                const VerticalSpeacing(14),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 2.3,
+                  child: Consumer<HomeRepositoryProvider>(
+                    builder: (context, homeRepo, child) {
+                      if (homeRepo.homeRepository.productsTopOrder.isEmpty) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                          ),
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            Products product =
+                                homeRepo.homeRepository.productsTopOrder[index];
+                            return ProLovedCard(
+                              price: product.price.toString(),
+                              discount: product.discount.toString(),
+                              name: product.title,
+                              rating: 0,
+                              fun: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutesName.productdetail,
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
                 ),
                 const VerticalSpeacing(16),
                 Row(
