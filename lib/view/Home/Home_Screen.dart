@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                             viewModel.search(
                                 value,
-                                viewModel.homeRepository.productsTopOrder,
+                                viewModel.homeRepository.productsTopRated,
                                 viewModel.homeRepository.newProducts);
                           },
                           decoration: InputDecoration(

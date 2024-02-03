@@ -72,12 +72,12 @@ class HomeRepository extends ChangeNotifier {
 
   void search(
     String searchTerm,
-    List<Products> productsTopOrder,
+    List<Products> productsTopRated,
     List<Products> productsNew,
   ) {
     searchResults.clear();
 
-    for (var product in productsTopOrder) {
+    for (var product in productsTopRated) {
       if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
         searchResults.add(product);
       }
