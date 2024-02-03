@@ -1,10 +1,13 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view/filters/filters.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Product extends StatefulWidget {
   const Product({super.key});
@@ -14,6 +17,8 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+  TextEditingController searchController = TextEditingController();
+  bool isSearch = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,132 +59,208 @@ class _ProductState extends State<Product> {
                 SizedBox(
                   height: 60,
                   width: (MediaQuery.of(context).size.width) - 40,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Search Here",
-                      helperStyle:
-                          const TextStyle(color: AppColor.fieldBgColor),
-                      filled: true,
-                      border: InputBorder.none,
-                      prefixIcon: const Icon(
-                        Icons.search,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FilterPopUp(),
-                            ),
-                          );
+                  child: Consumer<HomeRepositoryProvider>(
+                    builder: (context, viewModel, _) {
+                      return TextFormField(
+                        controller: searchController,
+                        onChanged: (value) {
+                          if (searchController.text.length == 3) {
+                            setState(() {
+                              isSearch = true;
+                            });
+                          }
+                          viewModel.search(
+                              value,
+                              viewModel.homeRepository.productsTopRated,
+                              viewModel.homeRepository.newProducts);
                         },
-                        icon: const Icon(
-                          Icons.tune_sharp,
-                          color: AppColor.fontColor,
+                        decoration: InputDecoration(
+                          hintText: "Search Here",
+                          helperStyle:
+                              const TextStyle(color: AppColor.fieldBgColor),
+                          filled: true,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(
+                            Icons.search,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const FilterPopUp(),
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.tune_sharp,
+                              color: AppColor.fontColor,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
                 const VerticalSpeacing(16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Populars',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoutesName.popularsScreen);
-                      },
-                      child: const Text(
-                        'see more',
-                        style: TextStyle(
-                            fontSize: 14.0,
+                Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    List<Products> newProducts =
+                        homeRepo.homeRepository.productsTopRated;
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Populars',
+                          style: TextStyle(
+                            fontSize: 18.0,
                             fontFamily: 'CenturyGothic',
                             color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpeacing(14),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                      name: "",
-                      rating: 0,
-                      price: "",
-                      discount: "0",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RoutesName.popularsScreen,
+                              arguments: newProducts,
+                            );
+                          },
+                          child: const Text(
+                            'see more',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'CenturyGothic',
+                              color: AppColor.fontColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
+                ),
+                const VerticalSpeacing(14),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 2.3,
+                  child: Consumer<HomeRepositoryProvider>(
+                    builder: (context, homeRepo, child) {
+                      if (homeRepo.homeRepository.productsTopRated.isEmpty) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                          ),
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            Products product =
+                                homeRepo.homeRepository.productsTopRated[index];
+                            return ProLovedCard(
+                              price: product.price.toString(),
+                              discount: product.discount.toString(),
+                              name: product.title,
+                              rating: product.averageReview,
+                              fun: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutesName.productdetail,
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
                 ),
                 const VerticalSpeacing(16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Our new items',
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontFamily: 'CenturyGothic',
-                        color: AppColor.fontColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, RoutesName.newItemsScreen);
-                      },
-                      child: const Text(
-                        'see more',
-                        style: TextStyle(
-                            fontSize: 14.0,
+                Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    List<Products> newProducts =
+                        homeRepo.homeRepository.newProducts;
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Our new items',
+                          style: TextStyle(
+                            fontSize: 18.0,
                             fontFamily: 'CenturyGothic',
                             color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpeacing(14),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                  ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return ProLovedCard(
-                      fun: () {
-                        Navigator.pushNamed(context, RoutesName.productdetail);
-                      },
-                      name: "",
-                      rating: 0,
-                      price: "",
-                      discount: "0",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              RoutesName.newItemsScreen,
+                              arguments: newProducts,
+                            );
+                          },
+                          child: const Text(
+                            'see more',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'CenturyGothic',
+                              color: AppColor.fontColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
                     );
                   },
+                ),
+                const VerticalSpeacing(14),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 2.3,
+                  child: Consumer<HomeRepositoryProvider>(
+                    builder: (context, homeRepo, child) {
+                      if (homeRepo.homeRepository.newProducts.isEmpty) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                          ),
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            Products product =
+                                homeRepo.homeRepository.newProducts[index];
+                            return ProLovedCard(
+                              price: product.price.toString(),
+                              discount: product.discount.toString(),
+                              name: product.title,
+                              rating: product.averageReview,
+                              fun: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutesName.productdetail,
+                                );
+                              },
+                            );
+                          },
+                        );
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
