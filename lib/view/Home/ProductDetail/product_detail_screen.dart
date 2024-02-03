@@ -1,3 +1,4 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
@@ -7,7 +8,9 @@ import 'package:ecommerece/view/Home/ProductDetail/widgets/color_container.dart'
 import 'package:ecommerece/view/Home/ProductDetail/widgets/size_container.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
   const ProductDetailView({super.key});
@@ -283,6 +286,42 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               const VerticalSpeacing(
                 10,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 5,
+                child: Consumer<HomeRepositoryProvider>(
+                  builder: (context, homeRepo, child) {
+                    if (homeRepo.homeRepository.productsTopRated.isEmpty) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            homeRepo.homeRepository.productsTopRated.length,
+                        itemExtent: MediaQuery.of(context).size.width / 2.2,
+                        itemBuilder: (BuildContext context, int index) {
+                          Products product =
+                              homeRepo.homeRepository.productsTopRated[index];
+
+                          return ProLovedCard(
+                            fun: () {
+                              Navigator.pushNamed(
+                                context,
+                                RoutesName.productdetail,
+                              );
+                            },
+                            name: product.title,
+                            rating: product.averageReview,
+                            price: product.price.toString(),
+                            discount: product.discount.toString(),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
