@@ -156,6 +156,7 @@ import 'package:ecommerece/res/components/login_view_buttons.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -317,31 +318,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: AppColor.primaryColor,
                         title: "Login",
                         onpress: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (c) => const DashBoardScreen()),
-                              (route) => false);
-                          // if (emailController.text.isEmpty) {
-                          //   Utils.flushBarErrorMessage(
-                          //       'please enter your email', context);
-                          // } else if (passwordController.text.isEmpty) {
-                          //   Utils.flushBarErrorMessage(
-                          //       'please enter your password', context);
-                          // } else if (passwordController.text.length < 6) {
-                          //   Utils.flushBarErrorMessage(
-                          //       'plase enter more than six digits', context);
-                          // } else {
-                          //   Map data = {
-                          //     'username': nameController.text.toString(),
-                          //     'email': emailController.text.toString(),
-                          //     'password': passwordController.text.toString(),
-                          //   };
-                          //   if (data.isNotEmpty) {
-                          //     authViewModel.loginApi(data, context);
-                          //     print('Successfully Login');
-                          //   }
-                          // }
+                          // Navigator.pushAndRemoveUntil(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (c) => const DashBoardScreen()),
+                          //     (route) => false);
+                          if (emailController.text.isEmpty) {
+                            Utils.flushBarErrorMessage(
+                                'please enter your email', context);
+                          } else if (passwordController.text.isEmpty) {
+                            Utils.flushBarErrorMessage(
+                                'please enter your password', context);
+                          } else if (passwordController.text.length < 6) {
+                            Utils.flushBarErrorMessage(
+                                'plase enter more than six digits', context);
+                          } else {
+                            Map data = {
+                              'username': nameController.text.toString(),
+                              'email': emailController.text.toString(),
+                              'password': passwordController.text.toString(),
+                            };
+                            if (data.isNotEmpty) {
+                              authViewModel.loginApi(data, context);
+                              print('Successfully Login');
+                            }
+                          }
                         }),
                 const VerticalSpeacing(20.0),
                 const Text(
