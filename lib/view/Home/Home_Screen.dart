@@ -302,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               12,
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height / 5,
+                              height: MediaQuery.of(context).size.height / 2,
                               width: MediaQuery.of(context).size.width,
                               child: Consumer<HomeRepositoryProvider>(
                                 builder: (context, homeRepo, child) {
