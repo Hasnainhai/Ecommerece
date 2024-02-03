@@ -203,18 +203,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const VerticalSpeacing(16.0),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        CategoryCart('All'),
-                        CategoryCart('Jakits'),
-                        CategoryCart('Shirt'),
-                        CategoryCart('Woman'),
-                        CategoryCart('Jakits'),
-                        CategoryCart('Shirt'),
-                        CategoryCart('Woman'),
-                      ],
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 14,
+                    child: Consumer<HomeRepositoryProvider>(
+                      builder: (context, homeRepo, child) {
+                        if (homeRepo.homeRepository.productCategories.isEmpty) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: homeRepo
+                                .homeRepository.productCategories.length,
+                            itemExtent: MediaQuery.of(context).size.width / 3.6,
+                            itemBuilder: (BuildContext context, int index) {
+                              Category category = homeRepo
+                                  .homeRepository.productCategories[index];
+
+                              return CategoryCart(category.name);
+                            },
+                          );
+                        }
+                      },
                     ),
                   ),
                   const VerticalSpeacing(16.0),
