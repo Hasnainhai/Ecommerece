@@ -94,44 +94,47 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 60,
                     width: (MediaQuery.of(context).size.width) - 40,
-                    child: TextFormField(
-                      controller: searchController,
-                      onChanged: (value) {
-                        if (searchController.text.length == 3) {
-                          Provider.of<HomeRepositoryProvider>(context,
-                                  listen: false)
-                              .search(value);
-                          setState(() {
-                            isSearch = true;
-                          });
-                        } else {
-                          setState(() {
-                            isSearch = true;
-                          });
-                        }
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Search Here",
-                        helperStyle:
-                            const TextStyle(color: AppColor.fieldBgColor),
-                        filled: true,
-                        border: InputBorder.none,
-                        prefixIcon: const Icon(
-                          Icons.search,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FilterPopUp()));
+                    child: Consumer<HomeRepositoryProvider>(
+                      builder: (context, viewModel, _) {
+                        return TextFormField(
+                          controller: searchController,
+                          onChanged: (value) {
+                            if (searchController.text.length == 3) {
+                              setState(() {
+                                isSearch = true;
+                              });
+                            }
+                            viewModel.search(
+                                value,
+                                viewModel.homeRepository.productsTopOrder,
+                                viewModel.homeRepository.newProducts);
                           },
-                          icon: const Icon(
-                            Icons.tune_sharp,
-                            color: AppColor.fontColor,
+                          decoration: InputDecoration(
+                            hintText: "Search Here",
+                            helperStyle:
+                                const TextStyle(color: AppColor.fieldBgColor),
+                            filled: true,
+                            border: InputBorder.none,
+                            prefixIcon: const Icon(
+                              Icons.search,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const FilterPopUp(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.tune_sharp,
+                                color: AppColor.fontColor,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                   const VerticalSpeacing(16.0),
@@ -328,6 +331,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Products product = homeRepo
                                             .homeRepository
                                             .searchResults[index];
+                                        print(
+                                            'Debug - Product $index: ${product.title} - ${product.price}');
 
                                         return ProLovedCard(
                                           fun: () {
@@ -406,8 +411,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   } else {
                                     return ListView.builder(
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: homeRepo
-                                          .homeRepository.newProducts.length,
+                                      itemCount: homeRepo.homeRepository
+                                          .productsTopRated.length,
                                       itemExtent:
                                           MediaQuery.of(context).size.width /
                                               2.2,

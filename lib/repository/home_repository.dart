@@ -1,38 +1,3 @@
-// // import 'package:ecommerece/data/network/BaseApiServices.dart';
-// // import 'package:ecommerece/data/network/NetworkApiServiecs.dart';
-// // import 'package:ecommerece/model/all_prod_model.dart';
-// // import 'package:ecommerece/res/app_url.dart';
-
-// // class HomeRepository {
-// //   final BaseApiServices _apiServices = NetworkApiService();
-// //   Future<AllProdModel> fetchAllProd() async {
-// //     try {
-// //       dynamic response =
-// //           await _apiServices.getGetApiResponse(AppUrl.allProdEndPoint);
-// //       return response = AllProdModel.fromJson(response);
-// //     } catch (e) {
-// //       throw e;
-// //     }
-// //   }
-// // }
-// import 'package:ecommerece/data/network/BaseApiServices.dart';
-// import 'package:ecommerece/data/network/NetworkApiServiecs.dart';
-// import 'package:ecommerece/res/app_url.dart';
-
-// import '../model/home_prod_model.dart';
-
-// class HomeRepository {
-//   final BaseApiServices _apiServices = NetworkApiService();
-//   Future<HomeProdModel> fetchAllProd() async {
-//     try {
-//       dynamic response =
-//           await _apiServices.getGetApiResponse(AppUrl.allProdEndPoint);
-//       return response = HomeProdModel.fromJson(response);
-//     } catch (e) {
-//       throw e;
-//     }
-//   }
-// //
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
@@ -70,7 +35,6 @@ class HomeRepository extends ChangeNotifier {
 
         HomeProdModel homeProdModel = HomeProdModel.fromJson(jsonResponse);
 
-        // Assigning values to lists
         productCategories = homeProdModel.productCategories;
         productsFeature = homeProdModel.productsFeature;
         productsTopDiscount = homeProdModel.productsTopDiscount;
@@ -81,7 +45,6 @@ class HomeRepository extends ChangeNotifier {
 
         notifyListeners();
       } else {
-        // Handle different HTTP status codes
         if (response.statusCode == 404) {
           Utils.flushBarErrorMessage("Products not found", context);
         } else {
@@ -89,9 +52,6 @@ class HomeRepository extends ChangeNotifier {
         }
       }
     } catch (e) {
-      // Handle exceptions
-      print("Exception: $e");
-
       if (e is SocketException) {
         Utils.flushBarErrorMessage(
             "Network error. Check your internet connection.", context);
@@ -110,23 +70,27 @@ class HomeRepository extends ChangeNotifier {
     return '\$${discountedPrice.toStringAsFixed(2)}';
   }
 
-  void search(String searchTerm) {
+  void search(
+    String searchTerm,
+    List<Products> productsTopOrder,
+    List<Products> productsNew,
+  ) {
     searchResults.clear();
 
-    // Search in productsTopOrder list
     for (var product in productsTopOrder) {
       if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
         searchResults.add(product);
       }
     }
 
-    // Search in productsNew list
     for (var product in newProducts) {
       if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
         searchResults.add(product);
       }
     }
 
-    notifyListeners();
+    if (searchResults.isNotEmpty) {
+      notifyListeners();
+    }
   }
 }
