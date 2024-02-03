@@ -21,12 +21,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController searchController = TextEditingController();
+  bool isSearch = false;
   @override
   void initState() {
     super.initState();
     Provider.of<HomeRepositoryProvider>(context, listen: false).getHomeProd(
       context,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchController.dispose();
   }
 
   @override
@@ -86,29 +94,47 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 60,
                     width: (MediaQuery.of(context).size.width) - 40,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Search Here",
-                        helperStyle:
-                            const TextStyle(color: AppColor.fieldBgColor),
-                        filled: true,
-                        border: InputBorder.none,
-                        prefixIcon: const Icon(
-                          Icons.search,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const FilterPopUp()));
+                    child: Consumer<HomeRepositoryProvider>(
+                      builder: (context, viewModel, _) {
+                        return TextFormField(
+                          controller: searchController,
+                          onChanged: (value) {
+                            if (searchController.text.length == 3) {
+                              setState(() {
+                                isSearch = true;
+                              });
+                            }
+                            viewModel.search(
+                                value,
+                                viewModel.homeRepository.productsTopOrder,
+                                viewModel.homeRepository.newProducts);
                           },
-                          icon: const Icon(
-                            Icons.tune_sharp,
-                            color: AppColor.fontColor,
+                          decoration: InputDecoration(
+                            hintText: "Search Here",
+                            helperStyle:
+                                const TextStyle(color: AppColor.fieldBgColor),
+                            filled: true,
+                            border: InputBorder.none,
+                            prefixIcon: const Icon(
+                              Icons.search,
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const FilterPopUp(),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.tune_sharp,
+                                color: AppColor.fontColor,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ),
                   const VerticalSpeacing(16.0),
@@ -203,179 +229,304 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const VerticalSpeacing(16.0),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        CategoryCart('All'),
-                        CategoryCart('Jakits'),
-                        CategoryCart('Shirt'),
-                        CategoryCart('Woman'),
-                        CategoryCart('Jakits'),
-                        CategoryCart('Shirt'),
-                        CategoryCart('Woman'),
-                      ],
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 14,
+                    child: Consumer<HomeRepositoryProvider>(
+                      builder: (context, homeRepo, child) {
+                        if (homeRepo.homeRepository.productCategories.isEmpty) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: homeRepo
+                                .homeRepository.productCategories.length,
+                            itemExtent: MediaQuery.of(context).size.width / 3.6,
+                            itemBuilder: (BuildContext context, int index) {
+                              Category category = homeRepo
+                                  .homeRepository.productCategories[index];
+
+                              return CategoryCart(category.name);
+                            },
+                          );
+                        }
+                      },
                     ),
                   ),
                   const VerticalSpeacing(16.0),
-                  Consumer<HomeRepositoryProvider>(
-                    builder: (context, homeRepo, child) {
-                      List<Products> newProducts =
-                          homeRepo.homeRepository.productsTopRated;
+                  isSearch
+                      ? Column(
+                          children: [
+                            Consumer<HomeRepositoryProvider>(
+                              builder: (context, homeRepo, child) {
+                                List<Products> newProducts =
+                                    homeRepo.homeRepository.productsTopRated;
 
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Populars',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontFamily: 'CenturyGothic',
-                              color: AppColor.fontColor,
-                              fontWeight: FontWeight.w600,
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Search Products',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontFamily: 'CenturyGothic',
+                                        color: AppColor.fontColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RoutesName.popularsScreen,
+                                          arguments: newProducts,
+                                        );
+                                      },
+                                      child: const Text(
+                                        'see more',
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontFamily: 'CenturyGothic',
+                                          color: AppColor.fontColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutesName.popularsScreen,
-                                arguments: newProducts,
-                              );
-                            },
-                            child: const Text(
-                              'see more',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'CenturyGothic',
-                                color: AppColor.fontColor,
-                                fontWeight: FontWeight.w500,
+                            const VerticalSpeacing(
+                              12,
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 2,
+                              width: MediaQuery.of(context).size.width,
+                              child: Consumer<HomeRepositoryProvider>(
+                                builder: (context, homeRepo, child) {
+                                  if (homeRepo
+                                      .homeRepository.searchResults.isEmpty) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2, // Number of columns
+                                        crossAxisSpacing:
+                                            8.0, // Spacing between columns
+                                        mainAxisSpacing:
+                                            8.0, // Spacing between rows
+                                        childAspectRatio:
+                                            1.0, // Width to height ratio of each grid item
+                                      ),
+                                      itemCount: homeRepo
+                                          .homeRepository.searchResults.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        Products product = homeRepo
+                                            .homeRepository
+                                            .searchResults[index];
+                                        print(
+                                            'Debug - Product $index: ${product.title} - ${product.price}');
+
+                                        return ProLovedCard(
+                                          fun: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              RoutesName.productdetail,
+                                            );
+                                          },
+                                          name: product.title,
+                                          rating: product.averageReview,
+                                          price: product.price.toString(),
+                                          discount: product.discount.toString(),
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  const VerticalSpeacing(
-                    12,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 5,
-                    child: Consumer<HomeRepositoryProvider>(
-                      builder: (context, homeRepo, child) {
-                        if (homeRepo.homeRepository.productsTopRated.isEmpty) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                                homeRepo.homeRepository.newProducts.length,
-                            itemExtent: MediaQuery.of(context).size.width / 2.2,
-                            itemBuilder: (BuildContext context, int index) {
-                              Products product = homeRepo
-                                  .homeRepository.productsTopRated[index];
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Consumer<HomeRepositoryProvider>(
+                              builder: (context, homeRepo, child) {
+                                List<Products> newProducts =
+                                    homeRepo.homeRepository.productsTopRated;
 
-                              return ProLovedCard(
-                                fun: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.productdetail,
-                                  );
-                                },
-                                name: product.title,
-                                rating: product.averageReview,
-                                price: product.price.toString(),
-                                discount: product.discount.toString(),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  const VerticalSpeacing(20.0),
-                  Consumer<HomeRepositoryProvider>(
-                    builder: (context, homeRepo, child) {
-                      List<Products> newProducts =
-                          homeRepo.homeRepository.newProducts;
-
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Our new items',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontFamily: 'CenturyGothic',
-                              color: AppColor.fontColor,
-                              fontWeight: FontWeight.w600,
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Populars',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontFamily: 'CenturyGothic',
+                                        color: AppColor.fontColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RoutesName.popularsScreen,
+                                          arguments: newProducts,
+                                        );
+                                      },
+                                      child: const Text(
+                                        'see more',
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontFamily: 'CenturyGothic',
+                                          color: AppColor.fontColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutesName.newItemsScreen,
-                                arguments: newProducts,
-                              );
-                            },
-                            child: const Text(
-                              'see more',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'CenturyGothic',
-                                color: AppColor.fontColor,
-                                fontWeight: FontWeight.w500,
+                            const VerticalSpeacing(
+                              12,
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 5,
+                              child: Consumer<HomeRepositoryProvider>(
+                                builder: (context, homeRepo, child) {
+                                  if (homeRepo.homeRepository.productsTopRated
+                                      .isEmpty) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: homeRepo.homeRepository
+                                          .productsTopRated.length,
+                                      itemExtent:
+                                          MediaQuery.of(context).size.width /
+                                              2.2,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        Products product = homeRepo
+                                            .homeRepository
+                                            .productsTopRated[index];
+
+                                        return ProLovedCard(
+                                          fun: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              RoutesName.productdetail,
+                                            );
+                                          },
+                                          name: product.title,
+                                          rating: product.averageReview,
+                                          price: product.price.toString(),
+                                          discount: product.discount.toString(),
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  const VerticalSpeacing(
-                    12,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 5,
-                    child: Consumer<HomeRepositoryProvider>(
-                      builder: (context, homeRepo, child) {
-                        if (homeRepo.homeRepository.newProducts.isEmpty) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                                homeRepo.homeRepository.newProducts.length,
-                            itemExtent: MediaQuery.of(context).size.width / 2.2,
-                            itemBuilder: (BuildContext context, int index) {
-                              Products product =
-                                  homeRepo.homeRepository.newProducts[index];
+                            const VerticalSpeacing(20.0),
+                            Consumer<HomeRepositoryProvider>(
+                              builder: (context, homeRepo, child) {
+                                List<Products> newProducts =
+                                    homeRepo.homeRepository.newProducts;
 
-                              return ProLovedCard(
-                                fun: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.productdetail,
-                                  );
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Our new items',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontFamily: 'CenturyGothic',
+                                        color: AppColor.fontColor,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          RoutesName.newItemsScreen,
+                                          arguments: newProducts,
+                                        );
+                                      },
+                                      child: const Text(
+                                        'see more',
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontFamily: 'CenturyGothic',
+                                          color: AppColor.fontColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                            const VerticalSpeacing(
+                              12,
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height / 5,
+                              child: Consumer<HomeRepositoryProvider>(
+                                builder: (context, homeRepo, child) {
+                                  if (homeRepo
+                                      .homeRepository.newProducts.isEmpty) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  } else {
+                                    return ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: homeRepo
+                                          .homeRepository.newProducts.length,
+                                      itemExtent:
+                                          MediaQuery.of(context).size.width /
+                                              2.2,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        Products product = homeRepo
+                                            .homeRepository.newProducts[index];
+
+                                        return ProLovedCard(
+                                          fun: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              RoutesName.productdetail,
+                                            );
+                                          },
+                                          name: product.title,
+                                          rating: product.averageReview,
+                                          price: product.price.toString(),
+                                          discount: product.discount.toString(),
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
-                                name: product.title,
-                                rating: product.averageReview,
-                                price: product.price.toString(),
-                                discount: product.discount.toString(),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                  const VerticalSpeacing(30.0),
+                              ),
+                            ),
+                            const VerticalSpeacing(30.0),
+                          ],
+                        ),
                 ],
               ),
             ],
@@ -385,108 +536,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // Scaffold(
-    //   appBar: AppBar(
-    //     automaticallyImplyLeading: false,
-    //     title: InkWell(
-    //         onTap: () {
-    //           userPrefrences.removerUser().then((value) {
-    //             Navigator.pushNamed(context, RoutesName.login);
-    //           });
-    //         },
-    //         child: const Center(
-    //             child: Text(
-    //           'LogOut',
-    //         ))),
-    //   ),
-    //   body: ChangeNotifierProvider(
-    //     create: (BuildContext context) => homeViewModel,
-    //     child: Consumer<HomeViewModel>(builder: (context, value, _) {
-    //       switch (value.allProd.status) {
-    //         case Status.LOADING:
-    //           return const Center(
-    //             child: CircularProgressIndicator(),
-    //           );
-    //         case Status.ERROR:
-    //           return Center(child: Text(value.allProd.message.toString()));
-    //         case Status.COMPLETED:
-    //           return ListView.builder(
-    //               itemCount: value.allProd.data!.allProducts.length,
-    //               itemBuilder: (context, index) {
-    //                 return Padding(
-    //                   padding: const EdgeInsets.all(5.0),
-    //                   child: Card(
-    //                     child: ListTile(
-    //                       leading: Image.network(
-    //                         value
-    //                             .allProd.data!.allProducts[index].thumbnailImage
-    //                             .toString(),
-    //                         errorBuilder: (context, error, stack) {
-    //                           return const Center(
-    //                             child: Icon(
-    //                               Icons.error,
-    //                               color: AppColor.errorColor,
-    //                             ),
-    //                           );
-    //                         },
-    //                       ),
-    //                       title: Text(value
-    //                           .allProd.data!.allProducts[index].title
-    //                           .toString()),
-    //                       subtitle: Text(value
-    //                           .allProd.data!.allProducts[index].slug
-    //                           .toString()),
-    //                       trailing: Column(
-    //                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //                         children: [
-    //                           Text(value.allProd.data!.allProducts[index].price
-    //                               .toString()),
-    //                           Text(value
-    //                               .allProd.data!.allProducts[index].discount
-    //                               .toString()),
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   ),
-    //                 );
-    //               });
-
-    //         default:
-    //       }
-    //       return Container();
-    //     }),
-    //   ),
-    // );
-  
