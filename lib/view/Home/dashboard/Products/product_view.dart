@@ -150,7 +150,7 @@ class _ProductState extends State<Product> {
                               price: product.price.toString(),
                               discount: product.discount.toString(),
                               name: product.title,
-                              rating: 0,
+                              rating: product.averageReview,
                               fun: () {
                                 Navigator.pushNamed(
                                   context,
