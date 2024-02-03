@@ -323,29 +323,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                   },
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ProLovedCard(
-                    fun: () {
-                      Navigator.pushNamed(context, RoutesName.productdetail);
-                    },
-                    name: "",
-                    rating: 0,
-                    price: "",
-                    discount: "0",
-                  ),
-                  ProLovedCard(
-                    fun: () {
-                      Navigator.pushNamed(context, RoutesName.productdetail);
-                    },
-                    name: "",
-                    rating: 0,
-                    price: "",
-                    discount: "0",
-                  )
-                ],
-              ),
               const VerticalSpeacing(
                 40,
               ),
