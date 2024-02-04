@@ -1,7 +1,10 @@
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../res/components/colors.dart';
 import '../../res/components/verticalSpacing.dart';
@@ -28,6 +31,7 @@ class VisitStore extends StatefulWidget {
 }
 
 class _VisitStoreState extends State<VisitStore> {
+  bool isSearch = false;
   TextEditingController searchController = TextEditingController();
   @override
   void dispose() {
@@ -82,21 +86,49 @@ class _VisitStoreState extends State<VisitStore> {
                       SizedBox(
                         height: 60,
                         width: (MediaQuery.of(context).size.width) - 40,
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: "Search",
-                            helperStyle: TextStyle(color: AppColor.whiteColor),
-                            fillColor: AppColor.whiteColor,
-                            filled: true,
-                            border: InputBorder.none,
-                            prefixIcon: Icon(
-                              Icons.search,
-                            ),
-                            suffixIcon: Icon(
-                              Icons.tune_sharp,
-                              color: AppColor.fontColor,
-                            ),
-                          ),
+                        child: Consumer<HomeRepositoryProvider>(
+                          builder: (context, searchModel, _) {
+                            return TextFormField(
+                              controller: searchController,
+                              onChanged: (value) {
+                                if (searchController.text.length == 3) {
+                                  setState(() {
+                                    isSearch = true;
+                                  });
+                                }
+                                searchModel.search(
+                                  value,
+                                  searchModel.homeRepository.productsTopRated,
+                                  searchModel.homeRepository.newProducts,
+                                );
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Search Here",
+                                helperStyle: const TextStyle(
+                                    color: AppColor.fieldBgColor),
+                                filled: true,
+                                border: InputBorder.none,
+                                prefixIcon: const Icon(
+                                  Icons.search,
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FilterPopUp(),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.tune_sharp,
+                                    color: AppColor.fontColor,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                       const VerticalSpeacing(
@@ -117,162 +149,258 @@ class _VisitStoreState extends State<VisitStore> {
                   left: 20,
                   right: 20,
                 ),
-                child: Column(
-                  children: [
-                    // const VerticalSpeacing(16.0),
-                    const Row(
-                      children: [
-                        Text(
-                          'Categories',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const VerticalSpeacing(16.0),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
+                child: isSearch
+                    ? Column(
                         children: [
-                          CategoryCart('All'),
-                          CategoryCart('Jakits'),
-                          CategoryCart('Shirt'),
-                          CategoryCart('Woman'),
-                          CategoryCart('Jakits'),
-                          CategoryCart('Shirt'),
-                          CategoryCart('Woman'),
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Populars',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              RoutesName.popularsScreen,
-                              arguments: widget.productsTopRated,
-                            );
-                          },
-                          child: const Text(
-                            'see more',
-                            style: TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'CenturyGothic',
-                                color: AppColor.fontColor,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const VerticalSpeacing(27.0),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.3,
-                      child: GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 12.0,
-                          mainAxisSpacing: 12.0,
-                        ),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          Products product = widget.productsTopRated[index];
-                          return ProLovedCard(
-                            fun: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutesName.productdetail,
+                          const VerticalSpeacing(16.0),
+                          Consumer<HomeRepositoryProvider>(
+                            builder: (context, homeRepo, child) {
+                              List<Products> newProducts =
+                                  homeRepo.homeRepository.productsTopRated;
+
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'Search Products',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontFamily: 'CenturyGothic',
+                                      color: AppColor.fontColor,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RoutesName.popularsScreen,
+                                        arguments: newProducts,
+                                      );
+                                    },
+                                    child: const Text(
+                                      'see more',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontFamily: 'CenturyGothic',
+                                        color: AppColor.fontColor,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
-                            name: product.title,
-                            rating: product.averageReview,
-                            price: product.price.toString(),
-                            discount: product.discount.toString(),
-                          );
-                        },
-                      ),
-                    ),
-                    const VerticalSpeacing(20.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'New T Shirts',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w600,
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              RoutesName.newItemsScreen,
-                              arguments: widget.newProducts,
-                            );
-                          },
-                          child: const Text(
-                            'see more',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'CenturyGothic',
-                              color: AppColor.fontColor,
-                              fontWeight: FontWeight.w500,
+                          const VerticalSpeacing(
+                            12,
+                          ),
+                          Expanded(
+                            child: Consumer<HomeRepositoryProvider>(
+                              builder: (context, homeRepo, child) {
+                                if (homeRepo
+                                    .homeRepository.searchResults.isEmpty) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  return GridView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2, // Number of columns
+                                      crossAxisSpacing:
+                                          8.0, // Spacing between columns
+                                      mainAxisSpacing:
+                                          8.0, // Spacing between rows
+                                      childAspectRatio:
+                                          1.0, // Width to height ratio of each grid item
+                                    ),
+                                    itemCount: homeRepo
+                                        .homeRepository.searchResults.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      Products product = homeRepo
+                                          .homeRepository.searchResults[index];
+
+                                      return ProLovedCard(
+                                        fun: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            RoutesName.productdetail,
+                                          );
+                                        },
+                                        name: product.title,
+                                        rating: product.averageReview,
+                                        price: product.price.toString(),
+                                        discount: product.discount.toString(),
+                                      );
+                                    },
+                                  );
+                                }
+                              },
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const VerticalSpeacing(16.0),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.3,
-                      child: GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 12.0,
-                          mainAxisSpacing: 12.0,
-                        ),
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          Products product = widget.newProducts[index];
-                          return ProLovedCard(
-                            fun: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutesName.productdetail,
-                              );
-                            },
-                            name: product.title,
-                            rating: product.averageReview,
-                            price: product.price.toString(),
-                            discount: product.discount.toString(),
-                          );
-                        },
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          // const VerticalSpeacing(16.0),
+                          const Row(
+                            children: [
+                              Text(
+                                'Categories',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'CenturyGothic',
+                                  color: AppColor.fontColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const VerticalSpeacing(16.0),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                CategoryCart('All'),
+                                CategoryCart('Jakits'),
+                                CategoryCart('Shirt'),
+                                CategoryCart('Woman'),
+                                CategoryCart('Jakits'),
+                                CategoryCart('Shirt'),
+                                CategoryCart('Woman'),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Populars',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'CenturyGothic',
+                                  color: AppColor.fontColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RoutesName.popularsScreen,
+                                    arguments: widget.productsTopRated,
+                                  );
+                                },
+                                child: const Text(
+                                  'see more',
+                                  style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontFamily: 'CenturyGothic',
+                                      color: AppColor.fontColor,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const VerticalSpeacing(27.0),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 2.3,
+                            child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12.0,
+                                mainAxisSpacing: 12.0,
+                              ),
+                              itemCount: 4,
+                              itemBuilder: (context, index) {
+                                Products product =
+                                    widget.productsTopRated[index];
+                                return ProLovedCard(
+                                  fun: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutesName.productdetail,
+                                    );
+                                  },
+                                  name: product.title,
+                                  rating: product.averageReview,
+                                  price: product.price.toString(),
+                                  discount: product.discount.toString(),
+                                );
+                              },
+                            ),
+                          ),
+                          const VerticalSpeacing(20.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'New T Shirts',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'CenturyGothic',
+                                  color: AppColor.fontColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RoutesName.newItemsScreen,
+                                    arguments: widget.newProducts,
+                                  );
+                                },
+                                child: const Text(
+                                  'see more',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontFamily: 'CenturyGothic',
+                                    color: AppColor.fontColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const VerticalSpeacing(16.0),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 2.3,
+                            child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12.0,
+                                mainAxisSpacing: 12.0,
+                              ),
+                              itemCount: 4,
+                              itemBuilder: (context, index) {
+                                Products product = widget.newProducts[index];
+                                return ProLovedCard(
+                                  fun: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutesName.productdetail,
+                                    );
+                                  },
+                                  name: product.title,
+                                  rating: product.averageReview,
+                                  price: product.price.toString(),
+                                  discount: product.discount.toString(),
+                                );
+                              },
+                            ),
+                          ),
+                          const VerticalSpeacing(40.0),
+                        ],
                       ),
-                    ),
-                    const VerticalSpeacing(40.0),
-                  ],
-                ),
               ),
             ],
           ),
