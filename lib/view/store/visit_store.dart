@@ -90,7 +90,11 @@ class VisitStore extends StatelessWidget {
                       const VerticalSpeacing(
                         12,
                       ),
-                      const StoreDetailCard(),
+                      StoreDetailCard(
+                        shopName: storeName,
+                        rating: totalRating,
+                        discription: description,
+                      ),
                     ],
                   ),
                 ),
