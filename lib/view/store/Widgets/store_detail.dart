@@ -2,7 +2,14 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:flutter/material.dart';
 
 class StoreDetailCard extends StatelessWidget {
-  const StoreDetailCard({super.key});
+  final String shopName;
+  final String rating;
+  final String discription;
+  const StoreDetailCard(
+      {super.key,
+      required this.shopName,
+      required this.rating,
+      required this.discription});
 
   @override
   Widget build(BuildContext context) {
