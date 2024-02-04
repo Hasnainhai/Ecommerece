@@ -8,7 +8,7 @@ import '../../res/components/verticalSpacing.dart';
 import '../../utils/routes/routes_name.dart';
 import '../Home/pro_loved/Widgets/pro_loved_card.dart';
 
-class VisitStore extends StatelessWidget {
+class VisitStore extends StatefulWidget {
   final String storeName;
   final String totalRating;
   final String description;
@@ -22,6 +22,18 @@ class VisitStore extends StatelessWidget {
     required this.productsTopRated,
     required this.newProducts,
   });
+
+  @override
+  State<VisitStore> createState() => _VisitStoreState();
+}
+
+class _VisitStoreState extends State<VisitStore> {
+  TextEditingController searchController = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +103,9 @@ class VisitStore extends StatelessWidget {
                         12,
                       ),
                       StoreDetailCard(
-                        shopName: storeName,
-                        rating: totalRating,
-                        discription: description,
+                        shopName: widget.storeName,
+                        rating: widget.totalRating,
+                        discription: widget.description,
                       ),
                     ],
                   ),
@@ -153,7 +165,7 @@ class VisitStore extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               RoutesName.popularsScreen,
-                              arguments: productsTopRated,
+                              arguments: widget.productsTopRated,
                             );
                           },
                           child: const Text(
@@ -180,7 +192,7 @@ class VisitStore extends StatelessWidget {
                         ),
                         itemCount: 4,
                         itemBuilder: (context, index) {
-                          Products product = productsTopRated[index];
+                          Products product = widget.productsTopRated[index];
                           return ProLovedCard(
                             fun: () {
                               Navigator.pushNamed(
@@ -214,7 +226,7 @@ class VisitStore extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               RoutesName.newItemsScreen,
-                              arguments: newProducts,
+                              arguments: widget.newProducts,
                             );
                           },
                           child: const Text(
@@ -242,7 +254,7 @@ class VisitStore extends StatelessWidget {
                         ),
                         itemCount: 4,
                         itemBuilder: (context, index) {
-                          Products product = newProducts[index];
+                          Products product = widget.newProducts[index];
                           return ProLovedCard(
                             fun: () {
                               Navigator.pushNamed(
