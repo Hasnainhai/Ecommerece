@@ -242,7 +242,7 @@ class VisitStore extends StatelessWidget {
                         ),
                         itemCount: 4,
                         itemBuilder: (context, index) {
-                          Products product = productsTopRated[index];
+                          Products product = newProducts[index];
                           return ProLovedCard(
                             fun: () {
                               Navigator.pushNamed(
