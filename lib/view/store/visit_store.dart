@@ -151,7 +151,10 @@ class VisitStore extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, RoutesName.popularsScreen);
+                              context,
+                              RoutesName.popularsScreen,
+                              arguments: productsTopRated,
+                            );
                           },
                           child: const Text(
                             'see more',
@@ -177,15 +180,18 @@ class VisitStore extends StatelessWidget {
                         ),
                         itemCount: 4,
                         itemBuilder: (context, index) {
+                          Products product = productsTopRated[index];
                           return ProLovedCard(
                             fun: () {
                               Navigator.pushNamed(
-                                  context, RoutesName.productdetail);
+                                context,
+                                RoutesName.productdetail,
+                              );
                             },
-                            name: "",
-                            rating: 0,
-                            price: "",
-                            discount: "0",
+                            name: product.title,
+                            rating: product.averageReview,
+                            price: product.price.toString(),
+                            discount: product.discount.toString(),
                           );
                         },
                       ),
@@ -206,15 +212,19 @@ class VisitStore extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
-                                context, RoutesName.popularsScreen);
+                              context,
+                              RoutesName.newItemsScreen,
+                              arguments: newProducts,
+                            );
                           },
                           child: const Text(
                             'see more',
                             style: TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'CenturyGothic',
-                                color: AppColor.fontColor,
-                                fontWeight: FontWeight.w500),
+                              fontSize: 14.0,
+                              fontFamily: 'CenturyGothic',
+                              color: AppColor.fontColor,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],
