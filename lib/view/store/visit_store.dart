@@ -1,3 +1,4 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,19 @@ import '../../utils/routes/routes_name.dart';
 import '../Home/pro_loved/Widgets/pro_loved_card.dart';
 
 class VisitStore extends StatelessWidget {
-  const VisitStore({super.key});
+  final String storeName;
+  final String totalRating;
+  final String description;
+  final List<Products> productsTopRated;
+  final List<Products> newProducts;
+  const VisitStore({
+    super.key,
+    required this.storeName,
+    required this.totalRating,
+    required this.description,
+    required this.productsTopRated,
+    required this.newProducts,
+  });
 
   @override
   Widget build(BuildContext context) {

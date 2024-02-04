@@ -62,7 +62,18 @@ class StoreScreen extends StatelessWidget {
                     TopShop shop = homeRepo.homeRepository.topShops[index];
                     return StoreCard(
                       ontap: () {
-                        Navigator.pushNamed(context, RoutesName.visitStore);
+                        Navigator.pushNamed(
+                          context,
+                          RoutesName.visitStore,
+                          arguments: {
+                            'newProducts': homeRepo.homeRepository.newProducts,
+                            'productsTopRated':
+                                homeRepo.homeRepository.productsTopRated,
+                            'storeName': shop.shopName,
+                            'totalRating': shop.averageRating,
+                            'description': 'This is a great store!',
+                          },
+                        );
                       },
                       name: shop.shopName,
                       rating: shop.averageRating.toString(),

@@ -116,9 +116,30 @@ class Routes {
           builder: (c) => const CheckOutView(),
         );
       case RoutesName.visitStore:
-        return MaterialPageRoute(
-          builder: (c) => const VisitStore(),
-        );
+        final Map<String, dynamic>? arguments =
+            settings.arguments as Map<String, dynamic>?;
+
+        if (arguments != null) {
+          final List<Products> newProducts = arguments['newProducts'] ?? [];
+          final List<Products> productsTopRated =
+              arguments['productsTopRated'] ?? [];
+          final String storeName = arguments['storeName'] ?? '';
+          final String totalRating = arguments['totalRating'] ?? '';
+          final String description = arguments['description'] ?? '';
+
+          return MaterialPageRoute(
+            builder: (c) => VisitStore(
+              storeName: storeName,
+              totalRating: totalRating,
+              description: description,
+              productsTopRated: productsTopRated,
+              newProducts: newProducts,
+            ),
+          );
+        } else {
+          return MaterialPageRoute(builder: (c) => const DashBoardScreen());
+        }
+
       case RoutesName.myOrders:
         return MaterialPageRoute(
           builder: (c) => const MyOrders(),
