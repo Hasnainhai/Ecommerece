@@ -63,7 +63,7 @@ class SelectAccountType extends StatelessWidget {
                 onpress: () {
                   Navigator.pushNamed(
                     context,
-                    RoutesName.loginorsigin,
+                    RoutesName.dashboardScreen,
                   );
                 },
                 title: 'Sign Up As\n A buyer',

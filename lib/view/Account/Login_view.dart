@@ -236,19 +236,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      TextFieldCustom(
-                        controller: nameController,
-                        maxLines: 1,
-                        text: 'username',
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter a valid Email adress";
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
+                      // TextFieldCustom(
+                      //   controller: nameController,
+                      //   maxLines: 1,
+                      //   text: 'username',
+                      //   keyboardType: TextInputType.emailAddress,
+                      //   validator: (value) {
+                      //     if (value!.isEmpty) {
+                      //       return "Please enter a valid Email adress";
+                      //     } else {
+                      //       return null;
+                      //     }
+                      //   },
+                      // ),
                       TextFieldCustom(
                         controller: emailController,
                         maxLines: 1,
