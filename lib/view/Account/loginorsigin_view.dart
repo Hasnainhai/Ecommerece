@@ -27,18 +27,18 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
           child: Column(
             children: <Widget>[
               const VerticalSpeacing(40.0),
-              InkWell(
-                onTap: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (c) => const DashBoardScreen()),
-                      (route) => false);
-                },
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (c) => const DashBoardScreen()),
+                          (route) => false);
+                    },
+                    child: const Text(
                       'Skip Login',
                       style: TextStyle(
                         fontFamily: 'CenturyGothic',
@@ -47,8 +47,8 @@ class _LoginOrSignUpState extends State<LoginOrSignUp> {
                         color: AppColor.primaryColor,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const VerticalSpeacing(40.0),
 
