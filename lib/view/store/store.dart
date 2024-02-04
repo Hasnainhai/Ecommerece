@@ -3,6 +3,7 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/store/Widgets/store_card.dart';
+import 'package:ecommerece/view/store/visit_store.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,31 @@ class StoreScreen extends StatelessWidget {
                     TopShop shop = homeRepo.homeRepository.topShops[index];
                     return StoreCard(
                       ontap: () {
-                        Navigator.pushNamed(context, RoutesName.visitStore);
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   RoutesName.visitStore,
+                        //   arguments: {
+                        //     'newProducts': homeRepo.homeRepository.newProducts,
+                        //     'productsTopRated':
+                        //         homeRepo.homeRepository.productsTopRated,
+                        //     'storeName': shop.shopName,
+                        //     'totalRating': shop.averageRating,
+                        //     'description': 'This is a great store!',
+                        //   },
+                        // );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (c) => VisitStore(
+                                      storeName: shop.shopName,
+                                      totalRating:
+                                          shop.averageRating.toString(),
+                                      description: 'This is a great store!',
+                                      productsTopRated: homeRepo
+                                          .homeRepository.productsTopRated,
+                                      newProducts:
+                                          homeRepo.homeRepository.newProducts,
+                                    )));
                       },
                       name: shop.shopName,
                       rating: shop.averageRating.toString(),

@@ -80,7 +80,7 @@ class PreLoveScreen extends StatelessWidget {
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
                   ),
-                  itemCount: 10,
+                  itemCount: 0,
                   itemBuilder: (context, index) {
                     return ProLovedCard(
                       fun: () {

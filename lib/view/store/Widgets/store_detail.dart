@@ -1,8 +1,16 @@
 import 'package:ecommerece/res/components/colors.dart';
+import 'package:ecommerece/view/Home/Review/total_review.dart';
 import 'package:flutter/material.dart';
 
 class StoreDetailCard extends StatelessWidget {
-  const StoreDetailCard({super.key});
+  final String shopName;
+  final String rating;
+  final String discription;
+  const StoreDetailCard(
+      {super.key,
+      required this.shopName,
+      required this.rating,
+      required this.discription});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +23,13 @@ class StoreDetailCard extends StatelessWidget {
         const SizedBox(
           width: 12,
         ),
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Best day cloth house",
-                style: TextStyle(
+                shopName,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -30,13 +38,13 @@ class StoreDetailCard extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.star,
                     color: Colors.amber,
                   ),
                   Text(
-                    "5.0",
-                    style: TextStyle(
+                    rating,
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -46,8 +54,8 @@ class StoreDetailCard extends StatelessWidget {
                 ],
               ),
               Text(
-                "Lorem ipsum dolor sit amet consectetur. Elit libero et ultricies volutpat sapien ",
-                style: TextStyle(
+                discription,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 10,
                   fontWeight: FontWeight.w400,

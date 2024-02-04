@@ -331,8 +331,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Products product = homeRepo
                                             .homeRepository
                                             .searchResults[index];
-                                        print(
-                                            'Debug - Product $index: ${product.title} - ${product.price}');
 
                                         return ProLovedCard(
                                           fun: () {
