@@ -231,7 +231,7 @@ class VisitStore extends StatelessWidget {
                     ),
                     const VerticalSpeacing(16.0),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.4,
+                      height: MediaQuery.of(context).size.height / 2.3,
                       child: GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate:
@@ -242,15 +242,18 @@ class VisitStore extends StatelessWidget {
                         ),
                         itemCount: 4,
                         itemBuilder: (context, index) {
+                          Products product = productsTopRated[index];
                           return ProLovedCard(
                             fun: () {
                               Navigator.pushNamed(
-                                  context, RoutesName.productdetail);
+                                context,
+                                RoutesName.productdetail,
+                              );
                             },
-                            name: "",
-                            rating: 0,
-                            price: "",
-                            discount: "0",
+                            name: product.title,
+                            rating: product.averageReview,
+                            price: product.price.toString(),
+                            discount: product.discount.toString(),
                           );
                         },
                       ),
