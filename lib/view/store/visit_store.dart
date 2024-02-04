@@ -196,7 +196,8 @@ class _VisitStoreState extends State<VisitStore> {
                           const VerticalSpeacing(
                             12,
                           ),
-                          Expanded(
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.5,
                             child: Consumer<HomeRepositoryProvider>(
                               builder: (context, homeRepo, child) {
                                 if (homeRepo
