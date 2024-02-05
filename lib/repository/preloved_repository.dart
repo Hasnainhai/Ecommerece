@@ -22,11 +22,14 @@ class PrelovedRepository extends ChangeNotifier {
               'Pynzu6ykeHzHDuXmXZHX7rNpaJA7B5WfmP6QwHWoOISJTDp0ZiJUPmwiWKBScXGj',
         },
       );
+
       if (response.statusCode == 200) {
         final List<dynamic> results = json.decode(response.body)['results'];
+
         prelovedProducts.clear();
         for (var productJson in results) {
-          prelovedProducts.add(PrelovedProduct.fromJson(productJson));
+          PrelovedProduct product = PrelovedProduct.fromJson(productJson);
+          prelovedProducts.add(product);
         }
 
         notifyListeners();
@@ -34,14 +37,26 @@ class PrelovedRepository extends ChangeNotifier {
         Utils.flushBarErrorMessage("Request failed", context);
       }
     } catch (e) {
-      if (e is SocketException) {
-        Utils.flushBarErrorMessage(
-            "Network error. Check your internet connection.", context);
-      } else if (e is FormatException) {
-        Utils.flushBarErrorMessage("Invalid response format", context);
-      } else {
-        Utils.flushBarErrorMessage("Unexpected error occurred", context);
-      }
+      handleApiError(e, context);
     }
+  }
+
+  void handleApiError(dynamic error, BuildContext context) {
+    if (error is SocketException) {
+      Utils.flushBarErrorMessage(
+          "Network error. Check your internet connection.", context);
+    } else if (error is FormatException) {
+      Utils.flushBarErrorMessage("Invalid response format", context);
+    } else {
+      Utils.flushBarErrorMessage("Unexpected error occurred", context);
+    }
+  }
+
+  void searchItems(List<PrelovedProduct> product, String query) {
+    prelovedProducts = product
+        .where((product) =>
+            product.title.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    notifyListeners();
   }
 }

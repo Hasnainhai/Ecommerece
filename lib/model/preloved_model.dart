@@ -8,7 +8,7 @@ class PrelovedProduct {
   final String thumbnailImage;
   final String price;
   final int discount;
-  final String promotional;
+  final String? promotional;
   final int totalReviews;
   final int averageReview;
 
@@ -33,7 +33,7 @@ class PrelovedProduct {
       sku: json['sku'],
       title: json['title'],
       category: Category.fromJson(json['category']),
-      slug: json['slug'],
+      slug: json['slug'] ?? "",
       quantity: json['quantity'],
       thumbnailImage: json['thumbnail_image'],
       price: json['price'],
@@ -63,7 +63,7 @@ class Category {
       id: json['id'],
       name: json['name'],
       thumbnailImage: json['thumbnail_image'],
-      bannerImage: json['banner_image'],
+      bannerImage: json['banner_image'] ?? "",
     );
   }
 }
