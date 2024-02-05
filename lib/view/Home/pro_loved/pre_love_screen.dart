@@ -22,7 +22,8 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<PrelovedRepositoryProvider>(context, listen: false).getHomeProd(
+    Provider.of<PrelovedRepositoryProvider>(context, listen: false)
+        .fetchPrelovedProducts(
       context,
     );
   }

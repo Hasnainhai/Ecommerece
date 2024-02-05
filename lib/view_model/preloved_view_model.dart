@@ -7,7 +7,7 @@ class PrelovedRepositoryProvider extends ChangeNotifier {
 
   PrelovedRepository get prelovedRepository => _prelovedRepository;
 
-  Future<void> getHomeProd(BuildContext context) async {
+  Future<void> fetchPrelovedProducts(BuildContext context) async {
     await _prelovedRepository.fetchPrelovedProducts(context);
     notifyListeners();
   }
