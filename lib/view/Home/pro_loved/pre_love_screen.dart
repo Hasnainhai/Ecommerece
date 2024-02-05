@@ -116,7 +116,9 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
                   builder: (context, prelovedRepositoryProvider, _) {
                     if (prelovedRepositoryProvider
                         .prelovedRepository.prelovedProducts.isEmpty) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     } else {
                       return GridView.builder(
                         gridDelegate:
