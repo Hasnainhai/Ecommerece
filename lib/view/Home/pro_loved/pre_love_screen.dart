@@ -111,47 +111,86 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
                 ),
               ),
               const VerticalSpeacing(20),
-              Expanded(
-                child: Consumer<PrelovedRepositoryProvider>(
-                  builder: (context, prelovedRepositoryProvider, _) {
-                    if (prelovedRepositoryProvider
-                        .prelovedRepository.prelovedProducts.isEmpty) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                        ),
-                        itemCount: prelovedRepositoryProvider
-                            .prelovedRepository.prelovedProducts.length,
-                        itemBuilder: (context, index) {
-                          final PrelovedProduct product =
-                              prelovedRepositoryProvider
-                                  .prelovedRepository.prelovedProducts[index];
-                          return ProLovedCard(
-                            fun: () {
-                              Navigator.pushNamed(
-                                context,
-                                RoutesName.preLovedproductdetail,
-                              );
-                            },
-                            name: product.title,
-                            rating: product.averageReview,
-                            price: product.price.toString(),
-                            discount: product.discount.toString(),
-                            // Add other properties from PrelovedProduct as needed
-                          );
+              isSearching
+                  ? Expanded(
+                      child: Consumer<PrelovedRepositoryProvider>(
+                        builder: (context, searchRepo, child) {
+                          if (searchRepo
+                              .prelovedRepository.searchPreloved.isEmpty) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            return GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                              ),
+                              itemCount: searchRepo
+                                  .prelovedRepository.searchPreloved.length,
+                              itemBuilder: (context, index) {
+                                PrelovedProduct product = searchRepo
+                                    .prelovedRepository.searchPreloved[index];
+                                return ProLovedCard(
+                                  fun: () {
+                                    Navigator.pushNamed(
+                                        context, RoutesName.productdetail);
+                                  },
+                                  name: product.title,
+                                  rating: product.averageReview,
+                                  price: product.price.toString(),
+                                  discount: product.discount.toString(),
+                                );
+                              },
+                            );
+                          }
                         },
-                      );
-                    }
-                  },
-                ),
-              ),
+                      ),
+                    )
+                  : Expanded(
+                      child: Consumer<PrelovedRepositoryProvider>(
+                        builder: (context, prelovedRepositoryProvider, _) {
+                          if (prelovedRepositoryProvider
+                              .prelovedRepository.prelovedProducts.isEmpty) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else {
+                            return GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 16,
+                                mainAxisSpacing: 16,
+                              ),
+                              itemCount: prelovedRepositoryProvider
+                                  .prelovedRepository.prelovedProducts.length,
+                              itemBuilder: (context, index) {
+                                final PrelovedProduct product =
+                                    prelovedRepositoryProvider
+                                        .prelovedRepository
+                                        .prelovedProducts[index];
+                                return ProLovedCard(
+                                  fun: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutesName.preLovedproductdetail,
+                                    );
+                                  },
+                                  name: product.title,
+                                  rating: product.averageReview,
+                                  price: product.price.toString(),
+                                  discount: product.discount.toString(),
+                                  // Add other properties from PrelovedProduct as needed
+                                );
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    ),
             ],
           ),
         ),

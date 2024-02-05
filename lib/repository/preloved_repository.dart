@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 class PrelovedRepository extends ChangeNotifier {
   List<PrelovedProduct> prelovedProducts = [];
+  List<PrelovedProduct> searchPreloved = [];
 
   Future<void> fetchPrelovedProducts(BuildContext context) async {
     try {
@@ -53,7 +54,7 @@ class PrelovedRepository extends ChangeNotifier {
   }
 
   void searchItems(List<PrelovedProduct> product, String query) {
-    prelovedProducts = product
+    searchPreloved = product
         .where((product) =>
             product.title.toLowerCase().contains(query.toLowerCase()))
         .toList();
