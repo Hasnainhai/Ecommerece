@@ -17,11 +17,19 @@ class PreLoveScreen extends StatefulWidget {
 }
 
 class _PreLoveScreenState extends State<PreLoveScreen> {
+  TextEditingController searchController = TextEditingController();
+  bool isSearching = false;
+  @override
   void initState() {
     super.initState();
     Provider.of<PrelovedRepositoryProvider>(context, listen: false).getHomeProd(
       context,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -61,30 +69,45 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
               SizedBox(
                 height: 60,
                 width: (MediaQuery.of(context).size.width) - 40,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Search Here",
-                    helperStyle: const TextStyle(color: AppColor.fieldBgColor),
-                    filled: true,
-                    border: InputBorder.none,
-                    prefixIcon: const Icon(
-                      Icons.search,
-                    ),
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const FilterPopUp(),
-                          ),
-                        );
+                child: Consumer<PrelovedRepositoryProvider>(
+                  builder: (context, preLoved, _) {
+                    return TextFormField(
+                      controller: searchController,
+                      onChanged: (value) {
+                        if (searchController.text.length == 3) {
+                          setState(() {
+                            isSearching = true;
+                          });
+                        }
+                        preLoved.searchAndFetchData(value,
+                            preLoved.prelovedRepository.prelovedProducts);
                       },
-                      icon: const Icon(
-                        Icons.tune_sharp,
-                        color: AppColor.fontColor,
+                      decoration: InputDecoration(
+                        hintText: "Search Here",
+                        helperStyle:
+                            const TextStyle(color: AppColor.fieldBgColor),
+                        filled: true,
+                        border: InputBorder.none,
+                        prefixIcon: const Icon(
+                          Icons.search,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const FilterPopUp(),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.tune_sharp,
+                            color: AppColor.fontColor,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ),
               const VerticalSpeacing(20),
