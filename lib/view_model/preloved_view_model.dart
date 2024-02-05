@@ -1,7 +1,7 @@
 import 'package:ecommerece/repository/preloved_repository.dart';
 import 'package:flutter/material.dart';
 
-class HomeRepositoryProvider extends ChangeNotifier {
+class PrelovedRepositoryProvider extends ChangeNotifier {
   PrelovedRepository _prelovedRepository = PrelovedRepository();
 
   PrelovedRepository get prelovedRepository => _prelovedRepository;
