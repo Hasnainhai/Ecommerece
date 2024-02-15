@@ -34,6 +34,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final productDetailsProvider =
+        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
+    final productDetail = productDetailsProvider.productDetailsRepository;
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
       appBar: AppBar(
@@ -69,9 +72,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const ImageSlider(),
               const VerticalSpeacing(30),
-              const Text(
-                "Cauliflower Bangladeshi",
-                style: TextStyle(
+              Text(
+                productDetail.productDetail!.title,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
@@ -79,11 +82,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(10),
-              const Row(
+              Row(
                 children: [
                   Text(
-                    "\$900",
-                    style: TextStyle(
+                    productDetail.productDetail!.title,
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -91,12 +94,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 12,
                   ),
                   Text(
                     "\$600",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 28,
                       fontWeight: FontWeight.w600,
@@ -116,10 +119,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(12),
-              const Text(
-                "Duis aute veniam veniam qui aliquip irure duis sint magna occaecat dolore nisi culpa do. Est nisi incididunt aliquip  commodo aliqua tempor.",
+              Text(
+                productDetail.productDetail!.description,
                 textAlign: TextAlign.justify,
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
