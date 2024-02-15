@@ -14,7 +14,7 @@ class ProductDetailsRepository extends ChangeNotifier {
       BuildContext context, String productId) async {
     try {
       final response = await http.get(
-        Uri.parse('http://zarozar.exarth.com/web/api/product/$productId/'),
+        Uri.parse('productDetailEndPoint$productId/'),
         headers: {
           'accept': 'application/json',
           'X-CSRFToken':
