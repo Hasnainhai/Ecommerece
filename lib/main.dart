@@ -1,6 +1,7 @@
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/preloved_view_model.dart';
 import 'package:ecommerece/view_model/service/new_items_view_model.dart';
+import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'utils/routes/routes.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => PrelovedRepositoryProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => ProductDetailsRepositoryProvider(),
             ),
           ],
           child: const MyApp(),

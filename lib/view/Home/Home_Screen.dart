@@ -2,6 +2,7 @@ import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:flutter/material.dart';
@@ -334,9 +335,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         return ProLovedCard(
                                           fun: () {
-                                            Navigator.pushNamed(
+                                            Navigator.push(
                                               context,
-                                              RoutesName.productdetail,
+                                              MaterialPageRoute(
+                                                builder: (c) =>
+                                                    ProductDetailView(
+                                                  productId: product.id,
+                                                ),
+                                              ),
                                             );
                                           },
                                           name: product.title,
@@ -422,9 +428,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         return ProLovedCard(
                                           fun: () {
-                                            Navigator.pushNamed(
+                                            Navigator.push(
                                               context,
-                                              RoutesName.productdetail,
+                                              MaterialPageRoute(
+                                                builder: (c) =>
+                                                    ProductDetailView(
+                                                  productId: product.id,
+                                                ),
+                                              ),
                                             );
                                           },
                                           name: product.title,
@@ -506,10 +517,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         return ProLovedCard(
                                           fun: () {
-                                            Navigator.pushNamed(
+                                            Navigator.push(
                                               context,
-                                              RoutesName.productdetail,
+                                              MaterialPageRoute(
+                                                builder: (c) =>
+                                                    ProductDetailView(
+                                                  productId: product.id,
+                                                ),
+                                              ),
                                             );
+                                            // Navigator.pushNamed(
+                                            //   context,
+                                            //   RoutesName.productdetail,
+                                            //   arguments: product.id,
+                                            // );
                                           },
                                           name: product.title,
                                           rating: product.averageReview,

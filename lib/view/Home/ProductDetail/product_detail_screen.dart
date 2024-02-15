@@ -9,17 +9,29 @@ import 'package:ecommerece/view/Home/ProductDetail/widgets/size_container.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
+import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
-  const ProductDetailView({super.key});
+  final String productId;
+
+  const ProductDetailView({super.key, required this.productId});
 
   @override
   State<ProductDetailView> createState() => _ProductDetailViewState();
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
+  @override
+  void initState() {
+    super.initState();
+    final productDetailsProvider =
+        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
+    debugPrint("this is product id:${widget.productId}");
+    productDetailsProvider.fetchProductDetails(context, widget.productId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

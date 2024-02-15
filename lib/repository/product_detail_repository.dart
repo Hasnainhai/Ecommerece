@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:ecommerece/model/product_detail_model.dart';
+import 'package:ecommerece/res/app_url.dart';
 import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ class ProductDetailsRepository extends ChangeNotifier {
       BuildContext context, String productId) async {
     try {
       final response = await http.get(
-        Uri.parse('productDetailEndPoint$productId/'),
+        Uri.parse('${AppUrl.productDetailEndPoint}$productId/'),
         headers: {
           'accept': 'application/json',
           'X-CSRFToken':
@@ -23,7 +24,9 @@ class ProductDetailsRepository extends ChangeNotifier {
       );
 
       if (response.statusCode == 200) {
+        debugPrint("this is jason response:${response.body}");
         final Map<String, dynamic> jsonData = json.decode(response.body);
+        debugPrint("this is jason data:${jsonData}");
 
         ProductDetail productDetail = ProductDetail(
           id: jsonData['id'],
@@ -55,6 +58,7 @@ class ProductDetailsRepository extends ChangeNotifier {
       } else if (e is FormatException) {
         Utils.flushBarErrorMessage("Invalid response format", context);
       } else {
+        debugPrint("this is the error:$e");
         Utils.flushBarErrorMessage("Unexpected error occurred", context);
       }
     }
