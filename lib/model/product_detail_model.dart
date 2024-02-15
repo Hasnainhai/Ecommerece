@@ -32,6 +32,13 @@ class Category {
     required this.name,
     required this.thumbnailImage,
   });
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category(
+      id: json['id'],
+      name: json['name'],
+      thumbnailImage: json['thumbnail_image'],
+    );
+  }
 }
 
 class Vendor {
@@ -56,6 +63,19 @@ class Vendor {
     required this.averageRating,
     required this.totalReviews,
   });
+  factory Vendor.fromJson(Map<String, dynamic> json) {
+    return Vendor(
+      id: json['id'],
+      logo: json['logo'],
+      shopName: json['shop_name'],
+      shopAddress: json['shop_address'],
+      shopCity: json['shop_city'],
+      shopState: json['shop_state'],
+      isApproved: json['is_approved'],
+      averageRating: json['average_rating'],
+      totalReviews: json['total_reviews'],
+    );
+  }
 }
 
 class ProductVariation {
@@ -76,14 +96,21 @@ class ProductVariation {
 
 class ProductAttribute {
   final String id;
-  final Attribute attribute;
   final String value;
+  final String name;
 
   ProductAttribute({
     required this.id,
-    required this.attribute,
     required this.value,
+    required this.name,
   });
+  factory ProductAttribute.fromJson(Map<String, dynamic> json) {
+    return ProductAttribute(
+      id: json['id'],
+      name: json['name'],
+      value: json['value'],
+    );
+  }
 }
 
 class Attribute {
