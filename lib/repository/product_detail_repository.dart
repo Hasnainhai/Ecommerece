@@ -1,15 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
-import 'dart:io';
-import 'package:ecommerece/model/product_detail_model.dart';
 import 'package:ecommerece/res/app_url.dart';
-import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
+import 'package:ecommerece/utils/routes/utils.dart';
+import 'package:ecommerece/model/product_detail_model.dart';
 
 class ProductDetailsRepository extends ChangeNotifier {
-  List<ProductDetail> productDetails = [];
+  ProductDetail? productDetail;
 
   Future<void> fetchProductDetails(
       BuildContext context, String productId) async {
@@ -26,9 +26,9 @@ class ProductDetailsRepository extends ChangeNotifier {
       if (response.statusCode == 200) {
         debugPrint("this is jason response:${response.body}");
         final Map<String, dynamic> jsonData = json.decode(response.body);
-        debugPrint("this is jason data:${jsonData}");
+        debugPrint("this is jason data:$jsonData");
 
-        ProductDetail productDetail = ProductDetail(
+        productDetail = ProductDetail(
           id: jsonData['id'],
           sku: jsonData['sku'],
           title: jsonData['title'],
@@ -39,9 +39,6 @@ class ProductDetailsRepository extends ChangeNotifier {
           productVariations:
               parseProductVariations(jsonData['product_variations']),
         );
-
-        // Set the product details property with the fetched data
-        productDetails = [productDetail];
 
         notifyListeners();
       } else {
