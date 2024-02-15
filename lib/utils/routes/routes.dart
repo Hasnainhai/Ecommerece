@@ -103,14 +103,14 @@ class Routes {
           builder: (context) => NewItemsScreem(newProducts: newProducts),
         );
 
-      case RoutesName.productdetail:
-        return MaterialPageRoute(
-          builder: (c) {
-            final String productId =
-                ModalRoute.of(c)!.settings.arguments as String;
-            return ProductDetailView(productId: productId);
-          },
-        );
+      // case RoutesName.productdetail:
+      //   return MaterialPageRoute(
+      //     builder: (c) {
+      //       final String productId =
+
+      //       return ProductDetailView(productId: productId);
+      //     },
+      // );
       case RoutesName.preLovedproductdetail:
         return MaterialPageRoute(
           builder: (c) => const PreLovedProductDetailView(),

@@ -1,4 +1,5 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/model/product_detail_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
@@ -14,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
-  final String productId;
+  final Product product;
 
-  const ProductDetailView({super.key, required this.productId});
+  const ProductDetailView({super.key, required this.product});
 
   @override
   State<ProductDetailView> createState() => _ProductDetailViewState();
@@ -26,14 +27,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   void initState() {
     super.initState();
-    final productDetailsProvider =
-        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
-    debugPrint("this is product id:${widget.productId}");
-    productDetailsProvider.fetchProductDetails(context, widget.productId);
   }
 
   @override
   Widget build(BuildContext context) {
+    final productDetailsProvider =
+        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
+    final productDetail = productDetailsProvider.productDetailsRepository;
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
       appBar: AppBar(
@@ -70,7 +70,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               const ImageSlider(),
               const VerticalSpeacing(30),
               const Text(
-                "Cauliflower Bangladeshi",
+                "productDetail.product!.title",
                 style: TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 18,
@@ -117,7 +117,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               ),
               const VerticalSpeacing(12),
               const Text(
-                "Duis aute veniam veniam qui aliquip irure duis sint magna occaecat dolore nisi culpa do. Est nisi incididunt aliquip  commodo aliqua tempor.",
+                "productDetail",
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontFamily: 'CenturyGothic',
