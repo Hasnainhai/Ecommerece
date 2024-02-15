@@ -5,6 +5,7 @@ import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
+import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -335,14 +336,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         return ProLovedCard(
                                           fun: () {
-                                            Navigator.push(
+                                            final productDetailsProvider = Provider
+                                                .of<ProductDetailsRepositoryProvider>(
+                                                    context,
+                                                    listen: false);
+                                            debugPrint(
+                                                "this is product id:${product.id}");
+                                            productDetailsProvider
+                                                .fetchProductDetails(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (c) =>
-                                                    ProductDetailView(
-                                                  productId: product.id,
-                                                ),
-                                              ),
+                                              product.id,
                                             );
                                           },
                                           name: product.title,
@@ -428,14 +431,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         return ProLovedCard(
                                           fun: () {
-                                            Navigator.push(
+                                            final productDetailsProvider = Provider
+                                                .of<ProductDetailsRepositoryProvider>(
+                                                    context,
+                                                    listen: false);
+                                            debugPrint(
+                                                "this is product id:${product.id}");
+                                            productDetailsProvider
+                                                .fetchProductDetails(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (c) =>
-                                                    ProductDetailView(
-                                                  productId: product.id,
-                                                ),
-                                              ),
+                                              product.id,
                                             );
                                           },
                                           name: product.title,
@@ -517,20 +522,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         return ProLovedCard(
                                           fun: () {
-                                            Navigator.push(
+                                            final productDetailsProvider = Provider
+                                                .of<ProductDetailsRepositoryProvider>(
+                                                    context,
+                                                    listen: false);
+                                            debugPrint(
+                                                "this is product id:${product.id}");
+                                            productDetailsProvider
+                                                .fetchProductDetails(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (c) =>
-                                                    ProductDetailView(
-                                                  productId: product.id,
-                                                ),
-                                              ),
+                                              product.id,
                                             );
-                                            // Navigator.pushNamed(
-                                            //   context,
-                                            //   RoutesName.productdetail,
-                                            //   arguments: product.id,
-                                            // );
                                           },
                                           name: product.title,
                                           rating: product.averageReview,

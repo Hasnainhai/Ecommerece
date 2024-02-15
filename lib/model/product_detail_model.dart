@@ -1,124 +1,125 @@
-// product_detail_model.dart
+class Product {
+  String id;
+  String sku;
+  String title;
+  String description;
+  double price;
+  List<String> images;
+  double discount;
+  Vendor vendor;
+  List<ProductVariation> productVariations;
 
-class ProductDetail {
-  final String id;
-  final String sku;
-  final String title;
-  final String description;
-  final Category category;
-  final Vendor vendor;
-  final String thumbnailImage;
-  final List<ProductVariation> productVariations;
-
-  ProductDetail({
+  Product({
     required this.id,
     required this.sku,
     required this.title,
     required this.description,
-    required this.category,
+    required this.price,
+    required this.images,
+    required this.discount,
     required this.vendor,
-    required this.thumbnailImage,
     required this.productVariations,
   });
-}
 
-class Category {
-  final String id;
-  final String name;
-  final String thumbnailImage;
-
-  Category({
-    required this.id,
-    required this.name,
-    required this.thumbnailImage,
-  });
-  factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       id: json['id'],
-      name: json['name'],
-      thumbnailImage: json['thumbnail_image'],
+      sku: json['sku'],
+      title: json['title'],
+      description: json['description'],
+      price: double.parse(json['price']),
+      images: List<String>.from(json['images']),
+      discount: double.parse(json['discount']),
+      vendor: Vendor.fromJson(json['vendor']),
+      productVariations: List<ProductVariation>.from(json['product_variations']
+          .map((variation) => ProductVariation.fromJson(variation))),
     );
   }
 }
 
 class Vendor {
-  final int id;
-  final String logo;
-  final String shopName;
-  final String shopAddress;
-  final String shopCity;
-  final String shopState;
-  final bool isApproved;
-  final double averageRating;
-  final int totalReviews;
+  int id;
+  String shopName;
+  // Add other vendor fields as needed
 
   Vendor({
     required this.id,
-    required this.logo,
     required this.shopName,
-    required this.shopAddress,
-    required this.shopCity,
-    required this.shopState,
-    required this.isApproved,
-    required this.averageRating,
-    required this.totalReviews,
   });
+
   factory Vendor.fromJson(Map<String, dynamic> json) {
     return Vendor(
       id: json['id'],
-      logo: json['logo'],
       shopName: json['shop_name'],
-      shopAddress: json['shop_address'],
-      shopCity: json['shop_city'],
-      shopState: json['shop_state'],
-      isApproved: json['is_approved'],
-      averageRating: json['average_rating'],
-      totalReviews: json['total_reviews'],
+      // Add other vendor fields as needed
     );
   }
 }
 
 class ProductVariation {
-  final String id;
-  final String price;
-  final int quantity;
-  final int discount;
-  final List<ProductAttribute> attributes;
+  String id;
+  String product;
+  List<Attribute> attributes;
+  double price;
+  int quantity;
+  double discount;
+  // Add other variation fields as needed
 
   ProductVariation({
     required this.id,
+    required this.product,
+    required this.attributes,
     required this.price,
     required this.quantity,
     required this.discount,
-    required this.attributes,
   });
-}
 
-class ProductAttribute {
-  final String id;
-  final String value;
-  final String name;
-
-  ProductAttribute({
-    required this.id,
-    required this.value,
-    required this.name,
-  });
-  factory ProductAttribute.fromJson(Map<String, dynamic> json) {
-    return ProductAttribute(
+  factory ProductVariation.fromJson(Map<String, dynamic> json) {
+    return ProductVariation(
       id: json['id'],
-      name: json['name'],
-      value: json['value'],
+      product: json['product'],
+      attributes: List<Attribute>.from(
+          json['attributes'].map((attribute) => Attribute.fromJson(attribute))),
+      price: double.parse(json['price']),
+      quantity: json['quantity'],
+      discount: double.parse(json['discount']),
     );
   }
 }
 
 class Attribute {
-  final String id;
-  final String name;
+  String id;
+  AttributeDetail attribute;
 
   Attribute({
     required this.id,
-    required this.name,
+    required this.attribute,
   });
+
+  factory Attribute.fromJson(Map<String, dynamic> json) {
+    return Attribute(
+      id: json['id'],
+      attribute: AttributeDetail.fromJson(json['attribute']),
+    );
+  }
+}
+
+class AttributeDetail {
+  String id;
+  String name;
+  String value; // Add this line for the attribute value
+
+  AttributeDetail({
+    required this.id,
+    required this.name,
+    required this.value,
+  });
+
+  factory AttributeDetail.fromJson(Map<String, dynamic> json) {
+    return AttributeDetail(
+      id: json['id'],
+      name: json['name'],
+      value: json['value'], // Add this line to get the attribute value
+    );
+  }
 }

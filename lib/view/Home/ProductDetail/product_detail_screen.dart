@@ -1,4 +1,5 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/model/product_detail_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
@@ -14,9 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
-  final String productId;
+  final Product product;
 
-  const ProductDetailView({super.key, required this.productId});
+  const ProductDetailView({super.key, required this.product});
 
   @override
   State<ProductDetailView> createState() => _ProductDetailViewState();
@@ -26,10 +27,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   @override
   void initState() {
     super.initState();
-    final productDetailsProvider =
-        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
-    debugPrint("this is product id:${widget.productId}");
-    productDetailsProvider.fetchProductDetails(context, widget.productId);
   }
 
   @override
@@ -72,9 +69,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const ImageSlider(),
               const VerticalSpeacing(30),
-              Text(
-                productDetail.productDetail!.title,
-                style: const TextStyle(
+              const Text(
+                "productDetail.product!.title",
+                style: TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
@@ -119,10 +116,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(12),
-              Text(
-                productDetail.productDetail!.description,
+              const Text(
+                "productDetail",
                 textAlign: TextAlign.justify,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
