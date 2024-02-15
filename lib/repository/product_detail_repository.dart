@@ -10,6 +10,8 @@ import 'package:ecommerece/model/product_detail_model.dart';
 
 class ProductDetailsRepository extends ChangeNotifier {
   ProductDetail? productDetail;
+  List<ProductVariation> productVariations = [];
+  List<ProductAttribute> productAttributes = [];
 
   Future<void> fetchProductDetails(
       BuildContext context, String productId) async {
@@ -39,6 +41,10 @@ class ProductDetailsRepository extends ChangeNotifier {
           productVariations:
               parseProductVariations(jsonData['product_variations']),
         );
+
+        productVariations =
+            parseProductVariations(jsonData['product_variations']);
+        productAttributes = parseAttributes(jsonData['attributes']);
 
         notifyListeners();
       } else {
