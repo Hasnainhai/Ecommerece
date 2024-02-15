@@ -82,11 +82,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(10),
-              Row(
+              const Row(
                 children: [
                   Text(
-                    productDetail.productDetail!.title,
-                    style: const TextStyle(
+                    "\$900",
+                    style: TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -94,12 +94,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     width: 12,
                   ),
                   Text(
                     "\$600",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 28,
                       fontWeight: FontWeight.w600,
