@@ -1,8 +1,11 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/model/shop_products_model.dart';
+import 'package:ecommerece/repository/shop_product_repository.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
+import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -309,31 +312,46 @@ class _VisitStoreState extends State<VisitStore> {
                           ),
                           const VerticalSpeacing(27.0),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 2.3,
-                            child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12.0,
-                                mainAxisSpacing: 12.0,
-                              ),
-                              itemCount: 4,
-                              itemBuilder: (context, index) {
-                                Products product =
-                                    widget.productsTopRated[index];
-                                return ProLovedCard(
-                                  fun: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RoutesName.productdetail,
-                                    );
-                                  },
-                                  name: product.title,
-                                  rating: product.averageReview,
-                                  price: product.price.toString(),
-                                  discount: product.discount.toString(),
-                                );
+                            height: MediaQuery.of(context).size.height / 5,
+                            child: Consumer<ShopProductRepository>(
+                              builder: (context, shopRepo, child) {
+                                if (shopRepo.productList.isEmpty) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else {
+                                  return ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: shopRepo.productList.length,
+                                    itemExtent:
+                                        MediaQuery.of(context).size.width / 2.2,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      ProductShop product =
+                                          shopRepo.productList[index];
+
+                                      return ProLovedCard(
+                                        fun: () {
+                                          final productDetailsProvider = Provider
+                                              .of<ProductDetailsRepositoryProvider>(
+                                                  context,
+                                                  listen: false);
+                                          debugPrint(
+                                              "this is product id:${product.id}");
+                                          productDetailsProvider
+                                              .fetchProductDetails(
+                                            context,
+                                            product.id,
+                                          );
+                                        },
+                                        name: product.title,
+                                        rating: product.averageReview,
+                                        price: product.price.toString(),
+                                        discount: product.discount.toString(),
+                                      );
+                                    },
+                                  );
+                                }
                               },
                             ),
                           ),
