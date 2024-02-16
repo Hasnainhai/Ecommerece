@@ -130,6 +130,7 @@ class Routes {
           final String storeName = arguments['storeName'] ?? '';
           final String totalRating = arguments['totalRating'] ?? '';
           final String description = arguments['description'] ?? '';
+          final String id = arguments['id'] ?? '';
 
           return MaterialPageRoute(
             builder: (c) => VisitStore(
@@ -138,6 +139,7 @@ class Routes {
               description: description,
               productsTopRated: productsTopRated,
               newProducts: newProducts,
+              id: id,
             ),
           );
         } else {

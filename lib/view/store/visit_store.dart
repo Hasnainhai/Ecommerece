@@ -17,6 +17,7 @@ import '../Home/pro_loved/Widgets/pro_loved_card.dart';
 class VisitStore extends StatefulWidget {
   final String storeName;
   final String totalRating;
+  final String id;
   final String description;
   final List<Products> productsTopRated;
   final List<Products> newProducts;
@@ -27,6 +28,7 @@ class VisitStore extends StatefulWidget {
     required this.description,
     required this.productsTopRated,
     required this.newProducts,
+    required this.id,
   });
 
   @override
@@ -40,6 +42,14 @@ class _VisitStoreState extends State<VisitStore> {
   void dispose() {
     super.dispose();
     searchController.dispose();
+  }
+
+  void initState() {
+    super.initState();
+    Provider.of<ShopProductRepository>(context, listen: false).fetchData(
+      widget.id,
+      context,
+    );
   }
 
   @override

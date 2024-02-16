@@ -87,6 +87,7 @@ class StoreScreen extends StatelessWidget {
                                           .homeRepository.productsTopRated,
                                       newProducts:
                                           homeRepo.homeRepository.newProducts,
+                                      id: shop.id.toString(),
                                     )));
                       },
                       name: shop.shopName,
