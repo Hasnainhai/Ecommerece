@@ -1,11 +1,13 @@
+import 'dart:convert';
+
 class Product {
   String id;
   String sku;
   String title;
   String description;
-  double price;
+  dynamic price; // Change the type to dynamic
   List<String> images;
-  double discount;
+  dynamic discount; // Change the type to dynamic
   Vendor vendor;
   List<ProductVariation> productVariations;
 
@@ -23,16 +25,18 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      sku: json['sku'],
-      title: json['title'],
-      description: json['description'],
-      price: double.parse(json['price']),
-      images: List<String>.from(json['images']),
-      discount: double.parse(json['discount']),
-      vendor: Vendor.fromJson(json['vendor']),
-      productVariations: List<ProductVariation>.from(json['product_variations']
-          .map((variation) => ProductVariation.fromJson(variation))),
+      id: json['id'] ?? '',
+      sku: json['sku'] ?? '',
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      price: json['price'], // No need to parse here
+      images: List<String>.from(json['images'] ?? []),
+      discount: json['discount'], // No need to parse here
+      vendor: Vendor.fromJson(json['vendor'] ?? {}),
+      productVariations: List<ProductVariation>.from(
+        (json['product_variations'] as List<dynamic>? ?? [])
+            .map((variation) => ProductVariation.fromJson(variation)),
+      ),
     );
   }
 }
@@ -40,7 +44,6 @@ class Product {
 class Vendor {
   int id;
   String shopName;
-  // Add other vendor fields as needed
 
   Vendor({
     required this.id,
@@ -49,9 +52,8 @@ class Vendor {
 
   factory Vendor.fromJson(Map<String, dynamic> json) {
     return Vendor(
-      id: json['id'],
-      shopName: json['shop_name'],
-      // Add other vendor fields as needed
+      id: json['id'] ?? 0,
+      shopName: json['shop_name'] ?? '',
     );
   }
 }
@@ -60,29 +62,27 @@ class ProductVariation {
   String id;
   String product;
   List<Attribute> attributes;
-  double price;
-  int quantity;
-  double discount;
-  // Add other variation fields as needed
+  dynamic price; // Change the type to dynamic
+  dynamic discount; // Change the type to dynamic
 
   ProductVariation({
     required this.id,
     required this.product,
     required this.attributes,
     required this.price,
-    required this.quantity,
     required this.discount,
   });
 
   factory ProductVariation.fromJson(Map<String, dynamic> json) {
     return ProductVariation(
-      id: json['id'],
-      product: json['product'],
+      id: json['id'] ?? '',
+      product: json['product'] ?? '',
       attributes: List<Attribute>.from(
-          json['attributes'].map((attribute) => Attribute.fromJson(attribute))),
-      price: double.parse(json['price']),
-      quantity: json['quantity'],
-      discount: double.parse(json['discount']),
+        (json['attributes'] as List<dynamic>? ?? [])
+            .map((attribute) => Attribute.fromJson(attribute)),
+      ),
+      price: json['price'], // No need to parse here
+      discount: json['discount'], // No need to parse here
     );
   }
 }
@@ -98,8 +98,8 @@ class Attribute {
 
   factory Attribute.fromJson(Map<String, dynamic> json) {
     return Attribute(
-      id: json['id'],
-      attribute: AttributeDetail.fromJson(json['attribute']),
+      id: json['id'] ?? '',
+      attribute: AttributeDetail.fromJson(json['attribute'] ?? {}),
     );
   }
 }
@@ -107,7 +107,7 @@ class Attribute {
 class AttributeDetail {
   String id;
   String name;
-  String value; // Add this line for the attribute value
+  String value;
 
   AttributeDetail({
     required this.id,
@@ -117,9 +117,9 @@ class AttributeDetail {
 
   factory AttributeDetail.fromJson(Map<String, dynamic> json) {
     return AttributeDetail(
-      id: json['id'],
-      name: json['name'],
-      value: json['value'], // Add this line to get the attribute value
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      value: json['value'] ?? '',
     );
   }
 }

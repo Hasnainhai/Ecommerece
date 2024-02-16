@@ -3,12 +3,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ecommerece/model/product_detail_model.dart';
-import 'package:ecommerece/res/app_url.dart';
-import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ecommerece/model/product_detail_model.dart'; // Import your new models
+import 'package:ecommerece/res/app_url.dart'; // Import your utility functions
+import 'package:ecommerece/utils/routes/utils.dart';
 
 class ProductDetailsRepository extends ChangeNotifier {
   Product? product;
@@ -21,15 +21,13 @@ class ProductDetailsRepository extends ChangeNotifier {
         headers: {
           'accept': 'application/json',
           'X-CSRFToken':
-              'DFiCNJXA3vA5lHpCC8FIAhPpG0jorfK2aW1TPklEDwT7BQRgErHFicyis1k927u6',
+              'YHLxuq1jIkRBFOL7lb2pvU3EuKIOUFT9vYuOw1pnilaDVXdLnu4mdPMxgLJzvxDd',
         },
       );
 
       if (response.statusCode == 200) {
-        debugPrint("this is json response: ${response.body}");
         final Map<String, dynamic> jsonData = json.decode(response.body);
-        debugPrint("this is json data: $jsonData");
-
+        debugPrint("this is json response:${response.body}");
         product = Product.fromJson(jsonData);
 
         if (product != null) {
