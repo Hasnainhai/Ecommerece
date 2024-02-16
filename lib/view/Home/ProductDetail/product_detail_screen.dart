@@ -31,9 +31,15 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    final productDetailsProvider =
-        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
-    final productDetail = productDetailsProvider.productDetailsRepository;
+    HomeRepositoryProvider homeRepoProvider =
+        Provider.of<HomeRepositoryProvider>(context, listen: false);
+
+    // Calculate discounted price using the HomeRepositoryProvider
+    double originalPrice = double.parse(widget.product.price.toString());
+    double originalDiscount = double.parse(widget.product.discount.toString());
+
+    String discountedPrice = homeRepoProvider.homeRepository
+        .calculateDiscountedPrice(originalPrice, originalDiscount);
     return Scaffold(
       backgroundColor: AppColor.whiteColor,
       appBar: AppBar(
@@ -69,9 +75,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const ImageSlider(),
               const VerticalSpeacing(30),
-              const Text(
-                "productDetail.product!.title",
-                style: TextStyle(
+              Text(
+                widget.product.title,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 18,
                   fontWeight: FontWeight.w300,
@@ -79,11 +85,11 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(10),
-              const Row(
+              Row(
                 children: [
                   Text(
-                    "\$900",
-                    style: TextStyle(
+                    "\$${widget.product.price}",
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -91,12 +97,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 12,
                   ),
                   Text(
-                    "\$600",
-                    style: TextStyle(
+                    discountedPrice,
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 28,
                       fontWeight: FontWeight.w600,
@@ -116,10 +122,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(12),
-              const Text(
-                "productDetail",
-                textAlign: TextAlign.justify,
-                style: TextStyle(
+              Text(
+                widget.product.description,
+                textAlign: TextAlign.start,
+                style: const TextStyle(
                   fontFamily: 'CenturyGothic',
                   fontSize: 16,
                   fontWeight: FontWeight.w300,
