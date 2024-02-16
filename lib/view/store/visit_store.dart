@@ -6,6 +6,7 @@ import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
+import 'package:ecommerece/view_model/service/shop_product_view.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,15 +20,12 @@ class VisitStore extends StatefulWidget {
   final String totalRating;
   final String id;
   final String description;
-  final List<Products> productsTopRated;
-  final List<Products> newProducts;
+
   const VisitStore({
     super.key,
     required this.storeName,
     required this.totalRating,
     required this.description,
-    required this.productsTopRated,
-    required this.newProducts,
     required this.id,
   });
 
@@ -46,9 +44,10 @@ class _VisitStoreState extends State<VisitStore> {
 
   void initState() {
     super.initState();
-    Provider.of<ShopProductRepository>(context, listen: false).fetchData(
-      widget.id,
+    Provider.of<ShopProductRepositoryProvider>(context, listen: false)
+        .getHomeProd(
       context,
+      widget.id,
     );
   }
 
@@ -104,7 +103,7 @@ class _VisitStoreState extends State<VisitStore> {
                             return TextFormField(
                               controller: searchController,
                               onChanged: (value) {
-                                if (searchController.text.length == 3) {
+                                if (searchController.text.length == 1) {
                                   setState(() {
                                     isSearch = true;
                                   });
@@ -303,11 +302,11 @@ class _VisitStoreState extends State<VisitStore> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.popularsScreen,
-                                    arguments: widget.productsTopRated,
-                                  );
+                                  // Navigator.pushNamed(
+                                  //   context,
+                                  //   RoutesName.popularsScreen,
+                                  //   arguments: ,
+                                  // );
                                 },
                                 child: const Text(
                                   'see more',
@@ -322,30 +321,38 @@ class _VisitStoreState extends State<VisitStore> {
                           ),
                           const VerticalSpeacing(27.0),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 5,
-                            child: Consumer<ShopProductRepository>(
+                            height: MediaQuery.of(context).size.height / 2.4,
+                            child: Consumer<ShopProductRepositoryProvider>(
                               builder: (context, shopRepo, child) {
-                                if (shopRepo.productList.isEmpty) {
+                                if (shopRepo.shopProductRepository.productList
+                                    .isEmpty) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else {
-                                  return ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: shopRepo.productList.length,
-                                    itemExtent:
-                                        MediaQuery.of(context).size.width / 2.2,
+                                  return GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 8.0,
+                                      mainAxisSpacing: 8.0,
+                                    ),
+                                    itemCount: shopRepo.shopProductRepository
+                                        .productList.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      ProductShop product =
-                                          shopRepo.productList[index];
+                                      ProductShop product = shopRepo
+                                          .shopProductRepository
+                                          .productList[index];
 
                                       return ProLovedCard(
                                         fun: () {
-                                          final productDetailsProvider = Provider
-                                              .of<ProductDetailsRepositoryProvider>(
-                                                  context,
-                                                  listen: false);
+                                          final productDetailsProvider =
+                                              Provider.of<
+                                                  ProductDetailsRepositoryProvider>(
+                                            context,
+                                            listen: false,
+                                          );
                                           debugPrint(
                                               "this is product id:${product.id}");
                                           productDetailsProvider
@@ -365,69 +372,6 @@ class _VisitStoreState extends State<VisitStore> {
                               },
                             ),
                           ),
-                          const VerticalSpeacing(20.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'New T Shirts',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: 'CenturyGothic',
-                                  color: AppColor.fontColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.newItemsScreen,
-                                    arguments: widget.newProducts,
-                                  );
-                                },
-                                child: const Text(
-                                  'see more',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: 'CenturyGothic',
-                                    color: AppColor.fontColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const VerticalSpeacing(16.0),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 2.3,
-                            child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12.0,
-                                mainAxisSpacing: 12.0,
-                              ),
-                              itemCount: 4,
-                              itemBuilder: (context, index) {
-                                Products product = widget.newProducts[index];
-                                return ProLovedCard(
-                                  fun: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RoutesName.productdetail,
-                                    );
-                                  },
-                                  name: product.title,
-                                  rating: product.averageReview,
-                                  price: product.price.toString(),
-                                  discount: product.discount.toString(),
-                                );
-                              },
-                            ),
-                          ),
-                          const VerticalSpeacing(40.0),
                         ],
                       ),
               ),

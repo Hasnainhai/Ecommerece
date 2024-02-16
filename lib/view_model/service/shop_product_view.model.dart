@@ -1,7 +1,7 @@
 import 'package:ecommerece/repository/shop_product_repository.dart';
 import 'package:flutter/material.dart';
 
-class HomeRepositoryProvider extends ChangeNotifier {
+class ShopProductRepositoryProvider extends ChangeNotifier {
   ShopProductRepository _shopProductRepository = ShopProductRepository();
 
   ShopProductRepository get shopProductRepository => _shopProductRepository;
