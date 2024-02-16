@@ -7,7 +7,7 @@ import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class YourDataProvider extends ChangeNotifier {
+class ShopProductRepository extends ChangeNotifier {
   List<ProductShop> productList = []; // Your list to store products
 
   Future<void> fetchData(String id, BuildContext context) async {
