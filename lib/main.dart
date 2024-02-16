@@ -1,7 +1,9 @@
+import 'package:ecommerece/repository/shop_product_repository.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/preloved_view_model.dart';
 import 'package:ecommerece/view_model/service/new_items_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
+import 'package:ecommerece/view_model/service/shop_product_view.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'utils/routes/routes.dart';
@@ -21,9 +23,6 @@ class MyApp extends StatelessWidget {
       providers: [
         MultiProvider(
           providers: [
-            // ChangeNotifierProvider(
-            //   create: (_) => HomeViewModel(),
-            // ),
             ChangeNotifierProvider(
               create: (_) => AuthViewModel(),
             ),
@@ -41,6 +40,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => ProductDetailsRepositoryProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => ShopProductRepositoryProvider(),
             ),
           ],
           child: const MyApp(),

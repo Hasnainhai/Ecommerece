@@ -1,8 +1,12 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/model/shop_products_model.dart';
+import 'package:ecommerece/repository/shop_product_repository.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
+import 'package:ecommerece/view_model/service/product_details_view_model.dart';
+import 'package:ecommerece/view_model/service/shop_product_view.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,16 +18,15 @@ import '../Home/pro_loved/Widgets/pro_loved_card.dart';
 class VisitStore extends StatefulWidget {
   final String storeName;
   final String totalRating;
+  final String id;
   final String description;
-  final List<Products> productsTopRated;
-  final List<Products> newProducts;
+
   const VisitStore({
     super.key,
     required this.storeName,
     required this.totalRating,
     required this.description,
-    required this.productsTopRated,
-    required this.newProducts,
+    required this.id,
   });
 
   @override
@@ -37,6 +40,15 @@ class _VisitStoreState extends State<VisitStore> {
   void dispose() {
     super.dispose();
     searchController.dispose();
+  }
+
+  void initState() {
+    super.initState();
+    Provider.of<ShopProductRepositoryProvider>(context, listen: false)
+        .getHomeProd(
+      context,
+      widget.id,
+    );
   }
 
   @override
@@ -91,7 +103,7 @@ class _VisitStoreState extends State<VisitStore> {
                             return TextFormField(
                               controller: searchController,
                               onChanged: (value) {
-                                if (searchController.text.length == 3) {
+                                if (searchController.text.length == 1) {
                                   setState(() {
                                     isSearch = true;
                                   });
@@ -290,11 +302,11 @@ class _VisitStoreState extends State<VisitStore> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.popularsScreen,
-                                    arguments: widget.productsTopRated,
-                                  );
+                                  // Navigator.pushNamed(
+                                  //   context,
+                                  //   RoutesName.popularsScreen,
+                                  //   arguments: ,
+                                  // );
                                 },
                                 child: const Text(
                                   'see more',
@@ -309,97 +321,57 @@ class _VisitStoreState extends State<VisitStore> {
                           ),
                           const VerticalSpeacing(27.0),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height / 2.3,
-                            child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12.0,
-                                mainAxisSpacing: 12.0,
-                              ),
-                              itemCount: 4,
-                              itemBuilder: (context, index) {
-                                Products product =
-                                    widget.productsTopRated[index];
-                                return ProLovedCard(
-                                  fun: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RoutesName.productdetail,
-                                    );
-                                  },
-                                  name: product.title,
-                                  rating: product.averageReview,
-                                  price: product.price.toString(),
-                                  discount: product.discount.toString(),
-                                );
-                              },
-                            ),
-                          ),
-                          const VerticalSpeacing(20.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'New T Shirts',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: 'CenturyGothic',
-                                  color: AppColor.fontColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.newItemsScreen,
-                                    arguments: widget.newProducts,
+                            height: MediaQuery.of(context).size.height / 2.4,
+                            child: Consumer<ShopProductRepositoryProvider>(
+                              builder: (context, shopRepo, child) {
+                                if (shopRepo.shopProductRepository.productList
+                                    .isEmpty) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
                                   );
-                                },
-                                child: const Text(
-                                  'see more',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: 'CenturyGothic',
-                                    color: AppColor.fontColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const VerticalSpeacing(16.0),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height / 2.3,
-                            child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 12.0,
-                                mainAxisSpacing: 12.0,
-                              ),
-                              itemCount: 4,
-                              itemBuilder: (context, index) {
-                                Products product = widget.newProducts[index];
-                                return ProLovedCard(
-                                  fun: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RoutesName.productdetail,
-                                    );
-                                  },
-                                  name: product.title,
-                                  rating: product.averageReview,
-                                  price: product.price.toString(),
-                                  discount: product.discount.toString(),
-                                );
+                                } else {
+                                  return GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 8.0,
+                                      mainAxisSpacing: 8.0,
+                                    ),
+                                    itemCount: shopRepo.shopProductRepository
+                                        .productList.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      ProductShop product = shopRepo
+                                          .shopProductRepository
+                                          .productList[index];
+
+                                      return ProLovedCard(
+                                        fun: () {
+                                          final productDetailsProvider =
+                                              Provider.of<
+                                                  ProductDetailsRepositoryProvider>(
+                                            context,
+                                            listen: false,
+                                          );
+                                          debugPrint(
+                                              "this is product id:${product.id}");
+                                          productDetailsProvider
+                                              .fetchProductDetails(
+                                            context,
+                                            product.id,
+                                          );
+                                        },
+                                        name: product.title,
+                                        rating: product.averageReview,
+                                        price: product.price.toString(),
+                                        discount: product.discount.toString(),
+                                      );
+                                    },
+                                  );
+                                }
                               },
                             ),
                           ),
-                          const VerticalSpeacing(40.0),
                         ],
                       ),
               ),

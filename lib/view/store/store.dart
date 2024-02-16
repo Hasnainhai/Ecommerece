@@ -83,10 +83,11 @@ class StoreScreen extends StatelessWidget {
                                       totalRating:
                                           shop.averageRating.toString(),
                                       description: 'This is a great store!',
-                                      productsTopRated: homeRepo
-                                          .homeRepository.productsTopRated,
-                                      newProducts:
-                                          homeRepo.homeRepository.newProducts,
+                                      // productsTopRated: homeRepo
+                                      //     .homeRepository.productsTopRated,
+                                      // newProducts:
+                                      //     homeRepo.homeRepository.newProducts,
+                                      id: shop.id.toString(),
                                     )));
                       },
                       name: shop.shopName,

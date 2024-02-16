@@ -124,20 +124,17 @@ class Routes {
             settings.arguments as Map<String, dynamic>?;
 
         if (arguments != null) {
-          final List<Products> newProducts = arguments['newProducts'] ?? [];
-          final List<Products> productsTopRated =
-              arguments['productsTopRated'] ?? [];
           final String storeName = arguments['storeName'] ?? '';
           final String totalRating = arguments['totalRating'] ?? '';
           final String description = arguments['description'] ?? '';
+          final String id = arguments['id'] ?? '';
 
           return MaterialPageRoute(
             builder: (c) => VisitStore(
               storeName: storeName,
               totalRating: totalRating,
               description: description,
-              productsTopRated: productsTopRated,
-              newProducts: newProducts,
+              id: id,
             ),
           );
         } else {
