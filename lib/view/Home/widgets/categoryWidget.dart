@@ -30,7 +30,7 @@ class _CategoryCartState extends State<CategoryCart> {
 
           // Toggle text color
           _textColor =
-              (_textColor == Colors.black) ? Colors.white : Colors.black;
+              (_textColor == Colors.black) ? Colors.black : Colors.black;
         });
       },
       child: Padding(

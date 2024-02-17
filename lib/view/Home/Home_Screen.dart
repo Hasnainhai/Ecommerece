@@ -220,14 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        'see more',
-                        style: TextStyle(
-                            fontSize: 14.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500),
-                      ),
                     ],
                   ),
                   const VerticalSpeacing(16.0),
