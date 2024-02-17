@@ -98,7 +98,7 @@ class _VisitStoreState extends State<VisitStore> {
                       SizedBox(
                         height: 60,
                         width: (MediaQuery.of(context).size.width) - 40,
-                        child: Consumer<HomeRepositoryProvider>(
+                        child: Consumer<ShopProductRepositoryProvider>(
                           builder: (context, searchModel, _) {
                             return TextFormField(
                               controller: searchController,
@@ -110,8 +110,6 @@ class _VisitStoreState extends State<VisitStore> {
                                 }
                                 searchModel.search(
                                   value,
-                                  searchModel.homeRepository.productsTopRated,
-                                  searchModel.homeRepository.newProducts,
                                 );
                               },
                               decoration: InputDecoration(

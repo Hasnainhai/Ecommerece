@@ -10,4 +10,11 @@ class ShopProductRepositoryProvider extends ChangeNotifier {
     await _shopProductRepository.fetchData(id, context);
     notifyListeners();
   }
+
+  void search(
+    String searchTerm,
+  ) {
+    _shopProductRepository.search(searchTerm);
+    notifyListeners();
+  }
 }
