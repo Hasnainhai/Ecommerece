@@ -60,6 +60,7 @@ class ShopProductRepository extends ChangeNotifier {
       if (product.title.toLowerCase().contains(
             searchTerm.toLowerCase(),
           )) {
+        debugPrint("this is search items:${product.toString()}");
         searchResults.add(product);
       }
     }
