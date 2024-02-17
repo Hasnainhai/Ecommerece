@@ -232,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const VerticalSpeacing(16.0),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 14,
+                    height: MediaQuery.of(context).size.height / 9,
                     child: Consumer<HomeRepositoryProvider>(
                       builder: (context, homeRepo, child) {
                         if (homeRepo.homeRepository.productCategories.isEmpty) {
