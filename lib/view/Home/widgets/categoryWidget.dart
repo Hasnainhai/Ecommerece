@@ -30,21 +30,28 @@ class _CategoryCartState extends State<CategoryCart> {
 
           // Toggle text color
           _textColor =
-              (_textColor == Colors.black) ? Colors.white : Colors.black;
+              (_textColor == Colors.black) ? Colors.black : Colors.black;
         });
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 46,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          color: _backgroundColor,
-          child: Center(
-            child: Text(
-              widget.label,
-              style: TextStyle(fontSize: 16, color: _textColor),
+        child: Column(
+          children: [
+            Container(
+              height: 46,
+              width: 46,
+              decoration: BoxDecoration(
+                  color: _backgroundColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColor.primaryColor)),
             ),
-          ),
+            Center(
+              child: Text(
+                widget.label,
+                style: TextStyle(fontSize: 16, color: _textColor),
+              ),
+            ),
+          ],
         ),
       ),
     );

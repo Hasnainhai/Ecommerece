@@ -220,19 +220,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(
-                        'see more',
-                        style: TextStyle(
-                            fontSize: 14.0,
-                            fontFamily: 'CenturyGothic',
-                            color: AppColor.fontColor,
-                            fontWeight: FontWeight.w500),
-                      ),
                     ],
                   ),
                   const VerticalSpeacing(16.0),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 14,
+                    height: MediaQuery.of(context).size.height / 9,
                     child: Consumer<HomeRepositoryProvider>(
                       builder: (context, homeRepo, child) {
                         if (homeRepo.homeRepository.productCategories.isEmpty) {

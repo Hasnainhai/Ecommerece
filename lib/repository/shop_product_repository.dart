@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ShopProductRepository extends ChangeNotifier {
-  List<ProductShop> productList = []; // Your list to store products
+  List<ProductShop> productList = [];
+  // Your list to store products
+  List<ProductShop> searchResults = [];
 
   Future<void> fetchData(String id, BuildContext context) async {
     final String apiUrl = 'http://zarozar.exarth.com/web/api/shop/$id/product/';
@@ -46,6 +48,25 @@ class ShopProductRepository extends ChangeNotifier {
       } else {
         Utils.flushBarErrorMessage("Unexpected error occurred", context);
       }
+    }
+  }
+
+  void search(
+    String searchTerm,
+  ) {
+    searchResults.clear();
+
+    for (var product in productList) {
+      if (product.title.toLowerCase().contains(
+            searchTerm.toLowerCase(),
+          )) {
+        debugPrint("this is search items:${product.toString()}");
+        searchResults.add(product);
+      }
+    }
+
+    if (searchResults.isNotEmpty) {
+      notifyListeners();
     }
   }
 }

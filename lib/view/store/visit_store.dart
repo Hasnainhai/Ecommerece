@@ -98,7 +98,7 @@ class _VisitStoreState extends State<VisitStore> {
                       SizedBox(
                         height: 60,
                         width: (MediaQuery.of(context).size.width) - 40,
-                        child: Consumer<HomeRepositoryProvider>(
+                        child: Consumer<ShopProductRepositoryProvider>(
                           builder: (context, searchModel, _) {
                             return TextFormField(
                               controller: searchController,
@@ -110,8 +110,6 @@ class _VisitStoreState extends State<VisitStore> {
                                 }
                                 searchModel.search(
                                   value,
-                                  searchModel.homeRepository.productsTopRated,
-                                  searchModel.homeRepository.newProducts,
                                 );
                               },
                               decoration: InputDecoration(
@@ -210,10 +208,10 @@ class _VisitStoreState extends State<VisitStore> {
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height / 1.5,
-                            child: Consumer<HomeRepositoryProvider>(
+                            child: Consumer<ShopProductRepositoryProvider>(
                               builder: (context, homeRepo, child) {
-                                if (homeRepo
-                                    .homeRepository.searchResults.isEmpty) {
+                                if (homeRepo.shopProductRepository.searchResults
+                                    .isEmpty) {
                                   return const Center(
                                     child: CircularProgressIndicator(),
                                   );
@@ -230,18 +228,26 @@ class _VisitStoreState extends State<VisitStore> {
                                       childAspectRatio:
                                           1.0, // Width to height ratio of each grid item
                                     ),
-                                    itemCount: homeRepo
-                                        .homeRepository.searchResults.length,
+                                    itemCount: homeRepo.shopProductRepository
+                                        .searchResults.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {
-                                      Products product = homeRepo
-                                          .homeRepository.searchResults[index];
+                                      ProductShop product = homeRepo
+                                          .shopProductRepository
+                                          .searchResults[index];
 
                                       return ProLovedCard(
                                         fun: () {
-                                          Navigator.pushNamed(
+                                          final productDetailsProvider = Provider
+                                              .of<ProductDetailsRepositoryProvider>(
+                                                  context,
+                                                  listen: false);
+                                          debugPrint(
+                                              "this is product id:${product.id}");
+                                          productDetailsProvider
+                                              .fetchProductDetails(
                                             context,
-                                            RoutesName.productdetail,
+                                            product.id,
                                           );
                                         },
                                         name: product.title,

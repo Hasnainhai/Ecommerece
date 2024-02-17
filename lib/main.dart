@@ -1,4 +1,3 @@
-import 'package:ecommerece/repository/shop_product_repository.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/preloved_view_model.dart';
 import 'package:ecommerece/view_model/service/new_items_view_model.dart';
