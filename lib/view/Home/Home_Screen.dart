@@ -1,9 +1,13 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/Home/widgets/default_section.dart';
+import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
@@ -101,15 +105,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         return TextFormField(
                           controller: searchController,
                           onChanged: (value) {
-                            if (searchController.text.length == 3) {
-                              setState(() {
-                                isSearch = true;
-                              });
+                            if (searchController.text.length == 1) {
+                              viewModel.search(
+                                  value,
+                                  viewModel.homeRepository.productsTopRated,
+                                  viewModel.homeRepository.newProducts);
+                              Provider.of<HomeUiSwithchRepository>(context,
+                                      listen: false)
+                                  .switchToType(UIType.SearchSection);
+                            } else {
+                              Provider.of<HomeUiSwithchRepository>(context,
+                                      listen: false)
+                                  .switchToType(UIType.DefaultSection);
                             }
-                            viewModel.search(
-                                value,
-                                viewModel.homeRepository.productsTopRated,
-                                viewModel.homeRepository.newProducts);
                           },
                           decoration: InputDecoration(
                             hintText: "Search Here",
@@ -148,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            'Store',
+                            'Top Stores',
                             style: TextStyle(
                               fontSize: 18.0,
                               fontFamily: 'CenturyGothic',
@@ -249,297 +257,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const VerticalSpeacing(16.0),
-                  isSearch
-                      ? Column(
-                          children: [
-                            Consumer<HomeRepositoryProvider>(
-                              builder: (context, homeRepo, child) {
-                                List<Products> newProducts =
-                                    homeRepo.homeRepository.productsTopRated;
+                  Consumer<HomeUiSwithchRepository>(
+                    builder: (context, uiState, _) {
+                      Widget selectedWidget;
 
-                                return Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Search Products',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontFamily: 'CenturyGothic',
-                                        color: AppColor.fontColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RoutesName.popularsScreen,
-                                          arguments: newProducts,
-                                        );
-                                      },
-                                      child: const Text(
-                                        'see more',
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontFamily: 'CenturyGothic',
-                                          color: AppColor.fontColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            const VerticalSpeacing(
-                              12,
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 2,
-                              width: MediaQuery.of(context).size.width,
-                              child: Consumer<HomeRepositoryProvider>(
-                                builder: (context, homeRepo, child) {
-                                  if (homeRepo
-                                      .homeRepository.searchResults.isEmpty) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  } else {
-                                    return GridView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2, // Number of columns
-                                        crossAxisSpacing:
-                                            8.0, // Spacing between columns
-                                        mainAxisSpacing:
-                                            8.0, // Spacing between rows
-                                        childAspectRatio:
-                                            1.0, // Width to height ratio of each grid item
-                                      ),
-                                      itemCount: homeRepo
-                                          .homeRepository.searchResults.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        Products product = homeRepo
-                                            .homeRepository
-                                            .searchResults[index];
+                      switch (uiState.selectedType) {
+                        case UIType.SearchSection:
+                          selectedWidget = const SearchSection();
+                          break;
+                        case UIType.FilterSection:
+                          selectedWidget = const Text('Type 2 Implementation');
+                          break;
+                        case UIType.CategriosSection:
+                          selectedWidget = const Text('Type 3 Implementation');
+                          break;
+                        case UIType.DefaultSection:
+                          selectedWidget = const DefaultSection();
+                          break;
+                      }
 
-                                        return ProLovedCard(
-                                          fun: () {
-                                            final productDetailsProvider = Provider
-                                                .of<ProductDetailsRepositoryProvider>(
-                                                    context,
-                                                    listen: false);
-                                            debugPrint(
-                                                "this is product id:${product.id}");
-                                            productDetailsProvider
-                                                .fetchProductDetails(
-                                              context,
-                                              product.id,
-                                            );
-                                          },
-                                          name: product.title,
-                                          rating: product.averageReview,
-                                          price: product.price.toString(),
-                                          discount: product.discount.toString(),
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            Consumer<HomeRepositoryProvider>(
-                              builder: (context, homeRepo, child) {
-                                List<Products> newProducts =
-                                    homeRepo.homeRepository.productsTopRated;
-
-                                return Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Populars',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontFamily: 'CenturyGothic',
-                                        color: AppColor.fontColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RoutesName.popularsScreen,
-                                          arguments: newProducts,
-                                        );
-                                      },
-                                      child: const Text(
-                                        'see more',
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontFamily: 'CenturyGothic',
-                                          color: AppColor.fontColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            const VerticalSpeacing(
-                              12,
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 5,
-                              child: Consumer<HomeRepositoryProvider>(
-                                builder: (context, homeRepo, child) {
-                                  if (homeRepo.homeRepository.productsTopRated
-                                      .isEmpty) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  } else {
-                                    return ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: homeRepo.homeRepository
-                                          .productsTopRated.length,
-                                      itemExtent:
-                                          MediaQuery.of(context).size.width /
-                                              2.2,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        Products product = homeRepo
-                                            .homeRepository
-                                            .productsTopRated[index];
-
-                                        return ProLovedCard(
-                                          fun: () {
-                                            final productDetailsProvider = Provider
-                                                .of<ProductDetailsRepositoryProvider>(
-                                                    context,
-                                                    listen: false);
-                                            debugPrint(
-                                                "this is product id:${product.id}");
-                                            productDetailsProvider
-                                                .fetchProductDetails(
-                                              context,
-                                              product.id,
-                                            );
-                                          },
-                                          name: product.title,
-                                          rating: product.averageReview,
-                                          price: product.price.toString(),
-                                          discount: product.discount.toString(),
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                            const VerticalSpeacing(20.0),
-                            Consumer<HomeRepositoryProvider>(
-                              builder: (context, homeRepo, child) {
-                                List<Products> newProducts =
-                                    homeRepo.homeRepository.newProducts;
-
-                                return Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Our new items',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontFamily: 'CenturyGothic',
-                                        color: AppColor.fontColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          RoutesName.newItemsScreen,
-                                          arguments: newProducts,
-                                        );
-                                      },
-                                      child: const Text(
-                                        'see more',
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontFamily: 'CenturyGothic',
-                                          color: AppColor.fontColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            const VerticalSpeacing(
-                              12,
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 5,
-                              child: Consumer<HomeRepositoryProvider>(
-                                builder: (context, homeRepo, child) {
-                                  if (homeRepo
-                                      .homeRepository.newProducts.isEmpty) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  } else {
-                                    return ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: homeRepo
-                                          .homeRepository.newProducts.length,
-                                      itemExtent:
-                                          MediaQuery.of(context).size.width /
-                                              2.2,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        Products product = homeRepo
-                                            .homeRepository.newProducts[index];
-
-                                        return ProLovedCard(
-                                          fun: () {
-                                            final productDetailsProvider = Provider
-                                                .of<ProductDetailsRepositoryProvider>(
-                                                    context,
-                                                    listen: false);
-                                            debugPrint(
-                                                "this is product id:${product.id}");
-                                            productDetailsProvider
-                                                .fetchProductDetails(
-                                              context,
-                                              product.id,
-                                            );
-                                          },
-                                          name: product.title,
-                                          rating: product.averageReview,
-                                          price: product.price.toString(),
-                                          discount: product.discount.toString(),
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                            const VerticalSpeacing(30.0),
-                          ],
-                        ),
+                      return selectedWidget;
+                    },
+                  ),
                 ],
               ),
             ],

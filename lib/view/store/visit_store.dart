@@ -307,20 +307,15 @@ class _VisitStoreState extends State<VisitStore> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {
-                                  // Navigator.pushNamed(
-                                  //   context,
-                                  //   RoutesName.popularsScreen,
-                                  //   arguments: ,
-                                  // );
-                                },
+                                onTap: () {},
                                 child: const Text(
                                   'see more',
                                   style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontFamily: 'CenturyGothic',
-                                      color: AppColor.fontColor,
-                                      fontWeight: FontWeight.w500),
+                                    fontSize: 14.0,
+                                    fontFamily: 'CenturyGothic',
+                                    color: AppColor.fontColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ],

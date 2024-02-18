@@ -1,3 +1,4 @@
+import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/preloved_view_model.dart';
 import 'package:ecommerece/view_model/service/new_items_view_model.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (context) => ShopProductRepositoryProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => HomeUiSwithchRepository(),
             ),
           ],
           child: const MyApp(),

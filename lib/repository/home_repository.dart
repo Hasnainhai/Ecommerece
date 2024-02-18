@@ -18,6 +18,7 @@ class HomeRepository extends ChangeNotifier {
   List<Products> productsTopRated = [];
   List<TopShop> topShops = [];
   List<Products> searchResults = [];
+  List<Products> categriousProduct = [];
 
   Future<void> getHomeProd(BuildContext context) async {
     try {
@@ -90,6 +91,28 @@ class HomeRepository extends ChangeNotifier {
     }
 
     if (searchResults.isNotEmpty) {
+      notifyListeners();
+    }
+  }
+
+  void categoryFilter(String category) {
+    categriousProduct.clear();
+    for (var product in productsTopRated) {
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
+      }
+    }
+    for (var product in newProducts) {
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
+      }
+    }
+
+    if (categriousProduct.isNotEmpty) {
       notifyListeners();
     }
   }

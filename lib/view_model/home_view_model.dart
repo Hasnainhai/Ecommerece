@@ -29,4 +29,11 @@ class HomeRepositoryProvider extends ChangeNotifier {
     _homeRepository.search(searchTerm, productsTopOrder, productsNew);
     notifyListeners();
   }
+
+  void categoryFilter(
+    String categrio,
+  ) {
+    _homeRepository.categoryFilter(categrio);
+    notifyListeners();
+  }
 }
