@@ -98,11 +98,22 @@ class HomeRepository extends ChangeNotifier {
   void categoryFilter(String category) {
     categriousProduct.clear();
     for (var product in productsTopRated) {
-      if (product.category.name
-          .toLowerCase()
-          .contains(category.toLowerCase())) {
-        searchResults.add(product);
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
       }
+    }
+    for (var product in newProducts) {
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
+      }
+    }
+
+    if (categriousProduct.isNotEmpty) {
+      notifyListeners();
     }
   }
 }
