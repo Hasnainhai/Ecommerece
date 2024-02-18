@@ -4,17 +4,14 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
-import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/Home/widgets/default_section.dart';
 import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
-import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/home_view_model.dart';
-import 'pro_loved/Widgets/pro_loved_card.dart';
 import 'widgets/storeWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -249,7 +246,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               Category category = homeRepo
                                   .homeRepository.productCategories[index];
 
-                              return CategoryCart(category.name);
+                              return CategoryCart(category.name, () {
+                                Provider.of<HomeRepositoryProvider>(context,
+                                        listen: false)
+                                    .categoryFilter(
+                                  category.name,
+                                );
+                              });
                             },
                           );
                         }
