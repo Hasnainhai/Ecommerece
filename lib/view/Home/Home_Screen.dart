@@ -1,9 +1,13 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/ProductDetail/product_detail_screen.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/Home/widgets/default_section.dart';
+import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
@@ -249,6 +253,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const VerticalSpeacing(16.0),
+                  Consumer<HomeUiSwithchRepository>(
+                    builder: (context, uiState, _) {
+                      Widget selectedWidget;
+
+                      switch (uiState.selectedType) {
+                        case UIType.SearchSection:
+                          selectedWidget = const SearchSection();
+                          break;
+                        case UIType.FilterSection:
+                          selectedWidget = const Text('Type 2 Implementation');
+                          break;
+                        case UIType.CategriosSection:
+                          selectedWidget = const Text('Type 3 Implementation');
+                          break;
+                        case UIType.DefaultSection:
+                          selectedWidget = const DefaultSection();
+                          break;
+                      }
+
+                      return selectedWidget;
+                    },
+                  ),
                 ],
               ),
             ],
