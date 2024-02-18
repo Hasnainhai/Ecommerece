@@ -105,15 +105,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         return TextFormField(
                           controller: searchController,
                           onChanged: (value) {
-                            if (searchController.text.length == 3) {
-                              setState(() {
-                                isSearch = true;
-                              });
+                            if (searchController.text.length == 1) {
+                              viewModel.search(
+                                  value,
+                                  viewModel.homeRepository.productsTopRated,
+                                  viewModel.homeRepository.newProducts);
+                              Provider.of<HomeUiSwithchRepository>(context,
+                                      listen: false)
+                                  .switchToType(UIType.SearchSection);
+                            } else {
+                              Provider.of<HomeUiSwithchRepository>(context,
+                                      listen: false)
+                                  .switchToType(UIType.DefaultSection);
                             }
-                            viewModel.search(
-                                value,
-                                viewModel.homeRepository.productsTopRated,
-                                viewModel.homeRepository.newProducts);
                           },
                           decoration: InputDecoration(
                             hintText: "Search Here",
@@ -152,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            'Store',
+                            'Top Stores',
                             style: TextStyle(
                               fontSize: 18.0,
                               fontFamily: 'CenturyGothic',

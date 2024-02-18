@@ -1,4 +1,7 @@
+import 'package:ecommerece/repository/home_ui_repository.dart';
+import 'package:ecommerece/res/enums.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../../res/components/colors.dart';
 import '../../res/components/verticalSpacing.dart';
@@ -213,7 +216,11 @@ class _FilterPopUpState extends State<FilterPopUp> {
                   50,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Provider.of<HomeUiSwithchRepository>(context, listen: false)
+                        .switchToType(UIType.FilterSection);
+                    Navigator.pop(context);
+                  },
                   child: Container(
                     height: 56,
                     width: MediaQuery.of(context).size.width / 1,
