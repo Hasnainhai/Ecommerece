@@ -6,8 +6,9 @@ import '../../../res/components/colors.dart';
 
 class CategoryCart extends StatefulWidget {
   final String label;
+  final VoidCallback onpress;
 
-  CategoryCart(this.label);
+  CategoryCart(this.label, this.onpress);
 
   @override
   // ignore: library_private_types_in_public_api
