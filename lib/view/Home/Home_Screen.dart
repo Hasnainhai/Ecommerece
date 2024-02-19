@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
@@ -103,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return TextFormField(
                           controller: searchController,
                           onChanged: (value) {
-                            if (searchController.text.length == 1) {
+                            if (searchController.text.length >= 1) {
                               viewModel.search(
                                   value,
                                   viewModel.homeRepository.productsTopRated,
