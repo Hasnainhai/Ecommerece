@@ -26,6 +26,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
   String catergioes = "study";
   double minPrice = 5;
   double maxPrice = 1000;
+  double maxRating = 4.5;
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +254,9 @@ class _FilterPopUpState extends State<FilterPopUp> {
                           Icons.star_rate_rounded,
                           color: Colors.amber,
                         ),
-                    onRatingUpdate: (rating) {}),
+                    onRatingUpdate: (rating) {
+                      rating = maxRating;
+                    }),
                 const VerticalSpeacing(
                   50,
                 ),

@@ -132,6 +132,7 @@ class HomeRepository extends ChangeNotifier {
             category.toLowerCase(),
           )) {
         filteredProducts.add(product);
+        debugPrint("this is category :$filteredProducts");
       }
     }
     for (var product in newProducts) {
@@ -139,9 +140,9 @@ class HomeRepository extends ChangeNotifier {
             category.toLowerCase(),
           )) {
         filteredProducts.add(product);
+        debugPrint("this is category :$filteredProducts");
       }
     }
-    debugPrint("this is category :$filteredProducts");
 
     // Further filter by rating
     filteredProducts
