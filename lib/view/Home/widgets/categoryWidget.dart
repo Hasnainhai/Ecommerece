@@ -34,7 +34,7 @@ class _CategoryCartState extends State<CategoryCart> {
         );
         Provider.of<HomeUiSwithchRepository>(context, listen: false)
             .switchToType(
-          UIType.CategriosSection,
+          UIType.CategoriesSection,
         );
         setState(() {
           // Toggle background color

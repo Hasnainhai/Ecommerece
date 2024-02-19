@@ -8,8 +8,8 @@ import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SearchSection extends StatelessWidget {
-  const SearchSection({super.key});
+class CategoriesSection extends StatelessWidget {
+  const CategoriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {

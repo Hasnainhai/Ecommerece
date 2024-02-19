@@ -5,6 +5,7 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/Home/widgets/category_products.dart';
 import 'package:ecommerece/view/Home/widgets/default_section.dart';
 import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
@@ -265,8 +266,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         case UIType.FilterSection:
                           selectedWidget = const Text('Type 2 Implementation');
                           break;
-                        case UIType.CategriosSection:
-                          selectedWidget = const Text('Type 3 Implementation');
+                        case UIType.CategoriesSection:
+                          selectedWidget = const CategoriesSection();
                           break;
                         case UIType.DefaultSection:
                           selectedWidget = const DefaultSection();
