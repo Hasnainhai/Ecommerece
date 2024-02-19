@@ -43,10 +43,6 @@ class _ProLovedCardState extends State<ProLovedCard> {
       setState(() {
         isLike = true;
       });
-    } else {
-      setState(() {
-        isLike = false;
-      });
     }
   }
 

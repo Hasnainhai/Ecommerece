@@ -6,8 +6,16 @@ int subTotal = 0;
 
 // ignore: must_be_immutable
 class CartWidget extends StatefulWidget {
-  const CartWidget({super.key});
-
+  const CartWidget(
+      {super.key,
+      required this.productId,
+      required this.name,
+      required this.image,
+      required this.price});
+  final String productId;
+  final String name;
+  final String image;
+  final String price;
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -29,24 +37,24 @@ class _CartWidgetState extends State<CartWidget> {
                   height: 80.0,
                   width: 58.0,
                   child: Image.asset('images/coat.png')),
-              title: const Row(
+              title: Row(
                 children: [
-                  SizedBox(width: 30.0),
+                  const SizedBox(width: 30.0),
                   Text.rich(
                     TextSpan(
-                        text: 'hupper winter\n',
-                        style: TextStyle(
+                        text: '${widget.name}\n',
+                        style: const TextStyle(
                           fontFamily: 'CenturyGothic',
                           fontSize: 16,
                           fontWeight: FontWeight.w800,
                           color: AppColor.fontColor,
                         ),
-                        children: [
+                        children: const [
                           TextSpan(
                             text: 'Duis aute veniam',
                             style: TextStyle(
                               fontFamily: 'CenturyGothic',
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.w100,
                               color: AppColor.fontColor,
                             ),
@@ -64,8 +72,8 @@ class _CartWidgetState extends State<CartWidget> {
                     InkWell(
                       onTap: () {},
                       child: Container(
-                          height: 34,
-                          width: 34,
+                          height: 32,
+                          width: 32,
                           decoration: BoxDecoration(
                             border: Border.all(color: AppColor.primaryColor),
                           ),
@@ -85,7 +93,7 @@ class _CartWidgetState extends State<CartWidget> {
                       '2',
                       style: TextStyle(
                         fontFamily: 'CenturyGothic',
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: AppColor.fontColor,
                       ),
@@ -96,8 +104,8 @@ class _CartWidgetState extends State<CartWidget> {
                     InkWell(
                       onTap: () {},
                       child: Container(
-                        height: 34,
-                        width: 34,
+                        height: 32,
+                        width: 32,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: AppColor.primaryColor,
@@ -123,12 +131,12 @@ class _CartWidgetState extends State<CartWidget> {
                       size: 24,
                     ),
                   ),
-                  const Text(
-                    '20\$',
-                    style: TextStyle(
+                  Text(
+                    widget.price,
+                    style: const TextStyle(
                       fontFamily: 'CenturyGothic',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w800,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                       color: AppColor.fontColor,
                     ),
                   ),
