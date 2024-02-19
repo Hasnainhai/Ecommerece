@@ -1,5 +1,6 @@
 import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/enums.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,15 @@ class FilterPopUp extends StatefulWidget {
 }
 
 class _FilterPopUpState extends State<FilterPopUp> {
+  RangeValues _values = const RangeValues(5, 1000);
+
   bool button1 = false;
   bool button2 = false;
   bool button3 = false;
   bool button4 = false;
+  String catergioes = "study";
+  double minPrice = 5;
+  double maxPrice = 1000;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,43 @@ class _FilterPopUpState extends State<FilterPopUp> {
                   ),
                 ),
                 const VerticalSpeacing(30),
-                const PriceRangeSlider(),
+                Container(
+                  height: 75, // Adjust the height as needed
+                  width: double.infinity,
+                  color: Colors.white, // Set the desired background color
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Price Range: \$${_values.start.toInt()} - \$${_values.end.toInt()}',
+                        style: const TextStyle(
+                          fontFamily: 'CenturyGothic',
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.blackColor,
+                        ),
+                      ),
+                      RangeSlider(
+                        activeColor: AppColor.primaryColor,
+                        inactiveColor: Colors.grey.shade300,
+                        values: _values,
+                        min: 5,
+                        max: 1000,
+                        divisions: 100,
+                        labels: RangeLabels(
+                          _values.start.round().toString(),
+                          _values.end.round().toString(),
+                        ),
+                        onChanged: (values) {
+                          setState(() {
+                            _values = values;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 const Text(
                   "Categories",
                   style: TextStyle(
@@ -217,6 +259,13 @@ class _FilterPopUpState extends State<FilterPopUp> {
                 ),
                 InkWell(
                   onTap: () {
+                    Provider.of<HomeRepositoryProvider>(context, listen: false)
+                        .filterProducts(
+                      catergioes,
+                      4,
+                      minPrice,
+                      maxPrice,
+                    );
                     Provider.of<HomeUiSwithchRepository>(context, listen: false)
                         .switchToType(UIType.FilterSection);
                     Navigator.pop(context);
