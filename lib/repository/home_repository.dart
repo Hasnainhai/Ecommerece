@@ -126,13 +126,11 @@ class HomeRepository extends ChangeNotifier {
   ) {
     try {
       filteredProducts.clear();
-      // Filter by category
       for (var product in productsTopRated) {
         if (product.category.name.toLowerCase().contains(
               category.toLowerCase(),
             )) {
           filteredProducts.add(product);
-          debugPrint("this is category :$filteredProducts");
         }
       }
       for (var product in newProducts) {
@@ -140,18 +138,15 @@ class HomeRepository extends ChangeNotifier {
               category.toLowerCase(),
             )) {
           filteredProducts.add(product);
-          debugPrint("this is category :$filteredProducts");
         }
       }
       // Further filter by rating
       filteredProducts
           .removeWhere((product) => product.averageReview < minRating);
-      debugPrint("this is rating :$filteredProducts");
       // Further filter by price range
       filteredProducts.removeWhere(
         (product) => product.price < minPrice || product.price > maxPrice,
       );
-      debugPrint("this is price :$filteredProducts");
       notifyListeners();
     } catch (e) {
       debugPrint("this is error in the filter product:${e.toString()} ");
