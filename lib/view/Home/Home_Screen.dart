@@ -246,13 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Category category = homeRepo
                                   .homeRepository.productCategories[index];
 
-                              return CategoryCart(category.name, () {
-                                Provider.of<HomeRepositoryProvider>(context,
-                                        listen: false)
-                                    .categoryFilter(
-                                  category.name,
-                                );
-                              });
+                              return CategoryCart(category.name);
                             },
                           );
                         }

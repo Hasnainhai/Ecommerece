@@ -1,14 +1,19 @@
 // ignore_for_file: file_names
 
+import 'package:ecommerece/repository/home_ui_repository.dart';
+import 'package:ecommerece/res/enums.dart';
+import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/components/colors.dart';
 
 class CategoryCart extends StatefulWidget {
   final String label;
-  final VoidCallback onpress;
 
-  CategoryCart(this.label, this.onpress);
+  CategoryCart(
+    this.label,
+  );
 
   @override
   // ignore: library_private_types_in_public_api
@@ -23,6 +28,14 @@ class _CategoryCartState extends State<CategoryCart> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Provider.of<HomeRepositoryProvider>(context, listen: false)
+            .categoryFilter(
+          widget.label,
+        );
+        Provider.of<HomeUiSwithchRepository>(context, listen: false)
+            .switchToType(
+          UIType.CategriosSection,
+        );
         setState(() {
           // Toggle background color
           _backgroundColor = (_backgroundColor == AppColor.fieldBgColor)
