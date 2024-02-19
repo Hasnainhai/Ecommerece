@@ -87,7 +87,6 @@ class SearchSection extends StatelessWidget {
                             Provider.of<ProductDetailsRepositoryProvider>(
                                 context,
                                 listen: false);
-                        debugPrint("this is product id:${product.id}");
                         productDetailsProvider.fetchProductDetails(
                           context,
                           product.id,
@@ -97,6 +96,8 @@ class SearchSection extends StatelessWidget {
                       rating: product.averageReview,
                       price: product.price.toString(),
                       discount: product.discount.toString(),
+                      id: product.id,
+                      image: product.thumbnailImage,
                     );
                   },
                 );

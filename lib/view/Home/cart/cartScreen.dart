@@ -1,15 +1,29 @@
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
+import 'package:ecommerece/view_model/service/cart_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/components/colors.dart';
 import '../../../res/components/verticalSpacing.dart';
 import 'widgets/cartWidget.dart';
 import 'widgets/dottedLine.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<CartRepositoryProvider>(context, listen: false)
+        .getCachedProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,20 +66,31 @@ class CartScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  width: double.infinity,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    // physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return const Padding(
-                        padding: EdgeInsets.only(bottom: 12.0),
-                        child: CartWidget(),
-                      );
-                    },
-                  ),
+                Consumer<CartRepositoryProvider>(
+                  builder: (context, cartRepoProvider, child) {
+                    List<Map<String, dynamic>> cartItems =
+                        cartRepoProvider.cartRepositoryProvider.cartList;
+
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      width: double.infinity,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: CartWidget(
+                              productId: cartItems[index]['productId'],
+                              name: cartItems[index]['name'],
+                              image: cartItems[index]['image'],
+                              price: cartItems[index]['price'],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
                 const VerticalSpeacing(30.0),
                 const Text(

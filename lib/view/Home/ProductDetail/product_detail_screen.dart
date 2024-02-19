@@ -338,6 +338,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                             rating: product.averageReview,
                             price: product.price.toString(),
                             discount: product.discount.toString(),
+                            id: product.id,
+                            image: product.thumbnailImage,
                           );
                         },
                       );

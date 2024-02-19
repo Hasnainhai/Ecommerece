@@ -1,8 +1,10 @@
-import 'package:ecommerece/data/response/api_response.dart';
+import 'dart:convert';
+
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/repository/home_repository.dart';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeRepositoryProvider extends ChangeNotifier {
   HomeRepository _homeRepository = HomeRepository();
@@ -50,5 +52,28 @@ class HomeRepositoryProvider extends ChangeNotifier {
       maxPrice,
     );
     notifyListeners();
+  }
+
+  void saveCartProducts(
+    String productId,
+    String name,
+    String image,
+    String price,
+  ) {
+    _homeRepository.saveProductToCache(
+        productId: productId, name: name, image: image, price: price);
+    notifyListeners();
+  }
+
+  Future<bool> isProductInCart(String productId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> cachedProducts = prefs.getStringList('products') ?? [];
+
+    // Check if the product is in the list
+    return cachedProducts.any((productJson) {
+      Map<String, dynamic> existingProduct =
+          json.decode(productJson) as Map<String, dynamic>;
+      return existingProduct['productId'] == productId;
+    });
   }
 }

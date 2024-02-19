@@ -1,6 +1,7 @@
 import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/preloved_view_model.dart';
+import 'package:ecommerece/view_model/service/cart_view_model.dart';
 import 'package:ecommerece/view_model/service/new_items_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:ecommerece/view_model/service/shop_product_view.model.dart';
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => HomeUiSwithchRepository(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => CartRepositoryProvider(),
             ),
           ],
           child: const MyApp(),

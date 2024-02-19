@@ -8,6 +8,7 @@ import 'package:ecommerece/res/app_url.dart';
 import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeRepository extends ChangeNotifier {
   List<Products> newProducts = [];
@@ -126,13 +127,11 @@ class HomeRepository extends ChangeNotifier {
   ) {
     try {
       filteredProducts.clear();
-      // Filter by category
       for (var product in productsTopRated) {
         if (product.category.name.toLowerCase().contains(
               category.toLowerCase(),
             )) {
           filteredProducts.add(product);
-          debugPrint("this is category :$filteredProducts");
         }
       }
       for (var product in newProducts) {
@@ -140,21 +139,70 @@ class HomeRepository extends ChangeNotifier {
               category.toLowerCase(),
             )) {
           filteredProducts.add(product);
-          debugPrint("this is category :$filteredProducts");
         }
       }
       // Further filter by rating
       filteredProducts
           .removeWhere((product) => product.averageReview < minRating);
-      debugPrint("this is rating :$filteredProducts");
       // Further filter by price range
       filteredProducts.removeWhere(
         (product) => product.price < minPrice || product.price > maxPrice,
       );
-      debugPrint("this is price :$filteredProducts");
       notifyListeners();
     } catch (e) {
       debugPrint("this is error in the filter product:${e.toString()} ");
     }
+  }
+
+  Future<void> saveProductToCache({
+    required String productId,
+    required String name,
+    required String image,
+    required String price,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      // Create a map for the new product details
+      Map<String, dynamic> newProduct = {
+        'productId': productId,
+        'name': name,
+        'image': image,
+        'price': price,
+      };
+
+      // Convert the map to a JSON string
+      String newProductJson = json.encode(newProduct);
+
+      // Load existing products from cache or create an empty list
+      List<String> cachedProducts = prefs.getStringList('products') ?? [];
+
+      // Add the new product JSON string to the list
+      cachedProducts.add(newProductJson);
+
+      // Print the existing products to the console
+      print("Existing Products in Cache: $cachedProducts");
+
+      // Save the updated list of products to cache
+      prefs.setStringList('products', cachedProducts);
+      Utils.toastMessage("Product has been added to cart");
+      notifyListeners();
+    } catch (e) {
+      debugPrint("Error saving product to cache: $e");
+    }
+  }
+
+  Future<bool> isProductInCart(String productId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> cachedProducts = prefs.getStringList('products') ?? [];
+
+    for (String productJson in cachedProducts) {
+      Map<String, dynamic> productMap = json.decode(productJson);
+      if (productMap['productId'] == productId) {
+        return true; // Product is in the cart
+      }
+    }
+
+    return false; // Product is not in the cart
   }
 }
