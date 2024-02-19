@@ -9,6 +9,7 @@ import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/Home/widgets/category_products.dart';
 import 'package:ecommerece/view/Home/widgets/default_section.dart';
+import 'package:ecommerece/view/Home/widgets/filter_products.dart';
 import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:flutter/material.dart';
@@ -266,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           selectedWidget = const SearchSection();
                           break;
                         case UIType.FilterSection:
-                          selectedWidget = const Text('Type 2 Implementation');
+                          selectedWidget = const FilterProducts();
                           break;
                         case UIType.CategoriesSection:
                           selectedWidget = const CategoriesSection();
