@@ -1,6 +1,6 @@
 enum UIType {
   SearchSection,
   FilterSection,
-  CategriosSection,
+  CategoriesSection,
   DefaultSection,
 }

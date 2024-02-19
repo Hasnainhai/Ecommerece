@@ -325,9 +325,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
                           return ProLovedCard(
                             fun: () {
-                              Navigator.pushNamed(
+                              final productDetailsProvider =
+                                  Provider.of<ProductDetailsRepositoryProvider>(
+                                      context,
+                                      listen: false);
+                              productDetailsProvider.fetchProductDetails(
                                 context,
-                                RoutesName.productdetail,
+                                product.id,
                               );
                             },
                             name: product.title,

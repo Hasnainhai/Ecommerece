@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
@@ -5,6 +7,7 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
+import 'package:ecommerece/view/Home/widgets/category_products.dart';
 import 'package:ecommerece/view/Home/widgets/default_section.dart';
 import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
@@ -102,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return TextFormField(
                           controller: searchController,
                           onChanged: (value) {
-                            if (searchController.text.length == 1) {
+                            if (searchController.text.length >= 1) {
                               viewModel.search(
                                   value,
                                   viewModel.homeRepository.productsTopRated,
@@ -246,13 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Category category = homeRepo
                                   .homeRepository.productCategories[index];
 
-                              return CategoryCart(category.name, () {
-                                Provider.of<HomeRepositoryProvider>(context,
-                                        listen: false)
-                                    .categoryFilter(
-                                  category.name,
-                                );
-                              });
+                              return CategoryCart(category.name);
                             },
                           );
                         }
@@ -271,8 +268,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         case UIType.FilterSection:
                           selectedWidget = const Text('Type 2 Implementation');
                           break;
-                        case UIType.CategriosSection:
-                          selectedWidget = const Text('Type 3 Implementation');
+                        case UIType.CategoriesSection:
+                          selectedWidget = const CategoriesSection();
                           break;
                         case UIType.DefaultSection:
                           selectedWidget = const DefaultSection();
