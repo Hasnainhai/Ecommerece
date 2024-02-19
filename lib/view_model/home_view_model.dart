@@ -36,4 +36,19 @@ class HomeRepositoryProvider extends ChangeNotifier {
     _homeRepository.categoryFilter(categrio);
     notifyListeners();
   }
+
+  void filterProducts(
+    String categrio,
+    int maxRating,
+    double minPrice,
+    double maxPrice,
+  ) {
+    _homeRepository.filterProducts(
+      categrio,
+      maxRating,
+      minPrice,
+      maxPrice,
+    );
+    notifyListeners();
+  }
 }
