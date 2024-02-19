@@ -39,13 +39,13 @@ class HomeRepositoryProvider extends ChangeNotifier {
 
   void filterProducts(
     String categrio,
-    int maxRating,
+    double mixRating,
     double minPrice,
     double maxPrice,
   ) {
     _homeRepository.filterProducts(
       categrio,
-      maxRating,
+      mixRating,
       minPrice,
       maxPrice,
     );

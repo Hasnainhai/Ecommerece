@@ -120,7 +120,7 @@ class HomeRepository extends ChangeNotifier {
 
   void filterProducts(
     String category,
-    int minRating,
+    double minRating,
     double minPrice,
     double maxPrice,
   ) {

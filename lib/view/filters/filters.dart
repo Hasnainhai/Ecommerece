@@ -189,21 +189,19 @@ class _FilterPopUpState extends State<FilterPopUp> {
                           color: Colors.amber,
                         ),
                     onRatingUpdate: (rating) {
-                      // setState(() {
-                      //   rating = maxRating;
-                      // });
+                      setState(() {
+                        maxRating = rating;
+                      });
                     }),
                 const VerticalSpeacing(
                   50,
                 ),
                 InkWell(
                   onTap: () {
-                    // String mxRting = maxRating.toString();
-                    // int mRating = int.parse(mxRting);
                     Provider.of<HomeRepositoryProvider>(context, listen: false)
                         .filterProducts(
                       catergioes,
-                      5,
+                      maxRating,
                       minPrice,
                       maxPrice,
                     );
