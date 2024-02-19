@@ -186,8 +186,23 @@ class HomeRepository extends ChangeNotifier {
       // Save the updated list of products to cache
       prefs.setStringList('products', cachedProducts);
       Utils.toastMessage("Product has been added to cart");
+      notifyListeners();
     } catch (e) {
       debugPrint("Error saving product to cache: $e");
     }
+  }
+
+  Future<bool> isProductInCart(String productId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> cachedProducts = prefs.getStringList('products') ?? [];
+
+    for (String productJson in cachedProducts) {
+      Map<String, dynamic> productMap = json.decode(productJson);
+      if (productMap['productId'] == productId) {
+        return true; // Product is in the cart
+      }
+    }
+
+    return false; // Product is not in the cart
   }
 }
