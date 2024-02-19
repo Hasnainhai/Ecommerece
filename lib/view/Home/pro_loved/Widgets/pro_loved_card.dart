@@ -72,17 +72,8 @@ class _ProLovedCardState extends State<ProLovedCard> {
                           isLike = !isLike;
                         });
 
-                        // Get the product details
-                        String productId =
-                            "your_product_id"; // Replace with the actual product ID
-                        String name = widget.name;
-                        String image =
-                            "images/coat.png"; // Replace with the actual image path
-                        String price = widget.price;
-
-                        // Call the saveCartProducts function
                         homeRepoProvider.saveCartProducts(
-                            productId, name, image, price);
+                            widget.id, widget.name, widget.image, widget.price);
                       },
                       child: Icon(
                         Icons.favorite,

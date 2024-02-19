@@ -180,8 +180,12 @@ class HomeRepository extends ChangeNotifier {
       // Add the new product JSON string to the list
       cachedProducts.add(newProductJson);
 
+      // Print the existing products to the console
+      print("Existing Products in Cache: $cachedProducts");
+
       // Save the updated list of products to cache
       prefs.setStringList('products', cachedProducts);
+      Utils.toastMessage("Product has been added to cart");
     } catch (e) {
       debugPrint("Error saving product to cache: $e");
     }
