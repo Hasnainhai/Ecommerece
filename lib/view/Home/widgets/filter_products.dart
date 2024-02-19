@@ -1,6 +1,8 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
@@ -33,14 +35,11 @@ class FilterProducts extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   RoutesName.popularsScreen,
-                    //   arguments: newProducts,
-                    // );
+                    Provider.of<HomeUiSwithchRepository>(context, listen: false)
+                        .switchToType(UIType.DefaultSection);
                   },
                   child: const Text(
-                    'see more',
+                    'Clear Filter',
                     style: TextStyle(
                       fontSize: 14.0,
                       fontFamily: 'CenturyGothic',
