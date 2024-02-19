@@ -1,7 +1,6 @@
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
-import 'package:ecommerece/utils/routes/routes_name.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
