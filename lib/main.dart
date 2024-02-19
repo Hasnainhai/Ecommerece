@@ -12,7 +12,9 @@ import 'view_model/auth_view_model.dart';
 import 'view_model/user_view_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
