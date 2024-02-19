@@ -19,6 +19,7 @@ class HomeRepository extends ChangeNotifier {
   List<TopShop> topShops = [];
   List<Products> searchResults = [];
   List<Products> categriousProduct = [];
+  List<Products> filteredProducts = [];
 
   Future<void> getHomeProd(BuildContext context) async {
     try {
@@ -115,5 +116,41 @@ class HomeRepository extends ChangeNotifier {
     if (categriousProduct.isNotEmpty) {
       notifyListeners();
     }
+  }
+
+  void filterProducts(
+    String category,
+    int minRating,
+    double minPrice,
+    double maxPrice,
+  ) {
+    filteredProducts.clear();
+
+    // Filter by category
+    for (var product in productsTopRated) {
+      if (product.category.name
+          .toLowerCase()
+          .contains(category.toLowerCase())) {
+        filteredProducts.add(product);
+      }
+    }
+    for (var product in newProducts) {
+      if (product.category.name
+          .toLowerCase()
+          .contains(category.toLowerCase())) {
+        filteredProducts.add(product);
+      }
+    }
+
+    // Further filter by rating
+    filteredProducts
+        .removeWhere((product) => product.averageReview < minRating);
+
+    // Further filter by price range
+    filteredProducts.removeWhere(
+      (product) => product.price < minPrice || product.price > maxPrice,
+    );
+
+    notifyListeners();
   }
 }
