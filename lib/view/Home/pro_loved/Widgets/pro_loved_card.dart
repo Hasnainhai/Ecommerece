@@ -14,12 +14,16 @@ class ProLovedCard extends StatefulWidget {
     required this.price,
     required this.rating,
     required this.discount,
+    required this.id,
+    required this.image,
   });
   final VoidCallback fun;
   String name;
   int rating;
   String price;
   String discount;
+  String id;
+  String image;
   @override
   State<ProLovedCard> createState() => _ProLovedCardState();
 }
@@ -62,6 +66,31 @@ class _ProLovedCardState extends State<ProLovedCard> {
                     setState(() {
                       isLike = !isLike;
                     });
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          isLike = !isLike;
+                        });
+
+                        // Get the product details
+                        String productId =
+                            "your_product_id"; // Replace with the actual product ID
+                        String name = widget.name;
+                        String image =
+                            "images/coat.png"; // Replace with the actual image path
+                        String price = widget.price;
+
+                        // Call the saveCartProducts function
+                        homeRepoProvider.saveCartProducts(
+                            productId, name, image, price);
+                      },
+                      child: Icon(
+                        Icons.favorite,
+                        color: isLike
+                            ? AppColor.primaryColor
+                            : const Color(0xfff6f6f6f6),
+                      ),
+                    );
                   },
                   child: Icon(
                     Icons.favorite,

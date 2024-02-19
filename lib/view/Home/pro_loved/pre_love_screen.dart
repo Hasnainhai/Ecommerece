@@ -143,6 +143,8 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
                                   rating: product.averageReview,
                                   price: product.price.toString(),
                                   discount: product.discount.toString(),
+                                  id: product.id,
+                                  image: product.thumbnailImage,
                                 );
                               },
                             );
@@ -184,6 +186,8 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
                                   rating: product.averageReview,
                                   price: product.price.toString(),
                                   discount: product.discount.toString(),
+                                  id: product.id,
+                                  image: product.thumbnailImage,
                                   // Add other properties from PrelovedProduct as needed
                                 );
                               },

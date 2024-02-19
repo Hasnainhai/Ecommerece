@@ -182,6 +182,8 @@ class _ProductState extends State<Product> {
                                   rating: product.averageReview,
                                   price: product.price.toString(),
                                   discount: product.discount.toString(),
+                                  id: product.id,
+                                  image: product.thumbnailImage,
                                 );
                               },
                             );
@@ -309,6 +311,8 @@ class _ProductState extends State<Product> {
                                     discount: product.discount.toString(),
                                     name: product.title,
                                     rating: product.averageReview,
+                                    id: product.id,
+                                    image: product.thumbnailImage,
                                     fun: () {
                                       Navigator.pushNamed(
                                         context,
@@ -389,6 +393,8 @@ class _ProductState extends State<Product> {
                                     discount: product.discount.toString(),
                                     name: product.title,
                                     rating: product.averageReview,
+                                    id: product.id,
+                                    image: product.thumbnailImage,
                                     fun: () {
                                       Navigator.pushNamed(
                                         context,
