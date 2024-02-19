@@ -51,4 +51,15 @@ class HomeRepositoryProvider extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void saveCartProducts(
+    String productId,
+    String name,
+    String image,
+    String price,
+  ) {
+    _homeRepository.saveProductToCache(
+        productId: productId, name: name, image: image, price: price);
+    notifyListeners();
+  }
 }

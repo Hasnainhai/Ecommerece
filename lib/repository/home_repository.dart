@@ -8,6 +8,7 @@ import 'package:ecommerece/res/app_url.dart';
 import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeRepository extends ChangeNotifier {
   List<Products> newProducts = [];
@@ -150,6 +151,39 @@ class HomeRepository extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       debugPrint("this is error in the filter product:${e.toString()} ");
+    }
+  }
+
+  Future<void> saveProductToCache({
+    required String productId,
+    required String name,
+    required String image,
+    required String price,
+  }) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      // Create a map for the new product details
+      Map<String, dynamic> newProduct = {
+        'productId': productId,
+        'name': name,
+        'image': image,
+        'price': price,
+      };
+
+      // Convert the map to a JSON string
+      String newProductJson = json.encode(newProduct);
+
+      // Load existing products from cache or create an empty list
+      List<String> cachedProducts = prefs.getStringList('products') ?? [];
+
+      // Add the new product JSON string to the list
+      cachedProducts.add(newProductJson);
+
+      // Save the updated list of products to cache
+      prefs.setStringList('products', cachedProducts);
+    } catch (e) {
+      debugPrint("Error saving product to cache: $e");
     }
   }
 }
