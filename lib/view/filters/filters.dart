@@ -268,10 +268,10 @@ class _FilterPopUpState extends State<FilterPopUp> {
                     int mRating = int.parse(mxRting);
                     Provider.of<HomeRepositoryProvider>(context, listen: false)
                         .filterProducts(
-                      catergioes,
-                      mRating,
-                      minPrice,
-                      maxPrice,
+                      "plan",
+                      5,
+                      5.0,
+                      5.0,
                     );
                     Provider.of<HomeUiSwithchRepository>(context, listen: false)
                         .switchToType(UIType.FilterSection);
