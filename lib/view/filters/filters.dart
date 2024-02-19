@@ -1,3 +1,4 @@
+import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/repository/home_ui_repository.dart';
 import 'package:ecommerece/res/enums.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
@@ -25,7 +26,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
   bool button4 = false;
   String catergioes = "study";
   double minPrice = 5;
-  double maxPrice = 1000;
+  double maxPrice = 5000;
   double maxRating = 4.5;
 
   @override
@@ -76,7 +77,7 @@ class _FilterPopUpState extends State<FilterPopUp> {
                         inactiveColor: Colors.grey.shade300,
                         values: _values,
                         min: 5,
-                        max: 1000,
+                        max: 5000,
                         divisions: 100,
                         labels: RangeLabels(
                           _values.start.round().toString(),
@@ -103,129 +104,62 @@ class _FilterPopUpState extends State<FilterPopUp> {
                 const VerticalSpeacing(
                   20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          button1 = !button1;
-                        });
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: button1
-                              ? AppColor.primaryColor
-                              : Colors.transparent,
-                          border: Border.all(color: AppColor.primaryColor),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Sweaters",
-                            style: TextStyle(
-                              fontFamily: 'CenturyGothic',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              color: button1
-                                  ? AppColor.whiteColor
-                                  : AppColor.fontColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          button2 = !button2;
-                        });
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: button2
-                              ? AppColor.primaryColor
-                              : Colors.transparent,
-                          border: Border.all(color: AppColor.primaryColor),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Uppers",
-                            style: TextStyle(
-                              fontFamily: 'CenturyGothic',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: button2
-                                  ? AppColor.whiteColor
-                                  : AppColor.fontColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          button3 = !button3;
-                        });
-                      },
-                      child: Container(
-                        height: 45,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: button3
-                              ? AppColor.primaryColor
-                              : Colors.transparent,
-                          border: Border.all(color: AppColor.primaryColor),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "T Shirts",
-                            style: TextStyle(
-                              fontFamily: 'CenturyGothic',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: button3
-                                  ? AppColor.whiteColor
-                                  : AppColor.fontColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const VerticalSpeacing(14),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      button4 = !button4;
-                    });
-                  },
-                  child: Container(
-                    height: 45,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      color:
-                          button4 ? AppColor.primaryColor : Colors.transparent,
-                      border: Border.all(color: AppColor.primaryColor),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "See All",
-                        style: TextStyle(
-                          fontFamily: 'CenturyGothic',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: button4
-                              ? AppColor.whiteColor
-                              : AppColor.fontColor,
-                        ),
-                      ),
-                    ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 20,
+                  child: Consumer<HomeRepositoryProvider>(
+                    builder: (context, homeRepo, child) {
+                      if (homeRepo.homeRepository.productCategories.isEmpty) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              homeRepo.homeRepository.productCategories.length,
+                          itemExtent: MediaQuery.of(context).size.width / 4.6,
+                          itemBuilder: (BuildContext context, int index) {
+                            Category category = homeRepo
+                                .homeRepository.productCategories[index];
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal:
+                                      8.0), // Adjust the horizontal spacing here
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    catergioes = category.name;
+                                  });
+                                },
+                                child: Container(
+                                  height: 45,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    // color: button1
+                                    //     ? AppColor.primaryColor
+                                    color: Colors.transparent,
+                                    border: Border.all(
+                                        color: AppColor.primaryColor),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      category.name,
+                                      style: const TextStyle(
+                                        fontFamily: 'CenturyGothic',
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.fontColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    },
                   ),
                 ),
                 const VerticalSpeacing(
@@ -255,23 +189,23 @@ class _FilterPopUpState extends State<FilterPopUp> {
                           color: Colors.amber,
                         ),
                     onRatingUpdate: (rating) {
-                      setState(() {
-                        rating = maxRating;
-                      });
+                      // setState(() {
+                      //   rating = maxRating;
+                      // });
                     }),
                 const VerticalSpeacing(
                   50,
                 ),
                 InkWell(
                   onTap: () {
-                    String mxRting = maxRating.toString();
-                    int mRating = int.parse(mxRting);
+                    // String mxRting = maxRating.toString();
+                    // int mRating = int.parse(mxRting);
                     Provider.of<HomeRepositoryProvider>(context, listen: false)
                         .filterProducts(
-                      "plan",
+                      catergioes,
                       5,
-                      5.0,
-                      5.0,
+                      minPrice,
+                      maxPrice,
                     );
                     Provider.of<HomeUiSwithchRepository>(context, listen: false)
                         .switchToType(UIType.FilterSection);
