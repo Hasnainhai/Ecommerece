@@ -96,9 +96,9 @@ class _CartWidgetState extends State<CartWidget> {
                     const SizedBox(
                       width: 18,
                     ),
-                    const Text(
-                      '2',
-                      style: TextStyle(
+                    Text(
+                      widget.quantity.toString(),
+                      style: const TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class _CartWidgetState extends State<CartWidget> {
                       onTap: () {
                         Provider.of<CartRepositoryProvider>(context,
                                 listen: false)
-                            .addQuantity(1);
+                            .addQuantity(widget.quantity);
                       },
                       child: Container(
                         height: 32,

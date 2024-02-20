@@ -99,7 +99,11 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                             );
                           } else {
-                            return const SizedBox.shrink();
+                            return const SizedBox.shrink(
+                              child: Center(
+                                child: Text("No Products to Show"),
+                              ),
+                            );
                           }
                         },
                       ),
@@ -147,41 +151,35 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 ),
                 const VerticalSpeacing(30.0),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Total Items",
-                      style: TextStyle(
-                        fontFamily: 'CenturyGothic',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.blackColor,
-                      ),
-                    ),
-                    Text(
-                      '6',
-                      style: TextStyle(
-                        fontFamily: 'CenturyGothic',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: AppColor.blackColor,
-                      ),
-                    ),
-                    // Consumer<IndexModel>(
-                    //   builder: (context, indexModel, child) {
-                    //     return Text(
-                    //       '${indexModel.items}',
-                    //       style: const TextStyle(
-                    //         fontFamily: 'CenturyGothic',
-                    //         fontSize: 16,
-                    //         fontWeight: FontWeight.w800,
-                    //         color: AppColor.blackColor,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-                  ],
+                Consumer<CartRepositoryProvider>(
+                  builder: (context, cartRepoProvider, child) {
+                    int totalItems =
+                        cartRepoProvider.cartRepositoryProvider.cartList.length;
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Total Items",
+                          style: TextStyle(
+                            fontFamily: 'CenturyGothic',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.blackColor,
+                          ),
+                        ),
+                        Text(
+                          (totalItems).toString(),
+                          style: const TextStyle(
+                            fontFamily: 'CenturyGothic',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: AppColor.blackColor,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const VerticalSpeacing(12.0),
                 SizedBox(
@@ -213,19 +211,6 @@ class _CartScreenState extends State<CartScreen> {
                         color: AppColor.blackColor,
                       ),
                     ),
-                    // Consumer<IndexModel>(
-                    //   builder: (context, indexModel, child) {
-                    //     return Text(
-                    //       '${indexModel.items}',
-                    //       style: const TextStyle(
-                    //         fontFamily: 'CenturyGothic',
-                    //         fontSize: 16,
-                    //         fontWeight: FontWeight.w800,
-                    //         color: AppColor.blackColor,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
                   ],
                 ),
                 const VerticalSpeacing(12.0),
@@ -258,19 +243,6 @@ class _CartScreenState extends State<CartScreen> {
                         color: AppColor.blackColor,
                       ),
                     ),
-                    // Consumer<SubTotalModel>(
-                    //   builder: (context, subTotalModel, child) {
-                    //     return Text(
-                    //       '₹${subTotalModel.subTotal}',
-                    //       style: const TextStyle(
-                    //         fontFamily: 'CenturyGothic',
-                    //         fontSize: 16,
-                    //         fontWeight: FontWeight.w800,
-                    //         color: AppColor.blackColor,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
                   ],
                 ),
                 const VerticalSpeacing(12.0),
@@ -303,19 +275,6 @@ class _CartScreenState extends State<CartScreen> {
                         color: AppColor.blackColor,
                       ),
                     ),
-                    // Consumer<SubTotalModel>(
-                    //   builder: (context, subTotalModel, child) {
-                    //     return Text(
-                    //       '₹${subTotalModel.subTotal}',
-                    //       style: const TextStyle(
-                    //         fontFamily: 'CenturyGothic',
-                    //         fontSize: 16,
-                    //         fontWeight: FontWeight.w800,
-                    //         color: AppColor.blackColor,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
                   ],
                 ),
                 const VerticalSpeacing(30.0),

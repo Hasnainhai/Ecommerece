@@ -17,7 +17,6 @@ class ProLovedCard extends StatefulWidget {
     required this.discount,
     required this.id,
     required this.image,
-    required this.quantity,
   });
   final VoidCallback fun;
   String name;
@@ -26,7 +25,6 @@ class ProLovedCard extends StatefulWidget {
   String discount;
   String id;
   String image;
-  int quantity;
   @override
   State<ProLovedCard> createState() => _ProLovedCardState();
 }
@@ -100,7 +98,7 @@ class _ProLovedCardState extends State<ProLovedCard> {
                       isLike = true;
                     });
                     homeRepoProvider.saveCartProducts(widget.id, widget.name,
-                        widget.name, discountedPrice, widget.quantity);
+                        widget.name, discountedPrice, 1);
                   }
                 },
                 child: Icon(
