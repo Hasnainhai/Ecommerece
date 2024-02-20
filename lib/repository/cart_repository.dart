@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CartRepository extends ChangeNotifier {
   List<Map<String, dynamic>> cartList = [];
+  double totalPrice = 0;
   Future<void> getCachedProducts() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,6 +32,7 @@ class CartRepository extends ChangeNotifier {
       List<String> updatedProducts =
           cartList.map((product) => json.encode(product)).toList();
       prefs.setStringList('products', updatedProducts);
+      calculateTotalPrice();
 
       notifyListeners();
     } catch (e) {
@@ -52,6 +54,7 @@ class CartRepository extends ChangeNotifier {
       double price = double.tryParse(product['price'] ?? '0.0') ?? 0.0;
       double individualTotal = price * newQuantity;
       product['individualTotal'] = individualTotal.toString();
+      calculateTotalPrice();
 
       notifyListeners();
     }
@@ -70,8 +73,27 @@ class CartRepository extends ChangeNotifier {
       double price = double.tryParse(product['price'] ?? '0.0') ?? 0.0;
       double individualTotal = price * quantity;
       product['individualTotal'] = individualTotal.toString();
+      calculateTotalPrice();
 
       notifyListeners();
     }
+  }
+
+  void calculateTotalPrice() {
+    double _totalPrice = 0.0;
+
+    for (var product in cartList) {
+      double price = product['individualTotal'] != null
+          ? double.tryParse(product['individualTotal']) ?? 0.0
+          : double.tryParse(product['price']) ?? 0.0;
+
+      _totalPrice += price;
+      debugPrint("this is inside the loop:$_totalPrice");
+    }
+
+    totalPrice = _totalPrice;
+    debugPrint("this is outside the loop:$totalPrice");
+
+    notifyListeners();
   }
 }

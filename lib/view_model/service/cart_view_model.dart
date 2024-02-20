@@ -27,4 +27,8 @@ class CartRepositoryProvider extends ChangeNotifier {
     _cartRepositoryProvider.removeQuantity(id);
     notifyListeners();
   }
+
+  void calculateTotalPrice() {
+    _cartRepositoryProvider.calculateTotalPrice();
+  }
 }
