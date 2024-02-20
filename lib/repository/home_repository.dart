@@ -141,10 +141,8 @@ class HomeRepository extends ChangeNotifier {
           filteredProducts.add(product);
         }
       }
-      // Further filter by rating
       filteredProducts
           .removeWhere((product) => product.averageReview < minRating);
-      // Further filter by price range
       filteredProducts.removeWhere(
         (product) => product.price < minPrice || product.price > maxPrice,
       );
@@ -163,7 +161,6 @@ class HomeRepository extends ChangeNotifier {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      // Create a map for the new product details
       Map<String, dynamic> newProduct = {
         'productId': productId,
         'name': name,
@@ -171,19 +168,12 @@ class HomeRepository extends ChangeNotifier {
         'price': price,
       };
 
-      // Convert the map to a JSON string
       String newProductJson = json.encode(newProduct);
 
-      // Load existing products from cache or create an empty list
       List<String> cachedProducts = prefs.getStringList('products') ?? [];
 
-      // Add the new product JSON string to the list
       cachedProducts.add(newProductJson);
 
-      // Print the existing products to the console
-      print("Existing Products in Cache: $cachedProducts");
-
-      // Save the updated list of products to cache
       prefs.setStringList('products', cachedProducts);
       Utils.toastMessage("Product has been added to cart");
       notifyListeners();
@@ -199,10 +189,10 @@ class HomeRepository extends ChangeNotifier {
     for (String productJson in cachedProducts) {
       Map<String, dynamic> productMap = json.decode(productJson);
       if (productMap['productId'] == productId) {
-        return true; // Product is in the cart
+        return true;
       }
     }
 
-    return false; // Product is not in the cart
+    return false;
   }
 }
