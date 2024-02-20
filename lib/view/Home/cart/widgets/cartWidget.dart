@@ -1,4 +1,6 @@
+import 'package:ecommerece/view_model/service/cart_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../res/components/colors.dart';
 
@@ -11,11 +13,16 @@ class CartWidget extends StatefulWidget {
       required this.productId,
       required this.name,
       required this.image,
-      required this.price});
+      required this.price,
+      required this.onpress,
+      required this.quantity});
   final String productId;
   final String name;
   final String image;
   final String price;
+  final VoidCallback onpress;
+  final int quantity;
+
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -89,9 +96,9 @@ class _CartWidgetState extends State<CartWidget> {
                     const SizedBox(
                       width: 18,
                     ),
-                    const Text(
-                      '2',
-                      style: TextStyle(
+                    Text(
+                      widget.quantity.toString(),
+                      style: const TextStyle(
                         fontFamily: 'CenturyGothic',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -102,7 +109,11 @@ class _CartWidgetState extends State<CartWidget> {
                       width: 18,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Provider.of<CartRepositoryProvider>(context,
+                                listen: false)
+                            .addQuantity(widget.quantity);
+                      },
                       child: Container(
                         height: 32,
                         width: 32,
@@ -124,7 +135,7 @@ class _CartWidgetState extends State<CartWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: widget.onpress,
                     child: const Icon(
                       Icons.delete_outline,
                       color: AppColor.fontColor,

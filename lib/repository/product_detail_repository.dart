@@ -27,7 +27,6 @@ class ProductDetailsRepository extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = json.decode(response.body);
-        debugPrint("this is json response:${response.body}");
         product = Product.fromJson(jsonData);
 
         if (product != null) {

@@ -59,9 +59,15 @@ class HomeRepositoryProvider extends ChangeNotifier {
     String name,
     String image,
     String price,
+    int quantity,
   ) {
     _homeRepository.saveProductToCache(
-        productId: productId, name: name, image: image, price: price);
+      productId: productId,
+      name: name,
+      image: image,
+      price: price,
+      quantity: quantity,
+    );
     notifyListeners();
   }
 

@@ -97,12 +97,8 @@ class _ProLovedCardState extends State<ProLovedCard> {
                     setState(() {
                       isLike = true;
                     });
-                    homeRepoProvider.saveCartProducts(
-                      widget.id,
-                      widget.name,
-                      widget.name,
-                      discountedPrice,
-                    );
+                    homeRepoProvider.saveCartProducts(widget.id, widget.name,
+                        widget.name, discountedPrice, 1);
                   }
                 },
                 child: Icon(
