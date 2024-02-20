@@ -70,7 +70,7 @@ class HomeRepository extends ChangeNotifier {
       double originalPrice, double discountPercentage) {
     double discountedPrice =
         originalPrice - (originalPrice * (discountPercentage / 100));
-    return '\$${discountedPrice.toStringAsFixed(2)}';
+    return discountedPrice.toStringAsFixed(2);
   }
 
   void search(
