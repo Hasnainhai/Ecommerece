@@ -157,6 +157,7 @@ class HomeRepository extends ChangeNotifier {
     required String name,
     required String image,
     required String price,
+    required int quantity,
   }) async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -166,6 +167,7 @@ class HomeRepository extends ChangeNotifier {
         'name': name,
         'image': image,
         'price': price,
+        'quantity': quantity,
       };
 
       String newProductJson = json.encode(newProduct);

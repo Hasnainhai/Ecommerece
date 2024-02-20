@@ -95,6 +95,7 @@ class _CartScreenState extends State<CartScreen> {
                                 name: cartItems[index]['name'],
                                 image: cartItems[index]['image'],
                                 price: cartItems[index]['price'],
+                                quantity: cartItems[index]['quantity'],
                               ),
                             );
                           } else {

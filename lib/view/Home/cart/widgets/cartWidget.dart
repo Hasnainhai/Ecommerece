@@ -14,12 +14,14 @@ class CartWidget extends StatefulWidget {
       required this.name,
       required this.image,
       required this.price,
-      required this.onpress});
+      required this.onpress,
+      required this.quantity});
   final String productId;
   final String name;
   final String image;
   final String price;
   final VoidCallback onpress;
+  final int quantity;
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -107,7 +109,11 @@ class _CartWidgetState extends State<CartWidget> {
                       width: 18,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Provider.of<CartRepositoryProvider>(context,
+                                listen: false)
+                            .addQuantity(1);
+                      },
                       child: Container(
                         height: 32,
                         width: 32,

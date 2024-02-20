@@ -19,12 +19,12 @@ class CartRepositoryProvider extends ChangeNotifier {
   }
 
   void addQuantity(int amount) {
-    _cartRepositoryProvider.addQuantity(amount);
+    _cartRepositoryProvider.addQuantity();
     notifyListeners();
   }
 
   void removeQuantity(int amount) {
-    _cartRepositoryProvider.removeQuantity(amount);
+    _cartRepositoryProvider.removeQuantity();
     notifyListeners();
   }
 }
