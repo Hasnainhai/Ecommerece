@@ -4,24 +4,25 @@ import 'package:provider/provider.dart';
 
 import '../../../../res/components/colors.dart';
 
-int subTotal = 0;
-
 // ignore: must_be_immutable
 class CartWidget extends StatefulWidget {
-  const CartWidget(
-      {super.key,
-      required this.productId,
-      required this.name,
-      required this.image,
-      required this.price,
-      required this.onpress,
-      required this.quantity});
+  const CartWidget({
+    super.key,
+    required this.productId,
+    required this.name,
+    required this.image,
+    required this.price,
+    required this.onpress,
+    required this.quantity,
+    this.individualPrice,
+  });
   final String productId;
   final String name;
   final String image;
   final String price;
   final VoidCallback onpress;
   final int quantity;
+  final String? individualPrice;
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -77,7 +78,11 @@ class _CartWidgetState extends State<CartWidget> {
                   children: [
                     const SizedBox(width: 30.0),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Provider.of<CartRepositoryProvider>(context,
+                                listen: false)
+                            .removeQuantity(widget.productId);
+                      },
                       child: Container(
                           height: 32,
                           width: 32,
@@ -112,7 +117,7 @@ class _CartWidgetState extends State<CartWidget> {
                       onTap: () {
                         Provider.of<CartRepositoryProvider>(context,
                                 listen: false)
-                            .addQuantity(widget.quantity);
+                            .addQuantity(widget.productId);
                       },
                       child: Container(
                         height: 32,
@@ -143,7 +148,9 @@ class _CartWidgetState extends State<CartWidget> {
                     ),
                   ),
                   Text(
-                    widget.price,
+                    widget.individualPrice == null
+                        ? widget.price
+                        : widget.individualPrice!,
                     style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 12,

@@ -96,6 +96,9 @@ class _CartScreenState extends State<CartScreen> {
                                 image: cartItems[index]['image'],
                                 price: cartItems[index]['price'],
                                 quantity: cartItems[index]['quantity'],
+                                individualPrice: cartItems[index]
+                                        ['individualTotal'] ??
+                                    cartItems[index]['price'].toString(),
                               ),
                             );
                           } else {
@@ -254,28 +257,32 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                 ),
                 const VerticalSpeacing(12.0),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Total Price",
-                      style: TextStyle(
-                        fontFamily: 'CenturyGothic',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.blackColor,
-                      ),
-                    ),
-                    Text(
-                      '\$60',
-                      style: TextStyle(
-                        fontFamily: 'CenturyGothic',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w800,
-                        color: AppColor.blackColor,
-                      ),
-                    ),
-                  ],
+                Consumer<CartRepositoryProvider>(
+                  builder: (context, cartProvider, _) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Total Price",
+                          style: TextStyle(
+                            fontFamily: 'CenturyGothic',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.blackColor,
+                          ),
+                        ),
+                        Text(
+                          '\$${cartProvider.cartRepositoryProvider.totalPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontFamily: 'CenturyGothic',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: AppColor.blackColor,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const VerticalSpeacing(30.0),
                 SizedBox(
