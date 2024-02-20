@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CartRepository extends ChangeNotifier {
   List<Map<String, dynamic>> cartList = [];
-  int amount = 1;
   Future<void> getCachedProducts() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
