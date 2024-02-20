@@ -17,6 +17,7 @@ class CartRepository extends ChangeNotifier {
       cartList = cachedProducts.map((productJson) {
         return json.decode(productJson) as Map<String, dynamic>;
       }).toList();
+      calculateTotalPrice();
 
       notifyListeners();
     } catch (e) {

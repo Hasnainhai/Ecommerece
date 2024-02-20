@@ -23,8 +23,6 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
     Provider.of<CartRepositoryProvider>(context, listen: false)
         .getCachedProducts();
-    Provider.of<CartRepositoryProvider>(context, listen: false)
-        .calculateTotalPrice();
   }
 
   @override
@@ -274,7 +272,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         Text(
-                          '\$${cartProvider.cartRepositoryProvider.totalPrice.toString()}',
+                          '\$${cartProvider.cartRepositoryProvider.totalPrice.toStringAsFixed(2)}',
                           style: const TextStyle(
                             fontFamily: 'CenturyGothic',
                             fontSize: 16,
