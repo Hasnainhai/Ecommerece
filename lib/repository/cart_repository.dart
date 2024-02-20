@@ -22,4 +22,20 @@ class CartRepository extends ChangeNotifier {
       debugPrint("Error getting cached products: $e");
     }
   }
+
+  Future<void> deleteProduct(String productId) async {
+    try {
+      cartList.removeWhere((product) => product['productId'] == productId);
+
+      // Save the updated list to SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> updatedProducts =
+          cartList.map((product) => json.encode(product)).toList();
+      prefs.setStringList('products', updatedProducts);
+
+      notifyListeners(); // Notify listeners that the list has been updated
+    } catch (e) {
+      debugPrint("Error deleting product: $e");
+    }
+  }
 }

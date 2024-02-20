@@ -10,4 +10,10 @@ class CartRepositoryProvider extends ChangeNotifier {
     await _cartRepositoryProvider.getCachedProducts();
     notifyListeners();
   }
+
+  Future<void> deleteProduct(String id) async {
+    await _cartRepositoryProvider.deleteProduct(
+      id,
+    );
+  }
 }

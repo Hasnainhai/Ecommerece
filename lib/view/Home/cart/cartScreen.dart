@@ -78,15 +78,28 @@ class _CartScreenState extends State<CartScreen> {
                         scrollDirection: Axis.vertical,
                         itemCount: cartItems.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: CartWidget(
-                              productId: cartItems[index]['productId'],
-                              name: cartItems[index]['name'],
-                              image: cartItems[index]['image'],
-                              price: cartItems[index]['price'],
-                            ),
-                          );
+                          if (index < cartItems.length) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 12.0),
+                              child: CartWidget(
+                                onpress: () {
+                                  Provider.of<CartRepositoryProvider>(context,
+                                          listen: false)
+                                      .deleteProduct(
+                                          cartItems[index]['productId']);
+                                  Provider.of<CartRepositoryProvider>(context,
+                                          listen: false)
+                                      .getCachedProducts();
+                                },
+                                productId: cartItems[index]['productId'],
+                                name: cartItems[index]['name'],
+                                image: cartItems[index]['image'],
+                                price: cartItems[index]['price'],
+                              ),
+                            );
+                          } else {
+                            return const SizedBox.shrink();
+                          }
                         },
                       ),
                     );

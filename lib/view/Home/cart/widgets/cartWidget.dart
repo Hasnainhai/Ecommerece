@@ -1,4 +1,6 @@
+import 'package:ecommerece/view_model/service/cart_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../res/components/colors.dart';
 
@@ -11,11 +13,14 @@ class CartWidget extends StatefulWidget {
       required this.productId,
       required this.name,
       required this.image,
-      required this.price});
+      required this.price,
+      required this.onpress});
   final String productId;
   final String name;
   final String image;
   final String price;
+  final VoidCallback onpress;
+
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -124,7 +129,7 @@ class _CartWidgetState extends State<CartWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: widget.onpress,
                     child: const Icon(
                       Icons.delete_outline,
                       color: AppColor.fontColor,
