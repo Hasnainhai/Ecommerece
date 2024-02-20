@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, no_leading_underscores_for_local_identifiers
 
 import 'dart:convert';
 
@@ -89,11 +89,9 @@ class CartRepository extends ChangeNotifier {
           : double.tryParse(product['price']) ?? 0.0;
 
       _totalPrice += price;
-      debugPrint("this is inside the loop:$_totalPrice");
     }
 
     totalPrice = _totalPrice;
-    debugPrint("this is outside the loop:$totalPrice");
 
     notifyListeners();
   }
