@@ -15,5 +15,16 @@ class CartRepositoryProvider extends ChangeNotifier {
     await _cartRepositoryProvider.deleteProduct(
       id,
     );
+    notifyListeners();
+  }
+
+  void addQuantity(int amount) {
+    _cartRepositoryProvider.addQuantity(amount);
+    notifyListeners();
+  }
+
+  void removeQuantity(int amount) {
+    _cartRepositoryProvider.removeQuantity(amount);
+    notifyListeners();
   }
 }

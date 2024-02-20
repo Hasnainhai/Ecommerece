@@ -38,4 +38,12 @@ class CartRepository extends ChangeNotifier {
       debugPrint("Error deleting product: $e");
     }
   }
+
+  void addQuantity(int amount) {
+    amount++;
+  }
+
+  void removeQuantity(int amount) {
+    amount--;
+  }
 }
