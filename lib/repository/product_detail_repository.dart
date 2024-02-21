@@ -33,7 +33,6 @@ class ProductDetailsRepository extends ChangeNotifier {
         productVariationsList = variationsData
             .map((variation) => ProductVariation.fromJson(variation))
             .toList();
-        print('Product Variations: ${productVariationsList.toString()}');
 
         product = Product.fromJson(jsonData);
 
