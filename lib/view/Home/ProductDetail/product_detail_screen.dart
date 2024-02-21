@@ -33,6 +33,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   Widget build(BuildContext context) {
     HomeRepositoryProvider homeRepoProvider =
         Provider.of<HomeRepositoryProvider>(context, listen: false);
+    ProductDetailsRepositoryProvider productDetailProvider =
+        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
+    List<ProductVariation> productVariations =
+        productDetailProvider.productDetailsRepository.productVariationsList;
 
     // Calculate discounted price using the HomeRepositoryProvider
     double originalPrice = double.parse(widget.product.price.toString());
@@ -198,47 +202,34 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               const VerticalSpeacing(
                 24,
               ),
-              const Text(
-                "Size: ",
-                style: TextStyle(
-                  fontFamily: 'CenturyGothic',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.fontColor,
-                ),
-              ),
-              const VerticalSpeacing(
-                18,
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizeContainer(
-                    color: AppColor.primaryColor,
-                    title: "S",
-                    fontColor: AppColor.whiteColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "M",
-                    fontColor: AppColor.fontColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "L",
-                    fontColor: AppColor.fontColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "Xl",
-                    fontColor: AppColor.fontColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "2xl",
-                    fontColor: AppColor.fontColor,
-                  ),
-                ],
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: productVariations
+                    .map(
+                      (variation) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: variation.attributes
+                            .map(
+                              (attribute) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${attribute.attribute.name}: ${attribute.value}",
+                                    style: const TextStyle(
+                                      fontFamily: 'CenturyGothic',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColor.fontColor,
+                                    ),
+                                  ),
+                                  VerticalSpeacing(18),
+                                ],
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    )
+                    .toList(),
               ),
               const VerticalSpeacing(
                 16,
@@ -351,9 +342,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 40,
               ),
               RoundedButton(
-                  title: "Add to card",
-                  onpress: () {},
-                  color: AppColor.primaryColor)
+                title: "Add to card",
+                onpress: () {},
+                color: AppColor.primaryColor,
+              )
             ]),
           ),
         ),
