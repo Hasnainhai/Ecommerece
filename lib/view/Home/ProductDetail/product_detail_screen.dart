@@ -218,7 +218,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                attribute.attribute.name,
+                                "${attribute.attribute.name}",
                                 style: const TextStyle(
                                   fontFamily: 'CenturyGothic',
                                   fontSize: 16,
@@ -228,29 +228,37 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                               ),
                               // Add vertical spacing
                               const VerticalSpeacing(18),
-                              // Show all corresponding values
-                              Row(
-                                children: productVariations.map((variation) {
-                                  var correspondingAttribute =
-                                      variation.attributes.firstWhere((a) =>
-                                          a.attribute.name ==
-                                          attribute.attribute.name);
-                                  return Container(
-                                    margin: const EdgeInsets.only(right: 20),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: AppColor.primaryColor)),
-                                    child: Text(
-                                      "  ${correspondingAttribute.value}  ",
-                                      style: const TextStyle(
-                                        fontFamily: 'CenturyGothic',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300,
-                                        color: AppColor.fontColor,
+                              // Show all corresponding values with horizontal scrolling
+                              Container(
+                                height:
+                                    30, // Set a fixed height or adjust as needed
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: productVariations.length,
+                                  itemBuilder: (context, index) {
+                                    var correspondingAttribute =
+                                        productVariations[index]
+                                            .attributes
+                                            .firstWhere((a) =>
+                                                a.attribute.name ==
+                                                attribute.attribute.name);
+                                    return Container(
+                                      margin: const EdgeInsets.only(right: 20),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: AppColor.primaryColor)),
+                                      child: Text(
+                                        "  ${correspondingAttribute.value}  ",
+                                        style: const TextStyle(
+                                          fontFamily: 'CenturyGothic',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                          color: AppColor.fontColor,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }).toList(),
+                                    );
+                                  },
+                                ),
                               ),
                               // Add vertical spacing
                               const VerticalSpeacing(18),
