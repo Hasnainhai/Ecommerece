@@ -202,79 +202,65 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               const VerticalSpeacing(
                 24,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: productVariations
-                    .map(
-                      (variation) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: variation.attributes
-                            .map(
-                              (attribute) => Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${attribute.attribute.name}: ${attribute.value}",
-                                    style: const TextStyle(
-                                      fontFamily: 'CenturyGothic',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColor.fontColor,
-                                    ),
-                                  ),
-                                  VerticalSpeacing(18),
-                                ],
+              productVariations.isEmpty
+                  ? const SizedBox()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          productVariations.first.attributes.map((attribute) {
+                        // Check if the attribute exists in all variations
+                        if (productVariations.every((variation) =>
+                            variation.attributes.any((a) =>
+                                a.attribute.name ==
+                                attribute.attribute.name))) {
+                          // Show the name
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                attribute.attribute.name,
+                                style: const TextStyle(
+                                  fontFamily: 'CenturyGothic',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.fontColor,
+                                ),
                               ),
-                            )
-                            .toList(),
-                      ),
-                    )
-                    .toList(),
-              ),
-              const VerticalSpeacing(
-                16,
-              ),
-              const Text(
-                "Select Color",
-                style: TextStyle(
-                  fontFamily: 'CenturyGothic',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.fontColor,
-                ),
-              ),
-              const VerticalSpeacing(
-                16,
-              ),
-              const Row(
-                children: [
-                  ColorContainer(color: Color(0xffFFD700)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffAE1B1B)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xff5B36EF)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffD01363)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffFF06B9)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffFF1313)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xff15F8C1)),
-                ],
-              ),
+                              // Add vertical spacing
+                              const VerticalSpeacing(18),
+                              // Show all corresponding values
+                              Row(
+                                children: productVariations.map((variation) {
+                                  var correspondingAttribute =
+                                      variation.attributes.firstWhere((a) =>
+                                          a.attribute.name ==
+                                          attribute.attribute.name);
+                                  return Container(
+                                    margin: const EdgeInsets.only(right: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: AppColor.primaryColor)),
+                                    child: Text(
+                                      "  ${correspondingAttribute.value}  ",
+                                      style: const TextStyle(
+                                        fontFamily: 'CenturyGothic',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300,
+                                        color: AppColor.fontColor,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                              // Add vertical spacing
+                              const VerticalSpeacing(18),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox(); // Don't show if the attribute is missing in any variation
+                        }
+                      }).toList(),
+                    ),
               const VerticalSpeacing(
                 20,
               ),
