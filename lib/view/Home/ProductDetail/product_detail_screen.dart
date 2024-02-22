@@ -345,7 +345,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     Utils.toastMessage("Product is already in the cart");
                   } else {
                     homeRepoProvider.saveCartProducts(widget.product.id,
-                        widget.product.title, "", widget.product.discount, 1);
+                        widget.product.title, "image", discountedPrice, 1);
                   }
                 },
                 color: AppColor.primaryColor,

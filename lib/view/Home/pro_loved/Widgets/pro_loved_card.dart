@@ -1,9 +1,8 @@
-import 'dart:ffi';
-
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
+import 'package:ecommerece/view_model/service/save_product_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,8 +32,8 @@ class _ProLovedCardState extends State<ProLovedCard> {
   bool isLike = false;
 
   void checktheProduct() async {
-    HomeRepositoryProvider homeRepoProvider =
-        Provider.of<HomeRepositoryProvider>(context, listen: false);
+    SaveProductRepositoryProvider homeRepoProvider =
+        Provider.of<SaveProductRepositoryProvider>(context, listen: false);
 
     // Await the result before comparing
     bool isIncart = await homeRepoProvider.isProductInCart(widget.id);
@@ -56,6 +55,8 @@ class _ProLovedCardState extends State<ProLovedCard> {
   Widget build(BuildContext context) {
     HomeRepositoryProvider homeRepoProvider =
         Provider.of<HomeRepositoryProvider>(context, listen: false);
+    SaveProductRepositoryProvider saveRepo =
+        Provider.of<SaveProductRepositoryProvider>(context, listen: false);
 
     // Calculate discounted price using the HomeRepositoryProvider
     double originalPrice = double.parse(widget.price);
@@ -84,20 +85,19 @@ class _ProLovedCardState extends State<ProLovedCard> {
               InkWell(
                 onTap: () async {
                   debugPrint("loved");
-                  Future<bool> isInCart =
-                      homeRepoProvider.isProductInCart(widget.id);
+                  Future<bool> isInCart = saveRepo.isProductInCart(widget.id);
 
                   if (await isInCart) {
                     // Product is in the cart, set color to primaryColor
                     setState(() {
                       isLike = true;
                     });
-                    Utils.toastMessage("Product is already in the cart");
+                    Utils.toastMessage("Product is already in the save");
                   } else {
                     setState(() {
                       isLike = true;
                     });
-                    homeRepoProvider.saveCartProducts(widget.id, widget.name,
+                    saveRepo.saveCartProducts(widget.id, widget.name,
                         widget.name, discountedPrice, 1);
                   }
                 },
