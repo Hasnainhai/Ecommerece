@@ -1,4 +1,6 @@
 import 'package:ecommerece/model/home_prod_model.dart';
+import 'package:ecommerece/model/product_detail_model.dart';
+import 'package:ecommerece/repository/all_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
@@ -6,6 +8,7 @@ import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
+import 'package:ecommerece/view_model/service/all_product_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +22,15 @@ class Product extends StatefulWidget {
 class _ProductState extends State<Product> {
   TextEditingController searchController = TextEditingController();
   bool isSearch = false;
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<AllProductsRepositoryProvider>(context, listen: false)
+        .getHomeProd(
+      context,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +85,9 @@ class _ProductState extends State<Product> {
                                 value,
                                 searchModel.homeRepository.productsTopRated,
                                 searchModel.homeRepository.newProducts,
+                                searchModel.homeRepository.productsFeature,
+                                searchModel.homeRepository.productsTopDiscount,
+                                searchModel.homeRepository.productsTopOrder,
                               );
                             },
                             decoration: InputDecoration(
@@ -210,9 +225,13 @@ class _ProductState extends State<Product> {
                                   });
                                 }
                                 viewModel.search(
-                                    value,
-                                    viewModel.homeRepository.productsTopRated,
-                                    viewModel.homeRepository.newProducts);
+                                  value,
+                                  viewModel.homeRepository.productsTopRated,
+                                  viewModel.homeRepository.newProducts,
+                                  viewModel.homeRepository.productsFeature,
+                                  viewModel.homeRepository.productsTopDiscount,
+                                  viewModel.homeRepository.productsTopOrder,
+                                );
                               },
                               decoration: InputDecoration(
                                 hintText: "Search Here",
@@ -244,10 +263,9 @@ class _ProductState extends State<Product> {
                         ),
                       ),
                       const VerticalSpeacing(16.0),
-                      Consumer<HomeRepositoryProvider>(
+                      Consumer<AllProductsRepository>(
                         builder: (context, homeRepo, child) {
-                          List<Products> newProducts =
-                              homeRepo.homeRepository.productsTopRated;
+                          List<Products> newProducts = homeRepo.productList;
 
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,10 +304,9 @@ class _ProductState extends State<Product> {
                       const VerticalSpeacing(14),
                       SizedBox(
                         height: MediaQuery.of(context).size.height / 2.3,
-                        child: Consumer<HomeRepositoryProvider>(
+                        child: Consumer<AllProductsRepository>(
                           builder: (context, homeRepo, child) {
-                            if (homeRepo
-                                .homeRepository.productsTopRated.isEmpty) {
+                            if (homeRepo.productList.isEmpty) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
@@ -304,8 +321,8 @@ class _ProductState extends State<Product> {
                                 ),
                                 itemCount: 4,
                                 itemBuilder: (context, index) {
-                                  Products product = homeRepo
-                                      .homeRepository.productsTopRated[index];
+                                  Products product =
+                                      homeRepo.productList[index];
                                   return ProLovedCard(
                                     price: product.price.toString(),
                                     discount: product.discount.toString(),
@@ -326,88 +343,88 @@ class _ProductState extends State<Product> {
                           },
                         ),
                       ),
-                      const VerticalSpeacing(16),
-                      Consumer<HomeRepositoryProvider>(
-                        builder: (context, homeRepo, child) {
-                          List<Products> newProducts =
-                              homeRepo.homeRepository.newProducts;
+                      // const VerticalSpeacing(16),
+                      // Consumer<HomeRepositoryProvider>(
+                      //   builder: (context, homeRepo, child) {
+                      //     List<Products> newProducts =
+                      //         homeRepo.homeRepository.newProducts;
 
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Our new items',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: 'CenturyGothic',
-                                  color: AppColor.fontColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.newItemsScreen,
-                                    arguments: newProducts,
-                                  );
-                                },
-                                child: const Text(
-                                  'see more',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: 'CenturyGothic',
-                                    color: AppColor.fontColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                      const VerticalSpeacing(14),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 2.3,
-                        child: Consumer<HomeRepositoryProvider>(
-                          builder: (context, homeRepo, child) {
-                            if (homeRepo.homeRepository.newProducts.isEmpty) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 16,
-                                  mainAxisSpacing: 16,
-                                ),
-                                itemCount: 4,
-                                itemBuilder: (context, index) {
-                                  Products product = homeRepo
-                                      .homeRepository.newProducts[index];
-                                  return ProLovedCard(
-                                    price: product.price.toString(),
-                                    discount: product.discount.toString(),
-                                    name: product.title,
-                                    rating: product.averageReview,
-                                    id: product.id,
-                                    image: product.thumbnailImage,
-                                    fun: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        RoutesName.productdetail,
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      ),
+                      //     return Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         const Text(
+                      //           'Our new items',
+                      //           style: TextStyle(
+                      //             fontSize: 18.0,
+                      //             fontFamily: 'CenturyGothic',
+                      //             color: AppColor.fontColor,
+                      //             fontWeight: FontWeight.w600,
+                      //           ),
+                      //         ),
+                      //         InkWell(
+                      //           onTap: () {
+                      //             Navigator.pushNamed(
+                      //               context,
+                      //               RoutesName.newItemsScreen,
+                      //               arguments: newProducts,
+                      //             );
+                      //           },
+                      //           child: const Text(
+                      //             'see more',
+                      //             style: TextStyle(
+                      //               fontSize: 14.0,
+                      //               fontFamily: 'CenturyGothic',
+                      //               color: AppColor.fontColor,
+                      //               fontWeight: FontWeight.w500,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     );
+                      //   },
+                      // ),
+                      // const VerticalSpeacing(14),
+                      // SizedBox(
+                      //   height: MediaQuery.of(context).size.height / 2.3,
+                      //   child: Consumer<HomeRepositoryProvider>(
+                      //     builder: (context, homeRepo, child) {
+                      //       if (homeRepo.homeRepository.newProducts.isEmpty) {
+                      //         return const Center(
+                      //           child: CircularProgressIndicator(),
+                      //         );
+                      //       } else {
+                      //         return GridView.builder(
+                      //           physics: const NeverScrollableScrollPhysics(),
+                      //           gridDelegate:
+                      //               const SliverGridDelegateWithFixedCrossAxisCount(
+                      //             crossAxisCount: 2,
+                      //             crossAxisSpacing: 16,
+                      //             mainAxisSpacing: 16,
+                      //           ),
+                      //           itemCount: 4,
+                      //           itemBuilder: (context, index) {
+                      //             Products product = homeRepo
+                      //                 .homeRepository.newProducts[index];
+                      //             return ProLovedCard(
+                      //               price: product.price.toString(),
+                      //               discount: product.discount.toString(),
+                      //               name: product.title,
+                      //               rating: product.averageReview,
+                      //               id: product.id,
+                      //               image: product.thumbnailImage,
+                      //               fun: () {
+                      //                 Navigator.pushNamed(
+                      //                   context,
+                      //                   RoutesName.productdetail,
+                      //                 );
+                      //               },
+                      //             );
+                      //           },
+                      //         );
+                      //       }
+                      //     },
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

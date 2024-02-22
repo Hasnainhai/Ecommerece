@@ -181,7 +181,261 @@ class DefaultSection extends StatelessWidget {
             },
           ),
         ),
-        const VerticalSpeacing(30.0),
+        const VerticalSpeacing(20.0),
+        Consumer<HomeRepositoryProvider>(
+          builder: (context, homeRepo, child) {
+            List<Products> topOrderProducts =
+                homeRepo.homeRepository.productsTopOrder;
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Top Order Products',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'CenturyGothic',
+                    color: AppColor.fontColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.newItemsScreen,
+                      arguments: topOrderProducts,
+                    );
+                  },
+                  child: const Text(
+                    'see more',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'CenturyGothic',
+                      color: AppColor.fontColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        const VerticalSpeacing(
+          12,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 5,
+          child: Consumer<HomeRepositoryProvider>(
+            builder: (context, homeRepo, child) {
+              if (homeRepo.homeRepository.productsTopOrder.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: homeRepo.homeRepository.productsTopOrder.length,
+                  itemExtent: MediaQuery.of(context).size.width / 2.2,
+                  itemBuilder: (BuildContext context, int index) {
+                    Products product =
+                        homeRepo.homeRepository.productsTopOrder[index];
+
+                    return ProLovedCard(
+                      fun: () {
+                        final productDetailsProvider =
+                            Provider.of<ProductDetailsRepositoryProvider>(
+                                context,
+                                listen: false);
+                        productDetailsProvider.fetchProductDetails(
+                          context,
+                          product.id,
+                        );
+                      },
+                      name: product.title,
+                      rating: product.averageReview,
+                      price: product.price.toString(),
+                      discount: product.discount.toString(),
+                      id: product.id,
+                      image: product.thumbnailImage,
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+        const VerticalSpeacing(20.0),
+        Consumer<HomeRepositoryProvider>(
+          builder: (context, homeRepo, child) {
+            List<Products> featuresroducts =
+                homeRepo.homeRepository.productsFeature;
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Feature Products',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'CenturyGothic',
+                    color: AppColor.fontColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.newItemsScreen,
+                      arguments: featuresroducts,
+                    );
+                  },
+                  child: const Text(
+                    'see more',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'CenturyGothic',
+                      color: AppColor.fontColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        const VerticalSpeacing(
+          12,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 5,
+          child: Consumer<HomeRepositoryProvider>(
+            builder: (context, homeRepo, child) {
+              if (homeRepo.homeRepository.productsFeature.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: homeRepo.homeRepository.productsFeature.length,
+                  itemExtent: MediaQuery.of(context).size.width / 2.2,
+                  itemBuilder: (BuildContext context, int index) {
+                    Products product =
+                        homeRepo.homeRepository.productsFeature[index];
+
+                    return ProLovedCard(
+                      fun: () {
+                        final productDetailsProvider =
+                            Provider.of<ProductDetailsRepositoryProvider>(
+                                context,
+                                listen: false);
+                        productDetailsProvider.fetchProductDetails(
+                          context,
+                          product.id,
+                        );
+                      },
+                      name: product.title,
+                      rating: product.averageReview,
+                      price: product.price.toString(),
+                      discount: product.discount.toString(),
+                      id: product.id,
+                      image: product.thumbnailImage,
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+        const VerticalSpeacing(20.0),
+        Consumer<HomeRepositoryProvider>(
+          builder: (context, homeRepo, child) {
+            List<Products> topDiscountProducts =
+                homeRepo.homeRepository.productsTopDiscount;
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Top Discount Products',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'CenturyGothic',
+                    color: AppColor.fontColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.newItemsScreen,
+                      arguments: topDiscountProducts,
+                    );
+                  },
+                  child: const Text(
+                    'see more',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontFamily: 'CenturyGothic',
+                      color: AppColor.fontColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+        const VerticalSpeacing(
+          12,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 5,
+          child: Consumer<HomeRepositoryProvider>(
+            builder: (context, homeRepo, child) {
+              if (homeRepo.homeRepository.productsTopOrder.isEmpty) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: homeRepo.homeRepository.productsTopOrder.length,
+                  itemExtent: MediaQuery.of(context).size.width / 2.2,
+                  itemBuilder: (BuildContext context, int index) {
+                    Products product =
+                        homeRepo.homeRepository.productsTopOrder[index];
+
+                    return ProLovedCard(
+                      fun: () {
+                        final productDetailsProvider =
+                            Provider.of<ProductDetailsRepositoryProvider>(
+                                context,
+                                listen: false);
+                        productDetailsProvider.fetchProductDetails(
+                          context,
+                          product.id,
+                        );
+                      },
+                      name: product.title,
+                      rating: product.averageReview,
+                      price: product.price.toString(),
+                      discount: product.discount.toString(),
+                      id: product.id,
+                      image: product.thumbnailImage,
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+        const VerticalSpeacing(
+          12,
+        ),
       ],
     );
   }
