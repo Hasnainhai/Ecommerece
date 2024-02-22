@@ -1,6 +1,8 @@
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
+import 'package:ecommerece/view_model/service/save_product_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SaveCard extends StatelessWidget {
   const SaveCard(
@@ -69,12 +71,18 @@ class SaveCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.delete_outline),
-                      VerticalSpeacing(20),
-                      Icon(Icons.shopping_bag_outlined),
+                      InkWell(
+                          onTap: () {
+                            Provider.of<SaveProductRepositoryProvider>(context,
+                                    listen: false)
+                                .deleteProduct(id);
+                          },
+                          child: const Icon(Icons.delete_outline)),
+                      const VerticalSpeacing(20),
+                      const Icon(Icons.shopping_bag_outlined),
                     ],
                   )
                 ],

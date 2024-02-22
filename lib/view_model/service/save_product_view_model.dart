@@ -39,4 +39,11 @@ class SaveProductRepositoryProvider extends ChangeNotifier {
     await _saveRepository.getCachedProducts();
     notifyListeners();
   }
+
+  Future<void> deleteProduct(String id) async {
+    await _saveRepository.deleteProduct(
+      id,
+    );
+    notifyListeners();
+  }
 }
