@@ -41,9 +41,6 @@ class _ProLovedCardState extends State<ProLovedCard> {
       setState(() {
         isLike = true;
       });
-      debugPrint("this is true satement:$isIncart");
-    } else {
-      debugPrint("this is false satement:$isIncart");
     }
   }
 
