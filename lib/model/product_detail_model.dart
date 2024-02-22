@@ -62,8 +62,8 @@ class ProductVariation {
   String id;
   String product;
   List<Attribute> attributes;
-  dynamic price; // Change the type to dynamic
-  dynamic discount; // Change the type to dynamic
+  dynamic price;
+  dynamic discount;
 
   ProductVariation({
     required this.id,
@@ -90,16 +90,19 @@ class ProductVariation {
 class Attribute {
   String id;
   AttributeDetail attribute;
+  String value;
 
   Attribute({
     required this.id,
     required this.attribute,
+    required this.value,
   });
 
   factory Attribute.fromJson(Map<String, dynamic> json) {
     return Attribute(
       id: json['id'] ?? '',
       attribute: AttributeDetail.fromJson(json['attribute'] ?? {}),
+      value: json['value'] ?? '',
     );
   }
 }

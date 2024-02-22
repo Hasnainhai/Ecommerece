@@ -12,6 +12,7 @@ import 'package:ecommerece/utils/routes/utils.dart';
 
 class ProductDetailsRepository extends ChangeNotifier {
   Product? product;
+  List<ProductVariation> productVariationsList = [];
 
   Future<void> fetchProductDetails(
       BuildContext context, String productId) async {
@@ -27,6 +28,12 @@ class ProductDetailsRepository extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = json.decode(response.body);
+        final List<dynamic> variationsData =
+            json.decode(response.body)['product_variations'];
+        productVariationsList = variationsData
+            .map((variation) => ProductVariation.fromJson(variation))
+            .toList();
+
         product = Product.fromJson(jsonData);
 
         if (product != null) {

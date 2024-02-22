@@ -33,6 +33,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   Widget build(BuildContext context) {
     HomeRepositoryProvider homeRepoProvider =
         Provider.of<HomeRepositoryProvider>(context, listen: false);
+    ProductDetailsRepositoryProvider productDetailProvider =
+        Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
+    List<ProductVariation> productVariations =
+        productDetailProvider.productDetailsRepository.productVariationsList;
 
     // Calculate discounted price using the HomeRepositoryProvider
     double originalPrice = double.parse(widget.product.price.toString());
@@ -198,92 +202,73 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               const VerticalSpeacing(
                 24,
               ),
-              const Text(
-                "Size: ",
-                style: TextStyle(
-                  fontFamily: 'CenturyGothic',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.fontColor,
-                ),
-              ),
-              const VerticalSpeacing(
-                18,
-              ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizeContainer(
-                    color: AppColor.primaryColor,
-                    title: "S",
-                    fontColor: AppColor.whiteColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "M",
-                    fontColor: AppColor.fontColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "L",
-                    fontColor: AppColor.fontColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "Xl",
-                    fontColor: AppColor.fontColor,
-                  ),
-                  SizeContainer(
-                    color: AppColor.whiteColor,
-                    title: "2xl",
-                    fontColor: AppColor.fontColor,
-                  ),
-                ],
-              ),
-              const VerticalSpeacing(
-                16,
-              ),
-              const Text(
-                "Select Color",
-                style: TextStyle(
-                  fontFamily: 'CenturyGothic',
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.fontColor,
-                ),
-              ),
-              const VerticalSpeacing(
-                16,
-              ),
-              const Row(
-                children: [
-                  ColorContainer(color: Color(0xffFFD700)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffAE1B1B)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xff5B36EF)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffD01363)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffFF06B9)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xffFF1313)),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  ColorContainer(color: Color(0xff15F8C1)),
-                ],
-              ),
+              productVariations.isEmpty
+                  ? const SizedBox()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:
+                          productVariations.first.attributes.map((attribute) {
+                        // Check if the attribute exists in all variations
+                        if (productVariations.every((variation) =>
+                            variation.attributes.any((a) =>
+                                a.attribute.name ==
+                                attribute.attribute.name))) {
+                          // Show the name
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${attribute.attribute.name}",
+                                style: const TextStyle(
+                                  fontFamily: 'CenturyGothic',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.fontColor,
+                                ),
+                              ),
+                              // Add vertical spacing
+                              const VerticalSpeacing(18),
+                              // Show all corresponding values with horizontal scrolling
+                              Container(
+                                height:
+                                    30, // Set a fixed height or adjust as needed
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: productVariations.length,
+                                  itemBuilder: (context, index) {
+                                    var correspondingAttribute =
+                                        productVariations[index]
+                                            .attributes
+                                            .firstWhere((a) =>
+                                                a.attribute.name ==
+                                                attribute.attribute.name);
+                                    return Container(
+                                      margin: const EdgeInsets.only(right: 20),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: AppColor.primaryColor)),
+                                      child: Text(
+                                        "  ${correspondingAttribute.value}  ",
+                                        style: const TextStyle(
+                                          fontFamily: 'CenturyGothic',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                          color: AppColor.fontColor,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              // Add vertical spacing
+                              const VerticalSpeacing(18),
+                            ],
+                          );
+                        } else {
+                          return const SizedBox(); // Don't show if the attribute is missing in any variation
+                        }
+                      }).toList(),
+                    ),
               const VerticalSpeacing(
                 20,
               ),
@@ -351,9 +336,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 40,
               ),
               RoundedButton(
-                  title: "Add to card",
-                  onpress: () {},
-                  color: AppColor.primaryColor)
+                title: "Add to card",
+                onpress: () {},
+                color: AppColor.primaryColor,
+              )
             ]),
           ),
         ),
