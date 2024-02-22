@@ -108,9 +108,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           onChanged: (value) {
                             if (searchController.text.length >= 1) {
                               viewModel.search(
-                                  value,
-                                  viewModel.homeRepository.productsTopRated,
-                                  viewModel.homeRepository.newProducts);
+                                value,
+                                viewModel.homeRepository.productsTopRated,
+                                viewModel.homeRepository.newProducts,
+                                viewModel.homeRepository.productsFeature,
+                                viewModel.homeRepository.productsTopDiscount,
+                                viewModel.homeRepository.productsTopOrder,
+                              );
                               Provider.of<HomeUiSwithchRepository>(context,
                                       listen: false)
                                   .switchToType(UIType.SearchSection);

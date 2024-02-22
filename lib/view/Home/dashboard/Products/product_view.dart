@@ -73,6 +73,9 @@ class _ProductState extends State<Product> {
                                 value,
                                 searchModel.homeRepository.productsTopRated,
                                 searchModel.homeRepository.newProducts,
+                                searchModel.homeRepository.productsFeature,
+                                searchModel.homeRepository.productsTopDiscount,
+                                searchModel.homeRepository.productsTopOrder,
                               );
                             },
                             decoration: InputDecoration(
@@ -210,9 +213,13 @@ class _ProductState extends State<Product> {
                                   });
                                 }
                                 viewModel.search(
-                                    value,
-                                    viewModel.homeRepository.productsTopRated,
-                                    viewModel.homeRepository.newProducts);
+                                  value,
+                                  viewModel.homeRepository.productsTopRated,
+                                  viewModel.homeRepository.newProducts,
+                                  viewModel.homeRepository.productsFeature,
+                                  viewModel.homeRepository.productsTopDiscount,
+                                  viewModel.homeRepository.productsTopOrder,
+                                );
                               },
                               decoration: InputDecoration(
                                 hintText: "Search Here",

@@ -77,6 +77,9 @@ class HomeRepository extends ChangeNotifier {
     String searchTerm,
     List<Products> productsTopRated,
     List<Products> productsNew,
+    List<Products> productsFeature,
+    List<Products> productsTopDiscount,
+    List<Products> productsTopOrder,
   ) {
     searchResults.clear();
 
@@ -87,6 +90,21 @@ class HomeRepository extends ChangeNotifier {
     }
 
     for (var product in newProducts) {
+      if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchResults.add(product);
+      }
+    }
+    for (var product in productsFeature) {
+      if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchResults.add(product);
+      }
+    }
+    for (var product in productsTopDiscount) {
+      if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
+        searchResults.add(product);
+      }
+    }
+    for (var product in productsTopOrder) {
       if (product.title.toLowerCase().contains(searchTerm.toLowerCase())) {
         searchResults.add(product);
       }
