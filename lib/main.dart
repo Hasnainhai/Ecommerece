@@ -5,6 +5,7 @@ import 'package:ecommerece/view_model/service/all_product_view_model.dart';
 import 'package:ecommerece/view_model/service/cart_view_model.dart';
 import 'package:ecommerece/view_model/service/new_items_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
+import 'package:ecommerece/view_model/service/save_product_view_model.dart';
 import 'package:ecommerece/view_model/service/shop_product_view.model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +57,9 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => AllProductsRepositoryProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => SaveProductRepositoryProvider(),
             ),
           ],
           child: const MyApp(),
