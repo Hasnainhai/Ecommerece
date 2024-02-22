@@ -3,8 +3,16 @@ import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:flutter/material.dart';
 
 class SaveCard extends StatelessWidget {
-  const SaveCard({super.key});
-
+  const SaveCard(
+      {super.key,
+      required this.name,
+      required this.price,
+      required this.image,
+      required this.id});
+  final String name;
+  final String price;
+  final String image;
+  final String id;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,20 +36,20 @@ class SaveCard extends StatelessWidget {
                   const SizedBox(
                     width: 16,
                   ),
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Cot winter",
-                        style: TextStyle(
+                        name,
+                        style: const TextStyle(
                           fontFamily: 'CenturyGothic',
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: AppColor.fontColor,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Duis aute veniam veniam qui aliquip irure  ",
                         style: TextStyle(
                           fontFamily: 'CenturyGothic',
@@ -51,8 +59,8 @@ class SaveCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "\$10",
-                        style: TextStyle(
+                        price,
+                        style: const TextStyle(
                           fontFamily: 'CenturyGothic',
                           fontSize: 20,
                           fontWeight: FontWeight.w300,
