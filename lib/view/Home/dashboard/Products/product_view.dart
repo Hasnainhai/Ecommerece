@@ -9,6 +9,7 @@ import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/all_product_view_model.dart';
+import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -263,79 +264,47 @@ class _ProductState extends State<Product> {
                         ),
                       ),
                       const VerticalSpeacing(16.0),
-                      Consumer<AllProductsRepository>(
-                        builder: (context, homeRepo, child) {
-                          List<Products> newProducts = homeRepo.productList;
 
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Populars',
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: 'CenturyGothic',
-                                  color: AppColor.fontColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RoutesName.popularsScreen,
-                                    arguments: newProducts,
-                                  );
-                                },
-                                child: const Text(
-                                  'see more',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: 'CenturyGothic',
-                                    color: AppColor.fontColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                      const VerticalSpeacing(14),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height / 2.3,
-                        child: Consumer<AllProductsRepository>(
+                        height: MediaQuery.of(context).size.height / 1.1,
+                        child: Consumer<AllProductsRepositoryProvider>(
                           builder: (context, homeRepo, child) {
-                            if (homeRepo.productList.isEmpty) {
+                            if (homeRepo
+                                .allProductsRepository.productList.isEmpty) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             } else {
                               return GridView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 16,
                                   mainAxisSpacing: 16,
                                 ),
-                                itemCount: 4,
+                                itemCount: homeRepo
+                                    .allProductsRepository.productList.length,
                                 itemBuilder: (context, index) {
-                                  Products product =
-                                      homeRepo.productList[index];
+                                  Products product = homeRepo
+                                      .allProductsRepository.productList[index];
                                   return ProLovedCard(
-                                    price: product.price.toString(),
-                                    discount: product.discount.toString(),
-                                    name: product.title,
-                                    rating: product.averageReview,
-                                    id: product.id,
-                                    image: product.thumbnailImage,
                                     fun: () {
-                                      Navigator.pushNamed(
+                                      final productDetailsProvider = Provider
+                                          .of<ProductDetailsRepositoryProvider>(
+                                              context,
+                                              listen: false);
+                                      productDetailsProvider
+                                          .fetchProductDetails(
                                         context,
-                                        RoutesName.productdetail,
+                                        product.id,
                                       );
                                     },
+                                    name: product.title,
+                                    rating: product.averageReview,
+                                    price: product.price.toString(),
+                                    discount: product.discount.toString(),
+                                    id: product.id,
+                                    image: product.thumbnailImage,
                                   );
                                 },
                               );

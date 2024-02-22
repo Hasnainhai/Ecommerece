@@ -63,18 +63,6 @@ class StoreScreen extends StatelessWidget {
                     TopShop shop = homeRepo.homeRepository.topShops[index];
                     return StoreCard(
                       ontap: () {
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   RoutesName.visitStore,
-                        //   arguments: {
-                        //     'newProducts': homeRepo.homeRepository.newProducts,
-                        //     'productsTopRated':
-                        //         homeRepo.homeRepository.productsTopRated,
-                        //     'storeName': shop.shopName,
-                        //     'totalRating': shop.averageRating,
-                        //     'description': 'This is a great store!',
-                        //   },
-                        // );
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -83,10 +71,6 @@ class StoreScreen extends StatelessWidget {
                                       totalRating:
                                           shop.averageRating.toString(),
                                       description: 'This is a great store!',
-                                      // productsTopRated: homeRepo
-                                      //     .homeRepository.productsTopRated,
-                                      // newProducts:
-                                      //     homeRepo.homeRepository.newProducts,
                                       id: shop.id.toString(),
                                     )));
                       },

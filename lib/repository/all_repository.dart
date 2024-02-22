@@ -33,8 +33,8 @@ class AllProductsRepository extends ChangeNotifier {
         categoryList = List<Category>.from(
             data['categories'].map((category) => Category.fromJson(category)));
         productList = List<Products>.from(
-            data['products'].map((product) => Product.fromJson(product)));
-
+            data['products'].map((product) => Products.fromJson(product)));
+        debugPrint("this is all product list:$productList");
         notifyListeners();
       } else {
         if (response.statusCode == 404) {
@@ -50,6 +50,7 @@ class AllProductsRepository extends ChangeNotifier {
       } else if (e is FormatException) {
         Utils.flushBarErrorMessage("Invalid response format", context);
       } else {
+        debugPrint("this is the errror:$e");
         Utils.flushBarErrorMessage("Unexpected error occurred", context);
       }
     }

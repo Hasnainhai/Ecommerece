@@ -12,6 +12,7 @@ import 'package:ecommerece/view/Home/widgets/default_section.dart';
 import 'package:ecommerece/view/Home/widgets/filter_products.dart';
 import 'package:ecommerece/view/Home/widgets/search_section.dart';
 import 'package:ecommerece/view/filters/filters.dart';
+import 'package:ecommerece/view/store/visit_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -207,6 +208,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                   homeRepo.homeRepository.topShops[index];
 
                               return StoreWidget(
+                                ontap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (c) => VisitStore(
+                                                storeName: shop.shopName,
+                                                totalRating: shop.averageRating
+                                                    .toString(),
+                                                description:
+                                                    'This is a great store!',
+                                                id: shop.id.toString(),
+                                              )));
+                                },
                                 title: shop.shopName,
                                 img: '',
                                 rating: shop.averageRating.toString(),
