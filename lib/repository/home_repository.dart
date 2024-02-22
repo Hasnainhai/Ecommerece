@@ -131,6 +131,27 @@ class HomeRepository extends ChangeNotifier {
         categriousProduct.add(product);
       }
     }
+    for (var product in productsFeature) {
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
+      }
+    }
+    for (var product in productsTopDiscount) {
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
+      }
+    }
+    for (var product in productsTopOrder) {
+      if (product.category.name.toLowerCase().contains(
+            category.toLowerCase(),
+          )) {
+        categriousProduct.add(product);
+      }
+    }
 
     if (categriousProduct.isNotEmpty) {
       notifyListeners();
@@ -153,6 +174,27 @@ class HomeRepository extends ChangeNotifier {
         }
       }
       for (var product in newProducts) {
+        if (product.category.name.toLowerCase().contains(
+              category.toLowerCase(),
+            )) {
+          filteredProducts.add(product);
+        }
+      }
+      for (var product in productsFeature) {
+        if (product.category.name.toLowerCase().contains(
+              category.toLowerCase(),
+            )) {
+          filteredProducts.add(product);
+        }
+      }
+      for (var product in productsTopDiscount) {
+        if (product.category.name.toLowerCase().contains(
+              category.toLowerCase(),
+            )) {
+          filteredProducts.add(product);
+        }
+      }
+      for (var product in productsTopOrder) {
         if (product.category.name.toLowerCase().contains(
               category.toLowerCase(),
             )) {
