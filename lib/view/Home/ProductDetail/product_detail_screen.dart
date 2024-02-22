@@ -4,6 +4,7 @@ import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:ecommerece/view/Home/PreLovedProductDetail/Widget/image_slider.dart';
 
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
@@ -337,18 +338,15 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               RoundedButton(
                 title: "Add to card",
                 onpress: () async {
-                  // Future<bool> isInCart =
-                  //     homeRepoProvider.isProductInCart(homeRepoProvider.homeRepository.);
+                  Future<bool> isInCart =
+                      homeRepoProvider.isProductInCart(widget.product.id);
 
-                  // if (await isInCart) {
-                  //   // Product is in the cart, set color to primaryColor
-
-                  //   Utils.toastMessage("Product is already in the cart");
-                  // } else {
-
-                  //   homeRepoProvider.saveCartProducts(widget.id, widget.name,
-                  //       widget.name, discountedPrice, 1);
-                  // }
+                  if (await isInCart) {
+                    Utils.toastMessage("Product is already in the cart");
+                  } else {
+                    homeRepoProvider.saveCartProducts(widget.product.id,
+                        widget.product.title, "", widget.product.discount, 1);
+                  }
                 },
                 color: AppColor.primaryColor,
               )
