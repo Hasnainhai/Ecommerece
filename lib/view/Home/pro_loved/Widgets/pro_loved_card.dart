@@ -35,7 +35,6 @@ class _ProLovedCardState extends State<ProLovedCard> {
     SaveProductRepositoryProvider homeRepoProvider =
         Provider.of<SaveProductRepositoryProvider>(context, listen: false);
 
-    // Await the result before comparing
     bool isIncart = await homeRepoProvider.isProductInCart(widget.id);
 
     if (isIncart == true) {
@@ -88,7 +87,6 @@ class _ProLovedCardState extends State<ProLovedCard> {
                   Future<bool> isInCart = saveRepo.isProductInCart(widget.id);
 
                   if (await isInCart) {
-                    // Product is in the cart, set color to primaryColor
                     setState(() {
                       isLike = true;
                     });

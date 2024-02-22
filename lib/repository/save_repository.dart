@@ -29,7 +29,7 @@ class SaveRepository extends ChangeNotifier {
 
       saveProducts.add(newProductJson);
 
-      prefs.setStringList('Save products', saveProducts);
+      prefs.setStringList('SaveProducts', saveProducts);
       Utils.toastMessage("Product has been added to Save");
       notifyListeners();
     } catch (e) {
@@ -41,12 +41,11 @@ class SaveRepository extends ChangeNotifier {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      List<String> saveProducts = prefs.getStringList('saveProducts') ?? [];
+      List<String> saveProducts = prefs.getStringList('SaveProducts') ?? [];
 
       saveList = saveProducts.map((productJson) {
         return json.decode(productJson) as Map<String, dynamic>;
       }).toList();
-
       notifyListeners();
     } catch (e) {
       debugPrint("Error getting cached products: $e");
@@ -61,7 +60,7 @@ class SaveRepository extends ChangeNotifier {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> updatedProducts =
           saveList.map((saveProducts) => json.encode(saveProducts)).toList();
-      prefs.setStringList('saveProducts', updatedProducts);
+      prefs.setStringList('SaveProducts', updatedProducts);
 
       notifyListeners();
     } catch (e) {
@@ -71,9 +70,9 @@ class SaveRepository extends ChangeNotifier {
 
   Future<bool> isProductInCart(String productId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> saveProduct = prefs.getStringList('saveProducts') ?? [];
+    List<String> saveProducts = prefs.getStringList('SaveProducts') ?? [];
 
-    for (String productJson in saveProduct) {
+    for (String productJson in saveProducts) {
       Map<String, dynamic> productMap = json.decode(productJson);
       if (productMap['productId'] == productId) {
         return true;
