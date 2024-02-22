@@ -9,9 +9,9 @@ import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class DataProvider extends ChangeNotifier {
+class AllProductsRepository extends ChangeNotifier {
   List<Category> categoryList = [];
-  List<Product> productList = [];
+  List<Products> productList = [];
 
   Future<void> fetchData(BuildContext context) async {
     const String url = 'http://zarozar.exarth.com/web/api/product/';
@@ -32,7 +32,7 @@ class DataProvider extends ChangeNotifier {
 
         categoryList = List<Category>.from(
             data['categories'].map((category) => Category.fromJson(category)));
-        productList = List<Product>.from(
+        productList = List<Products>.from(
             data['products'].map((product) => Product.fromJson(product)));
 
         notifyListeners();
