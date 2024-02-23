@@ -1,9 +1,11 @@
-import 'package:ecommerece/model/preloved_model.dart';
+import 'package:ecommerece/repository/preloved_ui_repository.dart';
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
-import 'package:ecommerece/utils/routes/routes_name.dart';
+import 'package:ecommerece/res/preloved_enums.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
-import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
+import 'package:ecommerece/view/Home/pro_loved/Widgets/default_section.dart';
+import 'package:ecommerece/view/Home/pro_loved/Widgets/search_section.dart';
+import 'package:ecommerece/view/Home/widgets/filter_products.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view_model/preloved_view_model.dart';
 import 'package:flutter/material.dart';
@@ -112,90 +114,26 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
                 ),
               ),
               const VerticalSpeacing(20),
-              isSearching
-                  ? Expanded(
-                      child: Consumer<PrelovedRepositoryProvider>(
-                        builder: (context, searchRepo, child) {
-                          if (searchRepo
-                              .prelovedRepository.searchPreloved.isEmpty) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                              ),
-                              itemCount: searchRepo
-                                  .prelovedRepository.searchPreloved.length,
-                              itemBuilder: (context, index) {
-                                PrelovedProduct product = searchRepo
-                                    .prelovedRepository.searchPreloved[index];
-                                return ProLovedCard(
-                                  fun: () {
-                                    Navigator.pushNamed(
-                                        context, RoutesName.productdetail);
-                                  },
-                                  name: product.title,
-                                  rating: product.averageReview,
-                                  price: product.price.toString(),
-                                  discount: product.discount.toString(),
-                                  id: product.id,
-                                  image: product.thumbnailImage,
-                                );
-                              },
-                            );
-                          }
-                        },
-                      ),
-                    )
-                  : Expanded(
-                      child: Consumer<PrelovedRepositoryProvider>(
-                        builder: (context, prelovedRepositoryProvider, _) {
-                          if (prelovedRepositoryProvider
-                              .prelovedRepository.prelovedProducts.isEmpty) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
-                              ),
-                              itemCount: prelovedRepositoryProvider
-                                  .prelovedRepository.prelovedProducts.length,
-                              itemBuilder: (context, index) {
-                                final PrelovedProduct product =
-                                    prelovedRepositoryProvider
-                                        .prelovedRepository
-                                        .prelovedProducts[index];
-                                return ProLovedCard(
-                                  fun: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RoutesName.preLovedproductdetail,
-                                    );
-                                  },
-                                  name: product.title,
-                                  rating: product.averageReview,
-                                  price: product.price.toString(),
-                                  discount: product.discount.toString(),
-                                  id: product.id,
-                                  image: product.thumbnailImage,
-                                  // Add other properties from PrelovedProduct as needed
-                                );
-                              },
-                            );
-                          }
-                        },
-                      ),
-                    ),
+              Consumer<PrelovedUiRepository>(
+                builder: (context, uiState, _) {
+                  Widget selectedWidget;
+
+                  switch (uiState.selectedType) {
+                    case PrelovedUiType.SearchSection:
+                      selectedWidget = const SearchPreLovedSection();
+                      break;
+                    case PrelovedUiType.FilterSection:
+                      selectedWidget = const FilterProducts();
+                      break;
+
+                    case PrelovedUiType.DefaultSection:
+                      selectedWidget = const DefaultPrelovedSection();
+                      break;
+                  }
+
+                  return selectedWidget;
+                },
+              ),
             ],
           ),
         ),
