@@ -1,6 +1,5 @@
 import 'package:ecommerece/model/home_prod_model.dart';
-import 'package:ecommerece/model/product_detail_model.dart';
-import 'package:ecommerece/repository/all_repository.dart';
+
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';

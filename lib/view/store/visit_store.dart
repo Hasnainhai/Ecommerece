@@ -1,9 +1,7 @@
-import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/model/shop_products_model.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
-import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:ecommerece/view_model/service/shop_product_view.model.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../res/components/colors.dart';
 import '../../res/components/verticalSpacing.dart';
-import '../../utils/routes/routes_name.dart';
 import '../Home/pro_loved/Widgets/pro_loved_card.dart';
 
 class VisitStore extends StatefulWidget {
