@@ -30,7 +30,6 @@ class ShopProductRepository extends ChangeNotifier {
             .map((product) => ProductShop.fromJson(product))
             .toList();
 
-        print('Fetched data: ${productList}');
         notifyListeners();
       } else {
         if (response.statusCode == 404) {

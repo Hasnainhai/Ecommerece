@@ -1,6 +1,5 @@
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/model/shop_products_model.dart';
-import 'package:ecommerece/repository/shop_product_repository.dart';
 import 'package:ecommerece/view/Home/widgets/categoryWidget.dart';
 import 'package:ecommerece/view/filters/filters.dart';
 import 'package:ecommerece/view/store/Widgets/store_detail.dart';
@@ -42,6 +41,7 @@ class _VisitStoreState extends State<VisitStore> {
     searchController.dispose();
   }
 
+  @override
   void initState() {
     super.initState();
     Provider.of<ShopProductRepositoryProvider>(context, listen: false)
@@ -163,45 +163,19 @@ class _VisitStoreState extends State<VisitStore> {
                     ? Column(
                         children: [
                           const VerticalSpeacing(16.0),
-                          Consumer<HomeRepositoryProvider>(
-                            builder: (context, homeRepo, child) {
-                              List<Products> newProducts =
-                                  homeRepo.homeRepository.productsTopRated;
-
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Search Products',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontFamily: 'CenturyGothic',
-                                      color: AppColor.fontColor,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        RoutesName.popularsScreen,
-                                        arguments: newProducts,
-                                      );
-                                    },
-                                    child: const Text(
-                                      'see more',
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontFamily: 'CenturyGothic',
-                                        color: AppColor.fontColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Search Products',
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'CenturyGothic',
+                                  color: AppColor.fontColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                           const VerticalSpeacing(
                             12,
@@ -296,28 +270,16 @@ class _VisitStoreState extends State<VisitStore> {
                               ],
                             ),
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
-                                'Populars',
+                              Text(
+                                'Products',
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   fontFamily: 'CenturyGothic',
                                   color: AppColor.fontColor,
                                   fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: const Text(
-                                  'see more',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontFamily: 'CenturyGothic',
-                                    color: AppColor.fontColor,
-                                    fontWeight: FontWeight.w500,
-                                  ),
                                 ),
                               ),
                             ],

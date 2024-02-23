@@ -20,7 +20,6 @@ class PreLoveScreen extends StatefulWidget {
 
 class _PreLoveScreenState extends State<PreLoveScreen> {
   TextEditingController searchController = TextEditingController();
-  bool isSearching = false;
   @override
   void initState() {
     super.initState();
@@ -33,6 +32,7 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
   @override
   void dispose() {
     super.dispose();
+    searchController.dispose();
   }
 
   @override
@@ -77,13 +77,19 @@ class _PreLoveScreenState extends State<PreLoveScreen> {
                     return TextFormField(
                       controller: searchController,
                       onChanged: (value) {
-                        if (searchController.text.length == 3) {
-                          setState(() {
-                            isSearching = true;
-                          });
+                        if (searchController.text.length == 1) {
+                          preLoved.searchAndFetchData(value,
+                              preLoved.prelovedRepository.prelovedProducts);
+                          Provider.of<PrelovedUiRepository>(context,
+                                  listen: false)
+                              .switchToType(PrelovedUiType.SearchSection);
+                        } else {
+                          Provider.of<PrelovedUiRepository>(context,
+                                  listen: false)
+                              .switchToType(
+                            PrelovedUiType.DefaultSection,
+                          );
                         }
-                        preLoved.searchAndFetchData(value,
-                            preLoved.prelovedRepository.prelovedProducts);
                       },
                       decoration: InputDecoration(
                         hintText: "Search Here",
