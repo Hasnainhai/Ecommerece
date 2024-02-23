@@ -149,8 +149,9 @@ class _CartWidgetState extends State<CartWidget> {
                   ),
                   Text(
                     widget.individualPrice == null
-                        ? widget.price
-                        : widget.individualPrice!,
+                        ? double.parse(widget.price).toStringAsFixed(2)
+                        : double.parse(widget.individualPrice!)
+                            .toStringAsFixed(2),
                     style: const TextStyle(
                       fontFamily: 'CenturyGothic',
                       fontSize: 12,

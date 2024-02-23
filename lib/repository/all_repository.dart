@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:ecommerece/model/home_prod_model.dart';
-import 'package:ecommerece/model/product_detail_model.dart';
+import 'package:ecommerece/res/app_url.dart';
 import 'package:ecommerece/utils/routes/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,13 +14,12 @@ class AllProductsRepository extends ChangeNotifier {
   List<Products> productList = [];
 
   Future<void> fetchData(BuildContext context) async {
-    const String url = 'http://zarozar.exarth.com/web/api/product/';
     const String csrfToken =
         'TmAfyfkTFQr3aZU6ZkVXS1rGw6rMoRPGqDjwAQIXfRK5q8mK1DXUAWazi7sxZJzK';
 
     try {
       final response = await http.get(
-        Uri.parse(url),
+        Uri.parse(AppUrl.productDetailEndPoint),
         headers: {
           'accept': 'application/json',
           'X-CSRFToken': csrfToken,
@@ -34,7 +33,6 @@ class AllProductsRepository extends ChangeNotifier {
             data['categories'].map((category) => Category.fromJson(category)));
         productList = List<Products>.from(
             data['products'].map((product) => Products.fromJson(product)));
-        debugPrint("this is all product list:$productList");
         notifyListeners();
       } else {
         if (response.statusCode == 404) {

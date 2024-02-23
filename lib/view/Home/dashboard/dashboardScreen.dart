@@ -95,30 +95,9 @@ class _DashBoardScreenState extends State<DashBoardScreen>
             showUnselectedLabels: true,
             currentIndex: selectIndex,
             onTap: onItemClick,
+            selectedFontSize: 12,
+            unselectedFontSize: 10,
           ),
-          // Positioned(
-          //   left: MediaQuery.of(context).size.width / 2 - 30,
-          //   bottom: 0,
-          //   child: InkWell(
-          //     onTap: () {
-          //       Navigator.pushNamed(context, RoutesName.cartScreen);
-          //     },
-          //     child: Container(
-          //       color: AppColor.primaryColor,
-          //       height: 60,
-          //       width: 60,
-          //       child: const Center(
-          //         child: ImageIcon(
-          //           AssetImage(
-          //             "images/card.png",
-          //           ),
-          //           color: Colors.white,
-          //           size: 40,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:ecommerece/model/home_prod_model.dart';
-import 'package:ecommerece/model/product_detail_model.dart';
-import 'package:ecommerece/repository/all_repository.dart';
+
 import 'package:ecommerece/res/components/colors.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
 import 'package:ecommerece/utils/routes/routes_name.dart';
@@ -39,12 +38,12 @@ class _ProductState extends State<Product> {
       appBar: AppBar(
         backgroundColor: AppColor.whiteColor,
         title: const Text(
-          "Product",
+          'All Products',
           style: TextStyle(
             fontFamily: 'CenturyGothic',
-            fontSize: 18,
-            fontWeight: FontWeight.w300,
-            color: AppColor.fontColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: AppColor.blackColor,
           ),
         ),
         leading: IconButton(
