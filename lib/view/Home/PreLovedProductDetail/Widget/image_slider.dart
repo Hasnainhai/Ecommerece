@@ -40,21 +40,6 @@ class _ImageSliderState extends State<ImageSlider> {
                         image: AssetImage("images/coat.png"),
                       ),
                     ),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            height: 48,
-                            width: 48,
-                            color: AppColor.whiteColor,
-                            child: Container(
-                              child: const Icon(
-                                Icons.favorite_border_outlined,
-                              ),
-                            ),
-                          ),
-                        ]),
                   ),
                 )
                 .toList(),
@@ -83,47 +68,11 @@ class _ImageSliderState extends State<ImageSlider> {
                         ? AppColor.primaryColor
                         : const Color(0xff898989),
                   ),
-                  const SizedBox(width: 8), // Adjust the width as needed
+                  const SizedBox(width: 8),
                 ],
               );
             }),
           ),
-
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: imgList.map((item) =>{
-//               int index =imgList.indexOf(item);
-// return Container(
-//                 height: 5,
-//                 width: 18,
-//                 color: AppColor.primaryColor,
-//               ),
-
-//             } ).toList(),
-          // children: [
-          // Container(
-          //   height: 5,
-          //   width: 18,
-          //   color: AppColor.primaryColor,
-          // ),
-          //   const SizedBox(
-          //     width: 15,
-          //   ),
-          //   Container(
-          //     height: 5,
-          //     width: 10,
-          //     color: AppColor.primaryColor,
-          //   ),
-          //   const SizedBox(
-          //     width: 15,
-          //   ),
-          //   Container(
-          //     height: 5,
-          //     width: 10,
-          //     color: AppColor.primaryColor,
-          //   )
-          // ],
-          // )
         ],
       ),
     );
