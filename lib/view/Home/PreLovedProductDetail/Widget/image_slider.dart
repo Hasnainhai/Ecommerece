@@ -68,7 +68,7 @@ class _ImageSliderState extends State<ImageSlider> {
                         ? AppColor.primaryColor
                         : const Color(0xff898989),
                   ),
-                  const SizedBox(width: 8), // Adjust the width as needed
+                  const SizedBox(width: 8),
                 ],
               );
             }),
