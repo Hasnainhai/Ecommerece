@@ -247,16 +247,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
                                     return GestureDetector(
                                       onTap: () {
-                                        // Handle tap event here
                                         setState(() {
-                                          // Create a selectedIndices entry for the current variation if not exists
                                           if (!selectedIndices
                                               .containsKey(variationName)) {
                                             selectedIndices[variationName] =
                                                 null;
                                           }
 
-                                          // Update the selected index for the current variation
                                           selectedIndices[variationName] =
                                               selectedIndices[variationName] ==
                                                       index
@@ -371,6 +368,10 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
                   if (await isInCart) {
                     Utils.toastMessage("Product is already in the cart");
+                  } else if (productVariations.isNotEmpty &&
+                      selectedIndices.keys.isEmpty) {
+                    Utils.flushBarErrorMessage(
+                        "Please select the variations", context);
                   } else {
                     homeRepoProvider.saveCartProducts(widget.product.id,
                         widget.product.title, "image", discountedPrice, 1);
