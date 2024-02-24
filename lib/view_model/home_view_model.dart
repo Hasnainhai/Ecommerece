@@ -50,10 +50,10 @@ class HomeRepositoryProvider extends ChangeNotifier {
   }
 
   void filterProducts(
-    String categrio,
-    double mixRating,
-    double minPrice,
-    double maxPrice,
+    String? categrio,
+    double? mixRating,
+    double? minPrice,
+    double? maxPrice,
   ) {
     _homeRepository.filterProducts(
       categrio,

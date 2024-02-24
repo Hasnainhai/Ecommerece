@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../../res/components/colors.dart';
 import '../../res/components/verticalSpacing.dart';
-import 'widgets/price_slider.dart';
 import 'package:flutter/material.dart';
 
 class FilterPopUp extends StatefulWidget {
@@ -24,10 +23,9 @@ class _FilterPopUpState extends State<FilterPopUp> {
   bool button2 = false;
   bool button3 = false;
   bool button4 = false;
-  String catergioes = "study";
-  double minPrice = 5;
-  double maxPrice = 5000;
-  double maxRating = 4.5;
+  String? catergioes;
+
+  double? maxRating;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +75,8 @@ class _FilterPopUpState extends State<FilterPopUp> {
                         inactiveColor: Colors.grey.shade300,
                         values: _values,
                         min: 5,
-                        max: 5000,
-                        divisions: 100,
+                        max: 10000,
+                        divisions: 50,
                         labels: RangeLabels(
                           _values.start.round().toString(),
                           _values.end.round().toString(),
@@ -129,27 +127,34 @@ class _FilterPopUpState extends State<FilterPopUp> {
                               child: InkWell(
                                 onTap: () {
                                   setState(() {
-                                    catergioes = category.name;
+                                    // Toggle selection on tap
+                                    catergioes = catergioes == category.name
+                                        ? null
+                                        : category.name;
                                   });
                                 },
                                 child: Container(
                                   height: 45,
                                   width: 100,
                                   decoration: BoxDecoration(
-                                    // color: button1
-                                    //     ? AppColor.primaryColor
-                                    color: Colors.transparent,
+                                    color: catergioes == category.name
+                                        ? AppColor
+                                            .primaryColor // Change the color for the selected category
+                                        : Colors.transparent,
                                     border: Border.all(
                                         color: AppColor.primaryColor),
                                   ),
                                   child: Center(
                                     child: Text(
                                       category.name,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontFamily: 'CenturyGothic',
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400,
-                                        color: AppColor.fontColor,
+                                        color: catergioes == category.name
+                                            ? AppColor
+                                                .whiteColor // Change the color for the selected category
+                                            : AppColor.fontColor,
                                       ),
                                     ),
                                   ),
@@ -202,8 +207,8 @@ class _FilterPopUpState extends State<FilterPopUp> {
                         .filterProducts(
                       catergioes,
                       maxRating,
-                      minPrice,
-                      maxPrice,
+                      _values.start,
+                      _values.end,
                     );
                     Provider.of<HomeUiSwithchRepository>(context, listen: false)
                         .switchToType(UIType.FilterSection);

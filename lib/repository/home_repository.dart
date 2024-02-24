@@ -159,56 +159,42 @@ class HomeRepository extends ChangeNotifier {
   }
 
   void filterProducts(
-    String category,
-    double minRating,
-    double minPrice,
-    double maxPrice,
+    String? category,
+    double? minRating,
+    double? minPrice,
+    double? maxPrice,
   ) {
     try {
       filteredProducts.clear();
-      for (var product in productsTopRated) {
-        if (product.category.name.toLowerCase().contains(
-              category.toLowerCase(),
-            )) {
-          filteredProducts.add(product);
-        }
+
+      List<List<Products>> productLists = [
+        productsTopRated,
+        newProducts,
+        productsFeature,
+        productsTopDiscount,
+        productsTopOrder,
+      ];
+
+      for (var productList in productLists) {
+        filteredProducts.addAll(productList.where((product) {
+          bool categoryFilter = category == null ||
+              product.category.name
+                  .toLowerCase()
+                  .contains(category.toLowerCase());
+
+          bool ratingFilter =
+              minRating == null || product.averageReview >= minRating;
+
+          bool priceFilter = (minPrice == null || product.price >= minPrice) &&
+              (maxPrice == null || product.price <= maxPrice);
+
+          return categoryFilter && ratingFilter && priceFilter;
+        }));
       }
-      for (var product in newProducts) {
-        if (product.category.name.toLowerCase().contains(
-              category.toLowerCase(),
-            )) {
-          filteredProducts.add(product);
-        }
-      }
-      for (var product in productsFeature) {
-        if (product.category.name.toLowerCase().contains(
-              category.toLowerCase(),
-            )) {
-          filteredProducts.add(product);
-        }
-      }
-      for (var product in productsTopDiscount) {
-        if (product.category.name.toLowerCase().contains(
-              category.toLowerCase(),
-            )) {
-          filteredProducts.add(product);
-        }
-      }
-      for (var product in productsTopOrder) {
-        if (product.category.name.toLowerCase().contains(
-              category.toLowerCase(),
-            )) {
-          filteredProducts.add(product);
-        }
-      }
-      filteredProducts
-          .removeWhere((product) => product.averageReview < minRating);
-      filteredProducts.removeWhere(
-        (product) => product.price < minPrice || product.price > maxPrice,
-      );
+
       notifyListeners();
     } catch (e) {
-      debugPrint("this is error in the filter product:${e.toString()} ");
+      debugPrint("Error in the filterProducts: ${e.toString()}");
     }
   }
 
