@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/model/product_detail_model.dart';
 import 'package:ecommerece/res/components/colors.dart';
@@ -24,6 +26,7 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
+  Map<String, int?> selectedIndices = {};
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
     List<ProductVariation> productVariations =
         productDetailProvider.productDetailsRepository.productVariationsList;
 
-    // Calculate discounted price using the HomeRepositoryProvider
     double originalPrice = double.parse(widget.product.price.toString());
     double originalDiscount = double.parse(widget.product.discount.toString());
 
@@ -208,17 +210,17 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:
                           productVariations.first.attributes.map((attribute) {
-                        // Check if the attribute exists in all variations
                         if (productVariations.every((variation) =>
                             variation.attributes.any((a) =>
                                 a.attribute.name ==
                                 attribute.attribute.name))) {
-                          // Show the name
+                          String variationName = attribute.attribute.name;
+
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${attribute.attribute.name}",
+                                variationName,
                                 style: const TextStyle(
                                   fontFamily: 'CenturyGothic',
                                   fontSize: 16,
@@ -242,18 +244,44 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                             .firstWhere((a) =>
                                                 a.attribute.name ==
                                                 attribute.attribute.name);
-                                    return Container(
-                                      margin: const EdgeInsets.only(right: 20),
-                                      decoration: BoxDecoration(
+
+                                    return GestureDetector(
+                                      onTap: () {
+                                        // Handle tap event here
+                                        setState(() {
+                                          // Create a selectedIndices entry for the current variation if not exists
+                                          if (!selectedIndices
+                                              .containsKey(variationName)) {
+                                            selectedIndices[variationName] =
+                                                null;
+                                          }
+
+                                          // Update the selected index for the current variation
+                                          selectedIndices[variationName] =
+                                              selectedIndices[variationName] ==
+                                                      index
+                                                  ? null
+                                                  : index;
+                                        });
+                                      },
+                                      child: Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 20),
+                                        decoration: BoxDecoration(
                                           border: Border.all(
-                                              color: AppColor.primaryColor)),
-                                      child: Text(
-                                        "  ${correspondingAttribute.value}  ",
-                                        style: const TextStyle(
-                                          fontFamily: 'CenturyGothic',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: AppColor.fontColor,
+                                            color: AppColor.primaryColor,
+                                          ),
+                                          color: _getContainerColor(
+                                              variationName, index),
+                                        ),
+                                        child: Text(
+                                          "  ${correspondingAttribute.value}  ",
+                                          style: const TextStyle(
+                                            fontFamily: 'CenturyGothic',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                            color: AppColor.fontColor,
+                                          ),
                                         ),
                                       ),
                                     );
@@ -355,5 +383,13 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         ),
       ),
     );
+  }
+
+  Color _getContainerColor(String variationName, int index) {
+    if (selectedIndices[variationName] == index) {
+      return AppColor.primaryColor;
+    } else {
+      return Colors.transparent;
+    }
   }
 }
