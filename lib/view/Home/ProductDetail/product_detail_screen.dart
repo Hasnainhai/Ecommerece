@@ -33,7 +33,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   void checkSelectedVariations() {
     List<Map<String, String>> selectedAttributes = [];
 
-    // Check if all variations have been selected
     if (selectedIndices.length == variationData.first.attributes.length) {
       for (var variationName in selectedIndices.keys) {
         var selectedIndex = selectedIndices[variationName];
@@ -45,6 +44,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             attributesMap[attribute.attribute.name] = attribute.value;
           }
 
+          attributesMap['price'] = selectedVariation.price.toString();
+          attributesMap['discount'] = selectedVariation.discount.toString();
+
           selectedAttributes.add(attributesMap);
         }
       }
@@ -53,6 +55,12 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
       if (allAttributesSame) {
         Utils.toastMessage("All variations are available");
+
+        String? selectedPrice = selectedAttributes.first['price'];
+        String? selectedDiscount = selectedAttributes.first['discount'];
+
+        widget.product.price = double.tryParse(selectedPrice ?? '0') ?? 0;
+        widget.product.discount = double.tryParse(selectedDiscount ?? '0') ?? 0;
       } else {
         Utils.flushBarErrorMessage("Variations are unavailable", context);
       }
@@ -427,24 +435,55 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 40,
               ),
               RoundedButton(
-                title: "Add to card",
+                title: "Add to Cart",
                 onpress: () async {
                   Future<bool> isInCart =
                       homeRepoProvider.isProductInCart(widget.product.id);
 
                   if (await isInCart) {
                     Utils.toastMessage("Product is already in the cart");
-                  } else if (productVariations.isNotEmpty &&
-                      selectedIndices.keys.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        "Please select the variations", context);
-                  } else {
+                  } else if (productVariations.isEmpty) {
+                    // If there are no variations, directly save the product to the cart
                     homeRepoProvider.saveCartProducts(widget.product.id,
                         widget.product.title, "image", discountedPrice, 1);
+                  } else if (selectedIndices.length ==
+                      productVariations.first.attributes.length) {
+                    // If all variations are selected, check their availability
+                    List<Map<String, String>> selectedAttributes = [];
+
+                    for (var variationName in selectedIndices.keys) {
+                      var selectedIndex = selectedIndices[variationName];
+                      if (selectedIndex != null) {
+                        var selectedVariation = variationData[selectedIndex];
+
+                        Map<String, String> attributesMap = {};
+                        for (var attribute in selectedVariation.attributes) {
+                          attributesMap[attribute.attribute.name] =
+                              attribute.value;
+                        }
+
+                        selectedAttributes.add(attributesMap);
+                      }
+                    }
+
+                    bool allAttributesSame =
+                        _checkIfAllAttributesSame(selectedAttributes);
+
+                    if (allAttributesSame) {
+                      // Save the product to the cart if all variations are available
+                      homeRepoProvider.saveCartProducts(widget.product.id,
+                          widget.product.title, "image", discountedPrice, 1);
+                    } else {
+                      Utils.flushBarErrorMessage(
+                          "Variations are unavailable", context);
+                    }
+                  } else {
+                    Utils.flushBarErrorMessage(
+                        "Please select all variations", context);
                   }
                 },
                 color: AppColor.primaryColor,
-              )
+              ),
             ]),
           ),
         ),
