@@ -16,41 +16,34 @@ class FilterProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Consumer<HomeRepositoryProvider>(
-          builder: (context, homeRepo, child) {
-            List<Products> filterProducts =
-                homeRepo.homeRepository.filteredProducts;
-
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Filter Products',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontFamily: 'CenturyGothic',
-                    color: AppColor.fontColor,
-                    fontWeight: FontWeight.w600,
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Filter Products',
+              style: TextStyle(
+                fontSize: 18.0,
+                fontFamily: 'CenturyGothic',
+                color: AppColor.fontColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Provider.of<HomeUiSwithchRepository>(context, listen: false)
+                    .switchToType(UIType.DefaultSection);
+              },
+              child: const Text(
+                'Clear Filter',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  fontFamily: 'CenturyGothic',
+                  color: AppColor.fontColor,
+                  fontWeight: FontWeight.w500,
                 ),
-                InkWell(
-                  onTap: () {
-                    Provider.of<HomeUiSwithchRepository>(context, listen: false)
-                        .switchToType(UIType.DefaultSection);
-                  },
-                  child: const Text(
-                    'Clear Filter',
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'CenturyGothic',
-                      color: AppColor.fontColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         ),
         const VerticalSpeacing(
           12,
@@ -62,7 +55,7 @@ class FilterProducts extends StatelessWidget {
             builder: (context, homeRepo, child) {
               if (homeRepo.homeRepository.filteredProducts.isEmpty) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("No Filter Products to show"),
                 );
               } else {
                 return GridView.builder(

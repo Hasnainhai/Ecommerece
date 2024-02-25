@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Product {
   String id;
   String sku;
@@ -64,6 +62,7 @@ class ProductVariation {
   List<Attribute> attributes;
   dynamic price;
   dynamic discount;
+  dynamic quantity;
 
   ProductVariation({
     required this.id,
@@ -71,6 +70,7 @@ class ProductVariation {
     required this.attributes,
     required this.price,
     required this.discount,
+    required this.quantity,
   });
 
   factory ProductVariation.fromJson(Map<String, dynamic> json) {
@@ -82,7 +82,8 @@ class ProductVariation {
             .map((attribute) => Attribute.fromJson(attribute)),
       ),
       price: json['price'], // No need to parse here
-      discount: json['discount'], // No need to parse here
+      discount: json['discount'],
+      quantity: json['quantity'], // No need to parse here
     );
   }
 }

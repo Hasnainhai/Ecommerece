@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_element
 
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/model/product_detail_model.dart';
@@ -13,7 +13,9 @@ import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -27,6 +29,77 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView> {
   Map<String, int?> selectedIndices = {};
+  List<ProductVariation> variationData = [];
+  int? selectedQuatity;
+
+  void checkSelectedVariations() {
+    List<Map<String, String>> selectedAttributes = [];
+
+    if (selectedIndices.length == variationData.first.attributes.length) {
+      for (var variationName in selectedIndices.keys) {
+        var selectedIndex = selectedIndices[variationName];
+        if (selectedIndex != null) {
+          var selectedVariation = variationData[selectedIndex];
+
+          Map<String, String> attributesMap = {};
+          for (var attribute in selectedVariation.attributes) {
+            attributesMap[attribute.attribute.name] = attribute.value;
+          }
+
+          attributesMap['price'] = selectedVariation.price.toString();
+          attributesMap['discount'] = selectedVariation.discount.toString();
+          attributesMap['quantity'] = selectedVariation.quantity.toString();
+          selectedAttributes.add(attributesMap);
+        }
+      }
+
+      bool allAttributesSame = _checkIfAllAttributesSame(selectedAttributes);
+
+      if (allAttributesSame) {
+        Utils.toastMessage("All variations are available");
+
+        String? selectedPrice = selectedAttributes.first['price'];
+        String? selectedDiscount = selectedAttributes.first['discount'];
+        String? selectedQuantity = selectedAttributes.first['quantity'];
+
+        widget.product.price = double.tryParse(selectedPrice ?? '0') ?? 0;
+        widget.product.discount = double.tryParse(selectedDiscount ?? '0') ?? 0;
+        selectedQuatity = int.tryParse(selectedQuantity ?? '0');
+      } else {
+        Fluttertoast.showToast(
+          msg: "Variations are unavailable",
+          backgroundColor: Colors.redAccent,
+          textColor: AppColor.whiteColor,
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+        msg: "Please select all variations",
+        backgroundColor: Colors.redAccent,
+        textColor: AppColor.whiteColor,
+      );
+    }
+  }
+
+  bool _checkIfAllAttributesSelected() {
+    // Check if all attributes are selected for each variation
+    for (var variationName in selectedIndices.keys) {
+      if (selectedIndices[variationName] == null) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool _checkIfAllAttributesSame(List<Map<String, String>> attributesList) {
+    for (int i = 1; i < attributesList.length; i++) {
+      if (!mapEquals(attributesList[0], attributesList[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +113,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
     List<ProductVariation> productVariations =
         productDetailProvider.productDetailsRepository.productVariationsList;
-
+    variationData = productVariations;
     double originalPrice = double.parse(widget.product.price.toString());
     double originalDiscount = double.parse(widget.product.discount.toString());
 
@@ -231,7 +304,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                               // Add vertical spacing
                               const VerticalSpeacing(18),
                               // Show all corresponding values with horizontal scrolling
-                              Container(
+                              SizedBox(
                                 height:
                                     30, // Set a fixed height or adjust as needed
                                 child: ListView.builder(
@@ -251,14 +324,22 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                           if (!selectedIndices
                                               .containsKey(variationName)) {
                                             selectedIndices[variationName] =
-                                                null;
+                                                index;
+                                          } else {
+                                            int? currentSelectedIndex =
+                                                selectedIndices[variationName];
+
+                                            if (currentSelectedIndex == index) {
+                                              // Deselect the attribute if tapped again
+                                              selectedIndices[variationName] =
+                                                  null;
+                                            } else {
+                                              selectedIndices[variationName] =
+                                                  index;
+                                            }
                                           }
 
-                                          selectedIndices[variationName] =
-                                              selectedIndices[variationName] ==
-                                                      index
-                                                  ? null
-                                                  : index;
+                                          checkSelectedVariations();
                                         });
                                       },
                                       child: Container(
@@ -295,7 +376,19 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       }).toList(),
                     ),
               const VerticalSpeacing(
-                20,
+                16,
+              ),
+              Text(
+                selectedQuatity != null ? 'Quantity: $selectedQuatity' : '',
+                style: const TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
+              const VerticalSpeacing(
+                16,
               ),
               const Divider(
                 color: Color(0xffBCBCBC),
@@ -358,27 +451,61 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                 ),
               ),
               const VerticalSpeacing(
+                10,
+              ),
+              const VerticalSpeacing(
                 40,
               ),
               RoundedButton(
-                title: "Add to card",
+                title: "Add to Cart",
                 onpress: () async {
                   Future<bool> isInCart =
                       homeRepoProvider.isProductInCart(widget.product.id);
 
                   if (await isInCart) {
                     Utils.toastMessage("Product is already in the cart");
-                  } else if (productVariations.isNotEmpty &&
-                      selectedIndices.keys.isEmpty) {
-                    Utils.flushBarErrorMessage(
-                        "Please select the variations", context);
-                  } else {
+                  } else if (productVariations.isEmpty) {
+                    // If there are no variations, directly save the product to the cart
                     homeRepoProvider.saveCartProducts(widget.product.id,
                         widget.product.title, "image", discountedPrice, 1);
+                  } else if (selectedIndices.length ==
+                      productVariations.first.attributes.length) {
+                    // If all variations are selected, check their availability
+                    List<Map<String, String>> selectedAttributes = [];
+
+                    for (var variationName in selectedIndices.keys) {
+                      var selectedIndex = selectedIndices[variationName];
+                      if (selectedIndex != null) {
+                        var selectedVariation = variationData[selectedIndex];
+
+                        Map<String, String> attributesMap = {};
+                        for (var attribute in selectedVariation.attributes) {
+                          attributesMap[attribute.attribute.name] =
+                              attribute.value;
+                        }
+
+                        selectedAttributes.add(attributesMap);
+                      }
+                    }
+
+                    bool allAttributesSame =
+                        _checkIfAllAttributesSame(selectedAttributes);
+
+                    if (allAttributesSame) {
+                      // Save the product to the cart if all variations are available
+                      homeRepoProvider.saveCartProducts(widget.product.id,
+                          widget.product.title, "image", discountedPrice, 1);
+                    } else {
+                      Utils.flushBarErrorMessage(
+                          "Variations are unavailable", context);
+                    }
+                  } else {
+                    Utils.flushBarErrorMessage(
+                        "Please select all variations", context);
                   }
                 },
                 color: AppColor.primaryColor,
-              )
+              ),
             ]),
           ),
         ),
