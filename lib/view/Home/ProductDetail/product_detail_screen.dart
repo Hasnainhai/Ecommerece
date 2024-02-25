@@ -13,7 +13,9 @@ import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:ecommerece/view/Home/pro_loved/Widgets/pro_loved_card.dart';
 import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -27,6 +29,43 @@ class ProductDetailView extends StatefulWidget {
 
 class _ProductDetailViewState extends State<ProductDetailView> {
   Map<String, int?> selectedIndices = {};
+  List<ProductVariation> variationData = [];
+
+  void checkSelectedVariations() {
+    List<Map<String, String>> selectedAttributes = [];
+
+    for (var variationName in selectedIndices.keys) {
+      var selectedIndex = selectedIndices[variationName];
+      if (selectedIndex != null) {
+        var selectedVariation = variationData[selectedIndex];
+
+        Map<String, String> attributesMap = {};
+        for (var attribute in selectedVariation.attributes) {
+          attributesMap[attribute.attribute.name] = attribute.value;
+        }
+
+        selectedAttributes.add(attributesMap);
+      }
+    }
+
+    bool allAttributesSame = _checkIfAllAttributesSame(selectedAttributes);
+
+    if (allAttributesSame) {
+      Utils.toastMessage("All variations are avaliable");
+    } else {
+      Utils.flushBarErrorMessage("variations are unavaliable", context);
+    }
+  }
+
+  bool _checkIfAllAttributesSame(List<Map<String, String>> attributesList) {
+    for (int i = 1; i < attributesList.length; i++) {
+      if (!mapEquals(attributesList[0], attributesList[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +79,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
         Provider.of<ProductDetailsRepositoryProvider>(context, listen: false);
     List<ProductVariation> productVariations =
         productDetailProvider.productDetailsRepository.productVariationsList;
-
+    variationData = productVariations;
     double originalPrice = double.parse(widget.product.price.toString());
     double originalDiscount = double.parse(widget.product.discount.toString());
 
@@ -231,7 +270,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                               // Add vertical spacing
                               const VerticalSpeacing(18),
                               // Show all corresponding values with horizontal scrolling
-                              Container(
+                              SizedBox(
                                 height:
                                     30, // Set a fixed height or adjust as needed
                                 child: ListView.builder(
@@ -254,11 +293,23 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                                 null;
                                           }
 
-                                          selectedIndices[variationName] =
-                                              selectedIndices[variationName] ==
-                                                      index
-                                                  ? null
-                                                  : index;
+                                          int? currentSelectedIndex =
+                                              selectedIndices[variationName];
+
+                                          if (currentSelectedIndex != index) {
+                                            selectedIndices[variationName] =
+                                                index;
+                                          } else {
+                                            // Deselect the attribute if tapped again
+                                            selectedIndices[variationName] =
+                                                null;
+                                          }
+                                          checkSelectedVariations();
+
+                                          debugPrint(
+                                              "Selected variation name: $variationName, value: ${correspondingAttribute.value}, value ID: ${correspondingAttribute.id}");
+                                          debugPrint(
+                                              "This is the product ID: ${widget.product.id}");
                                         });
                                       },
                                       child: Container(

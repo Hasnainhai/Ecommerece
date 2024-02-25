@@ -1,5 +1,4 @@
 import 'package:ecommerece/res/components/colors.dart';
-import 'package:ecommerece/view/Home/Bidding/Widget/bidding_card_widget.dart';
 import 'package:ecommerece/view/Home/Notification/Widgets/notification_card_widget.dart';
 import 'package:ecommerece/view/Home/dashboard/dashboardScreen.dart';
 import 'package:flutter/material.dart';
