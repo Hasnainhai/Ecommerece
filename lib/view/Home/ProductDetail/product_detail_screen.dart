@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_element
 
 import 'package:ecommerece/model/home_prod_model.dart';
 import 'package:ecommerece/model/product_detail_model.dart';
@@ -15,7 +15,6 @@ import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
