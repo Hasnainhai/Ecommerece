@@ -328,11 +328,6 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                           }
 
                                           checkSelectedVariations();
-
-                                          debugPrint(
-                                              "Selected variation name: $variationName, value: ${correspondingAttribute.value}, value ID: ${correspondingAttribute.id}");
-                                          debugPrint(
-                                              "This is the product ID: ${widget.product.id}");
                                         });
                                       },
                                       child: Container(
