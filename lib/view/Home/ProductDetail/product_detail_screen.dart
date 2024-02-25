@@ -34,27 +34,42 @@ class _ProductDetailViewState extends State<ProductDetailView> {
   void checkSelectedVariations() {
     List<Map<String, String>> selectedAttributes = [];
 
-    for (var variationName in selectedIndices.keys) {
-      var selectedIndex = selectedIndices[variationName];
-      if (selectedIndex != null) {
-        var selectedVariation = variationData[selectedIndex];
+    // Check if all variations have been selected
+    if (selectedIndices.length == variationData.first.attributes.length) {
+      for (var variationName in selectedIndices.keys) {
+        var selectedIndex = selectedIndices[variationName];
+        if (selectedIndex != null) {
+          var selectedVariation = variationData[selectedIndex];
 
-        Map<String, String> attributesMap = {};
-        for (var attribute in selectedVariation.attributes) {
-          attributesMap[attribute.attribute.name] = attribute.value;
+          Map<String, String> attributesMap = {};
+          for (var attribute in selectedVariation.attributes) {
+            attributesMap[attribute.attribute.name] = attribute.value;
+          }
+
+          selectedAttributes.add(attributesMap);
         }
+      }
 
-        selectedAttributes.add(attributesMap);
+      bool allAttributesSame = _checkIfAllAttributesSame(selectedAttributes);
+
+      if (allAttributesSame) {
+        Utils.toastMessage("All variations are available");
+      } else {
+        Utils.flushBarErrorMessage("Variations are unavailable", context);
+      }
+    } else {
+      Utils.flushBarErrorMessage("Please select all variations", context);
+    }
+  }
+
+  bool _checkIfAllAttributesSelected() {
+    // Check if all attributes are selected for each variation
+    for (var variationName in selectedIndices.keys) {
+      if (selectedIndices[variationName] == null) {
+        return false;
       }
     }
-
-    bool allAttributesSame = _checkIfAllAttributesSame(selectedAttributes);
-
-    if (allAttributesSame) {
-      Utils.toastMessage("All variations are avaliable");
-    } else {
-      Utils.flushBarErrorMessage("variations are unavaliable", context);
-    }
+    return true;
   }
 
   bool _checkIfAllAttributesSame(List<Map<String, String>> attributesList) {
@@ -290,20 +305,21 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                           if (!selectedIndices
                                               .containsKey(variationName)) {
                                             selectedIndices[variationName] =
-                                                null;
-                                          }
-
-                                          int? currentSelectedIndex =
-                                              selectedIndices[variationName];
-
-                                          if (currentSelectedIndex != index) {
-                                            selectedIndices[variationName] =
                                                 index;
                                           } else {
-                                            // Deselect the attribute if tapped again
-                                            selectedIndices[variationName] =
-                                                null;
+                                            int? currentSelectedIndex =
+                                                selectedIndices[variationName];
+
+                                            if (currentSelectedIndex == index) {
+                                              // Deselect the attribute if tapped again
+                                              selectedIndices[variationName] =
+                                                  null;
+                                            } else {
+                                              selectedIndices[variationName] =
+                                                  index;
+                                            }
                                           }
+
                                           checkSelectedVariations();
 
                                           debugPrint(
