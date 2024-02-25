@@ -62,7 +62,7 @@ class FilterProducts extends StatelessWidget {
             builder: (context, homeRepo, child) {
               if (homeRepo.homeRepository.filteredProducts.isEmpty) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("No Filter Products to show"),
                 );
               } else {
                 return GridView.builder(

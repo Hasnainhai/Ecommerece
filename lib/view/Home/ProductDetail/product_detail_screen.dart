@@ -15,6 +15,7 @@ import 'package:ecommerece/view_model/home_view_model.dart';
 import 'package:ecommerece/view_model/service/product_details_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailView extends StatefulWidget {
@@ -29,6 +30,7 @@ class ProductDetailView extends StatefulWidget {
 class _ProductDetailViewState extends State<ProductDetailView> {
   Map<String, int?> selectedIndices = {};
   List<ProductVariation> variationData = [];
+  int? selectedQuatity;
 
   void checkSelectedVariations() {
     List<Map<String, String>> selectedAttributes = [];
@@ -46,7 +48,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
           attributesMap['price'] = selectedVariation.price.toString();
           attributesMap['discount'] = selectedVariation.discount.toString();
-
+          attributesMap['quantity'] = selectedVariation.quantity.toString();
           selectedAttributes.add(attributesMap);
         }
       }
@@ -58,14 +60,24 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
         String? selectedPrice = selectedAttributes.first['price'];
         String? selectedDiscount = selectedAttributes.first['discount'];
+        String? selectedQuantity = selectedAttributes.first['quantity'];
 
         widget.product.price = double.tryParse(selectedPrice ?? '0') ?? 0;
         widget.product.discount = double.tryParse(selectedDiscount ?? '0') ?? 0;
+        selectedQuatity = int.tryParse(selectedQuantity ?? '0');
       } else {
-        Utils.flushBarErrorMessage("Variations are unavailable", context);
+        Fluttertoast.showToast(
+          msg: "Variations are unavailable",
+          backgroundColor: Colors.redAccent,
+          textColor: AppColor.whiteColor,
+        );
       }
     } else {
-      Utils.flushBarErrorMessage("Please select all variations", context);
+      Fluttertoast.showToast(
+        msg: "Please select all variations",
+        backgroundColor: Colors.redAccent,
+        textColor: AppColor.whiteColor,
+      );
     }
   }
 
@@ -364,7 +376,19 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                       }).toList(),
                     ),
               const VerticalSpeacing(
-                20,
+                16,
+              ),
+              Text(
+                selectedQuatity != null ? 'Quantity: $selectedQuatity' : '',
+                style: const TextStyle(
+                  fontFamily: 'CenturyGothic',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
+              const VerticalSpeacing(
+                16,
               ),
               const Divider(
                 color: Color(0xffBCBCBC),
@@ -425,6 +449,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                     }
                   },
                 ),
+              ),
+              const VerticalSpeacing(
+                10,
               ),
               const VerticalSpeacing(
                 40,
