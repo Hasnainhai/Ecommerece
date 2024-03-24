@@ -1,7 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
-
 import 'package:ecommerece/res/components/custom_text_field.dart';
 import 'package:ecommerece/res/components/rounded_button.dart';
 import 'package:ecommerece/res/components/verticalSpacing.dart';
@@ -113,12 +110,8 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                     title: "Send Me Link",
                     onpress: _sendResetPasswordRequest,
                   ),
-                  const VerticalSpeacing(
-                    200,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
+                  const VerticalSpeacing(200),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
